@@ -1,0 +1,3 @@
+[submodule "node_modules/sonarr-api"]
+	path = node_modules/sonarr-api
+	url = https://github.com/onedr0p/sonarr-api.git
