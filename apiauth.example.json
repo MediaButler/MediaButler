@@ -1,4 +1,6 @@
 {
+        "thetvdbkey": "TVDB_API_KEY",
+        "themoviedbkey": "MOVIEDB_API_KEY",
         "plexpy_host": "localhost:8181",
         "plexpy_baseurl": "/plexpy",
         "plexpy_apikey": "PLEXPY_API_KEY_HERE",
