@@ -14,7 +14,7 @@ exports.run = (bot, msg, args, perms = []) => {
 var getUsersUrl = 'http://' + apiauth.plexpy_host + apiauth.plexpy_baseurl + '/api/v2?apikey=' + apiauth.plexpy_apikey + '&cmd=get_users';
 
 request(getUsersUrl, function (e, r, b) {
-var userid = b.response.message.data.find(o => o.username == args[0]);
+var userid = b.response.data.find(o => o.username == args[0]);
 
 if (userid == undefined)
 {
