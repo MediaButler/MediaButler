@@ -3,16 +3,16 @@ const request = require('request');
 
 exports.run = (bot, msg, params = []) => {
   const max = 4462;
-  var url;
-  if (params[1] == undefined) {
+  let url;
+  if (params[1] === undefined) {
     url = 'http://' + apiauth.plexpy_host + apiauth.plexpy_baseurl + '/api/v2?apikey=' + apiauth.plexpy_apikey + '&cmd=get_history&length=5&user=' + params[0];
   } else {
     url = 'http://' + apiauth.plexpy_host + apiauth.plexpy_baseurl + '/api/v2?apikey=' + apiauth.plexpy_apikey + '&cmd=get_history&length=' + params[1] + '&user=' + params[0];
   }
   msg.channel.startTyping();
   request(url, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-      var info = JSON.parse(body)
+    if (!error && response.statusCode === 200) {
+      const info = JSON.parse(body);
       msg.channel.send({
             "embed": {
               "color": 11360941,
@@ -95,14 +95,14 @@ exports.help = {
 };
 
 function timeConverter(UNIX_timestamp) {
-  var a = new Date(UNIX_timestamp * 1000);
-  var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  var year = a.getFullYear();
-  var month = months[a.getMonth()];
-  var date = a.getDate();
-  var hour = a.getHours();
-  var min = a.getMinutes();
-  var sec = a.getSeconds();
-  var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
+  const a = new Date(UNIX_timestamp * 1000);
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const year = a.getFullYear();
+  const month = months[a.getMonth()];
+  const date = a.getDate();
+  const hour = a.getHours();
+  const min = a.getMinutes();
+  const sec = a.getSeconds();
+  const time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
   return time;
 }

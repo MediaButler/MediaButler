@@ -5,8 +5,8 @@ exports.run = (bot, msg, params = []) => {
 
   msg.channel.startTyping();
   request('http://' + apiauth.plexpy_host + apiauth.plexpy_baseurl + '/api/v2?apikey=' + apiauth.plexpy_apikey + '&cmd=get_activity', function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-      const info = JSON.parse(body)
+    if (!error && response.statusCode === 200) {
+      const info = JSON.parse(body);
       msg.channel.send("There are currently " + info.response.data.stream_count + " active streams");
 
       if (info.response.data.stream_count > 0) {

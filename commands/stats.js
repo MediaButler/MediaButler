@@ -10,18 +10,18 @@ exports.run = (bot, msg, args, perms = []) => {
 
     const getUsersUrl = 'http://' + apiauth.plexpy_host + apiauth.plexpy_baseurl + '/api/v2?apikey=' + apiauth.plexpy_apikey + '&cmd=get_users';
     request(getUsersUrl, function (e, r, b) {
-      const j = JSON.parse(b)
-      const user = j.response.data.find(o => o.username == args[0]);
-      if (user == undefined) {
+      const j = JSON.parse(b);
+      const user = j.response.data.find(o => o.username === args[0]);
+      if (user === undefined) {
         msg.channel.send("Unable to match user");
       }
       else {
-        let userid = user.user_id;
-        let url = 'http://' + apiauth.plexpy_host + apiauth.plexpy_baseurl + '/api/v2?apikey=' + apiauth.plexpy_apikey + '&cmd=get_user_watch_time_stats&user_id=' + userid;
-        let embed_fields = [];
+        const userid = user.user_id;
+        const url = 'http://' + apiauth.plexpy_host + apiauth.plexpy_baseurl + '/api/v2?apikey=' + apiauth.plexpy_apikey + '&cmd=get_user_watch_time_stats&user_id=' + userid;
+        const embed_fields = [];
         request(url, function (error, response, body) {
-          if (!error && response.statusCode == 200) {
-            let info = JSON.parse(body)
+          if (!error && response.statusCode === 200) {
+            let info = JSON.parse(body);
             info.response.data.forEach(i => {
               embed_fields.push({
                 "name": "Last " + i.query_days + " Days",
@@ -67,9 +67,9 @@ exports.help = {
 
 function durationFormat(time) {
 // Hours, minutes and seconds
-  let hrs = ~~(time / 3600);
-  let mins = ~~((time % 3600) / 60);
-  let secs = time % 60;
+  const hrs = ~~(time / 3600);
+  const mins = ~~((time % 3600) / 60);
+  const secs = time % 60;
 
   let ret = "";
   if (hrs > 0) {
