@@ -11,7 +11,7 @@ exports.run = (bot, msg, args, perms = []) => {
 // get users
 
 arr.find(o => o.city === 'Amsterdam'); 
-var getUsersUrl = 'http://' + apiauth.plexpy_host + apiauth.plexpy_baseurl + '/api/v2?apikey=' + apiauth.plexpy_apikey + '&cmd=get_users;
+var getUsersUrl = 'http://' + apiauth.plexpy_host + apiauth.plexpy_baseurl + '/api/v2?apikey=' + apiauth.plexpy_apikey + '&cmd=get_users';
 
 request(getUsersUrl, function (e, r, b) {
 console.log(b);
