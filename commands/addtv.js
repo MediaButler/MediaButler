@@ -10,13 +10,13 @@ var sonarr = new SonarrAPI({
 exports.run = (client, message, args, perms) => {
   var tvdbId;
   var showTitle;
-  var qualityProfile;
   var rootFolderPath;
   var profileId = apiauth.sonarr_defaultProfileid;
   var rootPath = apiauth.sonarr_defaultRootPath;
 
   if (!args[0]) {
     message.channel.send("No variables found. run `.help addtv`");
+    return;
   }
 
   if (args[1]) {
@@ -24,6 +24,7 @@ exports.run = (client, message, args, perms) => {
       profileId - result.find(q => q.name == args[1]).id;
       if (profileId == undefined) {
         message.client.channel("Profile not found.");
+        return;
       }
     });
   }
@@ -33,7 +34,23 @@ exports.run = (client, message, args, perms) => {
   }
 
   sonarr.get("series/lookup", { "term": "tvdb:" + args[0]}).then(function (result) {
+      // Rearrange data to look how Sonarr wants.
+      let data = {
+        "tvdbId": int(result[tvdbId]),
+        "title": result[title],
+        "qualityProfileId": profileId,
+        "titleSlug": result[titleSlug],
+        "images": result[images],
+        "seasons": result[seasons],
+        "monitored": true,
+        "seasonFolder": true,
+        "path": rootPath + result[title]
+      };
       // Add show to sonarr
+      sonarr.post("series", { data }).then(function (postResult){
+        console.log(postResult);
+        message.channel.send("I think we added it");
+      });
   });
 };
 
