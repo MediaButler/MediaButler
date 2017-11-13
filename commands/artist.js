@@ -15,20 +15,34 @@ exports.run = (bot, msg, args = []) => {
           if (info[0] == undefined) {
             msg.channel.send('Cant find artist.')
           } else {
-          var overview = info[0].overview; length = 550;
-          var trimmedOverview = overview.substring(0, length);
+
+          if (info[0].overview == undefined) {
+            var overview = "No description";
+          } else {
+            var overview = info[0].overview;
+          }
+
+          if (info[0].images[2] == undefined) {
+            var imageUrl = "https://via.placeholder.com/750x150";
+          } else {
+            var imageUrl = info[0].images[2].url;
+          }
+
+          var trimmedOverview = overview.substring(0, 550);
 
           var albumCount = info[0].albums
 
           if (info[0].ended == false) {
             var active = "Yes";
+          } else {
+            var active = "No";
           }
-          console.log(info[0].images[2].url)
+
           msg.channel.send({
             "content": "As requested....",
             "embed": {
               "title": info[0].artistName,
-              "description": trimmedOverview + "... MORE: https://musicbrainz.org/artist/" + info[0].foreignArtistId,
+              "description": trimmedOverview + "... https://musicbrainz.org/artist/" + info[0].foreignArtistId,
               "color": 11360941,
               "timestamp": new Date(),
               "footer": {
@@ -36,7 +50,7 @@ exports.run = (bot, msg, args = []) => {
                 "text": "Called by " + msg.author.username
               },
               "image": {
-                "url": info[0].images[2].url,
+                "url": imageUrl,
               },
               "author": {
                 "name": info[0].artistName,
