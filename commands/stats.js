@@ -8,17 +8,19 @@ exports.run = (bot, msg, args, perms = []) => {
     msg.channel.send('No user selected.');
   } else {
     msg.channel.startTyping();
-    
+
     var getUsersUrl = 'http://' + apiauth.plexpy_host + apiauth.plexpy_baseurl + '/api/v2?apikey=' + apiauth.plexpy_apikey + '&cmd=get_users';
     request(getUsersUrl, function (e, r, b) {
     var j = JSON.parse(b)
-    var userid = j.response.data.find(o => o.username == args[0]).user_id;
+    var user = j.response.data.find(o => o.username == args[0]);
+    
     msg.channel.send("UserID: " + userid);
-    if (userid == undefined)
+    if (user == undefined)
     {
       msg.channel.send("Unable to match user");
     }
     else {
+      var userid = user.user_id;
       var url = 'http://' + apiauth.plexpy_host + apiauth.plexpy_baseurl + '/api/v2?apikey=' + apiauth.plexpy_apikey + '&cmd=get_user_watch_time_stats&user_id=' + userid;
       var embed_fields = [];
       request(url, function (error, response, body) {
