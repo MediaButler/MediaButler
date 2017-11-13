@@ -7,6 +7,8 @@
     "sonarr_host": "localhost:8989",
     "sonarr_baseurl": "/sonarr",
     "sonarr_apikey": "SONARR_API_KEY_HERE",
+    "sonarr_defaultProfileId": "1",
+    "sonarr_defaultRootPath": "",
     "radarr_host": "localhost:7878",
     "radarr_baseurl": "/radarr",
     "radarr_apikey": "RADARR_API_KEY_HERE",
