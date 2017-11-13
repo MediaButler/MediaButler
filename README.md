@@ -13,8 +13,8 @@ Please see the wiki page https://github.com/MediaButler/MediaButler/wiki/Install
 
 ## Authors
 
-* **Vertig0ne** - [Vertig0ne](https://github.com/Vertig0ne)
-* **Tailchakra** - [Tailchakra](https://github.com/Tailchakra)
+* [Vertig0ne](https://github.com/Vertig0ne)
+* [Tailchakra](https://github.com/Tailchakra)
 
 ### Other help and support
 Our Discord for chat and support:
