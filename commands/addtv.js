@@ -11,7 +11,7 @@ exports.run = (client, message, args, perms) => {
   var tvdbId;
   var showTitle;
   var rootFolderPath;
-  var profileId = apiauth.sonarr_defaultProfileid;
+  var profileId = apiauth.sonarr_defaultProfileId;
   var rootPath = apiauth.sonarr_defaultRootPath;
 
   if (!args[0]) {
@@ -35,7 +35,6 @@ exports.run = (client, message, args, perms) => {
   }
 
   sonarr.get("series/lookup", { "term": "tvdb:" + args[0]}).then(function (result) {
-    console.log(result);
     if (result.length == 0)
     {
       message.channel.send("Unable to pull show matching that ID");
@@ -54,7 +53,7 @@ exports.run = (client, message, args, perms) => {
       };
       console.log(data);
       // Add show to sonarr
-      sonarr.post("series", { data }).then(function (postResult){
+      sonarr.post("series", { "data": data }).then(function (postResult){
         console.log(postResult);
         message.channel.send("I think we added it");
       }).catch(error => { message.channel.send("Sorry, an unknown error occured, please check Sonarr logs")});
