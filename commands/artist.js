@@ -7,35 +7,19 @@ exports.run = (bot, msg, args = []) => {
   if (!args[0]) {
     msg.channel.send('Dont forget to add an artist!');
   } else {
-    let url = 'http://' + apiauth.lidarr_host + apiauth.lidarr_baseurl + '/api/v1/artist/lookup?term=' + query + '&apikey=' + apiauth.lidarr_apikey;
+    const url = 'http://' + apiauth.lidarr_host + apiauth.lidarr_baseurl + '/api/v1/artist/lookup?term=' + query + '&apikey=' + apiauth.lidarr_apikey;
     request(url, function (error, res, body) {
-      if (!error && res.statusCode == 200) {
-        let info = JSON.parse(body)
-        if (info[0] == undefined) {
+      if (!error && res.statusCode === 200) {
+        let info = JSON.parse(body);
+        if (info[0] === undefined) {
           msg.channel.send('Cant find artist.')
         } else {
 
-          if (info[0].overview == undefined) {
-            let overview = "No description";
-          } else {
-            let overview = info[0].overview;
-          }
-
-          if (info[0].images[2] == undefined) {
-            let imageUrl = "https://via.placeholder.com/750x150";
-          } else {
-            let imageUrl = info[0].images[2].url;
-          }
+          const overview = info[0].overview === undefined ? "No description" : info[0].overview;
+          const imageUrl = info[0].images[2] === undefined ? "https://via.placeholder.com/750x150" : info[0].images[2].url;
+          const active = info[0].ended === false ? "Yes" : "No";
 
           let trimmedOverview = overview.substring(0, 550);
-
-          let albumCount = info[0].albums
-
-          if (info[0].ended == false) {
-            let active = "Yes";
-          } else {
-            let active = "No";
-          }
 
           msg.channel.send({
                 "content": "As requested....",
