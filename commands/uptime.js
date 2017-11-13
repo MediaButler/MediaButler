@@ -1,11 +1,11 @@
 const Discord = require('discord.js');
 
 exports.run = (client, message) => {
-  let ms = client.uptime;
-  let cd = 24 * 60 * 60 * 1000; // Calc days
-  let ch = 60 * 60 * 1000; // Calc hours
-  let cm = 60 * 1000; // Calc minutes
-  let cs = 1000; // Calc seconds
+  const ms = client.uptime;
+  const cd = 24 * 60 * 60 * 1000; // Calc days
+  const ch = 60 * 60 * 1000; // Calc hours
+  const cm = 60 * 1000; // Calc minutes
+  const cs = 1000; // Calc seconds
   let days = Math.floor(ms / cd);
   let dms = days * cd; // Days, in ms
   let hours = Math.floor((ms - dms) / ch);
@@ -62,15 +62,16 @@ exports.run = (client, message) => {
   }
   dateString += dateStrings[dateStrings.length - 1];
   const embed = new Discord.RichEmbed()
-  .setTimestamp()
-  .setThumbnail(message.author.iconURL)
-  .addField(':clock: uptime', 'Bot\'s uptime', true)
-  .addField(':runner: Running on:', `**${client.guilds.size}** server(s)`, true)
-  .addField(':white_check_mark: Active for:', dateString, true)
-  .setColor(6583245);
-  message.channel.send({embed})
-  .catch(console.error);
-};exports.conf = {
+      .setTimestamp()
+      .setThumbnail(message.author.iconURL)
+      .addField(':clock: uptime', 'Bot\'s uptime', true)
+      .addField(':runner: Running on:', `**${client.guilds.size}** server(s)`, true)
+      .addField(':white_check_mark: Active for:', dateString, true)
+      .setColor(6583245);
+  message.channel.send({ embed })
+      .catch(console.error);
+};
+exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: [],

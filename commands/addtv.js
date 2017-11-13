@@ -1,6 +1,6 @@
 const apiauth = require('../apiauth.json');
-var SonarrAPI = require('../node_modules/sonarr-api/lib/api.js');
-var sonarr = new SonarrAPI({
+const SonarrAPI = require('../node_modules/sonarr-api/lib/api.js');
+const sonarr = new SonarrAPI({
   hostname: apiauth.sonarr_host.split(":")[0],
   apiKey: apiauth.sonarr_apikey,
   port: apiauth.sonarr_host.split(":")[1],
@@ -8,14 +8,14 @@ var sonarr = new SonarrAPI({
 });
 
 exports.run = (client, message, args, perms) => {
-  var tvdbId;
-  var showTitle;
-  var qualityProfile;
-  var rootFolderPath;
+  let tvdbId;
+  let showTitle;
+  let qualityProfile;
+  let rootFolderPath;
 
-  // Lookup id
-  // getQualityProfileId
-  // getRootFolderPath;
+// Lookup id
+// getQualityProfileId
+// getRootFolderPath;
 };
 
 exports.conf = {
