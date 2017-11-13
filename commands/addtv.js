@@ -53,10 +53,10 @@ exports.run = (client, message, args, perms) => {
       };
       console.log(data);
       // Add show to sonarr
-      sonarr.post("series", { "data": data }).then(function (postResult){
+      sonarr.post("series", data).then(function (postResult){
         console.log(postResult);
         message.channel.send("I think we added it");
-      }).catch(error => { console.log(error); message.channel.send("Sorry, an unknown error occured, please check Sonarr logs")});
+      }, function(err) { console.log(err); message.channel.send("Sorry, an unknown error occured, please check Sonarr logs")});
   });
 };
 
