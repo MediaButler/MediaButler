@@ -38,7 +38,7 @@ exports.run = (client, message, args, perms) => {
     console.log(result);
       // Rearrange data to look how Sonarr wants.
       let data = {
-        "tvdbId": int(result[tvdbId]),
+        "tvdbId": result[tvdbId],
         "title": result[title],
         "qualityProfileId": profileId,
         "titleSlug": result[titleSlug],
