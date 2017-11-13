@@ -38,15 +38,15 @@ exports.run = (client, message, args, perms) => {
     console.log(result);
       // Rearrange data to look how Sonarr wants.
       let data = {
-        "tvdbId": result[tvdbId],
-        "title": result[title],
+        "tvdbId": result.tvdbId,
+        "title": result.title,
         "qualityProfileId": profileId,
-        "titleSlug": result[titleSlug],
-        "images": result[images],
-        "seasons": result[seasons],
+        "titleSlug": result.titleSlug,
+        "images": result.images,
+        "seasons": result.seasons,
         "monitored": true,
         "seasonFolder": true,
-        "path": rootPath + result[title]
+        "rootFolderPath": rootPath
       };
       // Add show to sonarr
       sonarr.post("series", { data }).then(function (postResult){
