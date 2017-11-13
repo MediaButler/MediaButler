@@ -21,7 +21,7 @@ exports.run = (client, message, args, perms) => {
 
   if (args[1]) {
     sonarr.get("profile").then(function (result) {
-      let profile - result.find(q => q.name == args[1]);
+      let profile = result.find(q => q.name == args[1]);
       console.log(profile);
       profileId = profile.id;
       if (profileId == undefined) {
