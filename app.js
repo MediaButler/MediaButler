@@ -17,7 +17,7 @@ fs.readdir('./commands/', (err, files) => {
   log(`Loading a total of ${files.length} commands.`);
   files.forEach(f => {
     const props = require(`./commands/${f}`);
-    log(`Loading Command: ${props.help.name}. 👌`);
+    log(`Loading Command: ${props.help.name}.`);
     client.commands.set(props.help.name, props);
     props.conf.aliases.forEach(alias => {
       client.aliases.set(alias, props.help.name);
@@ -58,7 +58,7 @@ client.elevation = message => {
 };
 
 client.on("ready", () => {
-    client.user.setPresence({game: {name: "MediaButler v0.1-vdev", type: 0}});
+    client.user.setPresence({game: {name: "MediaButler v0.1", type: 0}});
 });
 
 var regToken = /[\w\d]{24}\.[\w\d]{6}\.[\w\d-_]{27}/g;
