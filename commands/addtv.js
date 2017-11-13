@@ -21,8 +21,9 @@ exports.run = (client, message, args, perms) => {
 
   if (args[1]) {
     sonarr.get("profile").then(function (result) {
-      console.log(result);
-      profileId - result.find(q => q.name == args[1]).id;
+      let profile - result.find(q => q.name == args[1]);
+      console.log(profile);
+      profileId = profile.id;
       if (profileId == undefined) {
         message.channel.send("Profile not found.");
         return;
