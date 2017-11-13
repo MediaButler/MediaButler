@@ -23,7 +23,7 @@ exports.run = (client, message, args, perms) => {
     sonarr.get("profile").then(function (result) {
       profileId - result.find(q => q.name == args[1]).id;
       if (profileId == undefined) {
-        message.client.channel("Profile not found.");
+        message.channel.send("Profile not found.");
         return;
       }
     });
