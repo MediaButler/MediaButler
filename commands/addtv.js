@@ -22,7 +22,6 @@ exports.run = (client, message, args, perms) => {
   if (args[1]) {
     sonarr.get("profile").then(function (result) {
       let profile = result.find(q => q.name == args[1]);
-      console.log(profile);
       profileId = profile.id;
       if (profileId == undefined) {
         message.channel.send("Profile not found.");
@@ -36,6 +35,7 @@ exports.run = (client, message, args, perms) => {
   }
 
   sonarr.get("series/lookup", { "term": "tvdb:" + args[0]}).then(function (result) {
+    console.log(result);
       // Rearrange data to look how Sonarr wants.
       let data = {
         "tvdbId": int(result[tvdbId]),
