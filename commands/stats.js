@@ -35,7 +35,7 @@ exports.run = (bot, msg, args, perms = []) => {
                 "timestamp": new Date(),
                 "footer": {
                   "icon_url": msg.author.avatarURL,
-                  "text": "called by " + msg.author.username
+                  "text": "Called by " + msg.author.username
                 },
                 "author": {
                   "name": "Statistics for " + args[0],
