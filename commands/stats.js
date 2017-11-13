@@ -13,8 +13,6 @@ exports.run = (bot, msg, args, perms = []) => {
     request(getUsersUrl, function (e, r, b) {
     var j = JSON.parse(b)
     var user = j.response.data.find(o => o.username == args[0]);
-    
-    msg.channel.send("UserID: " + userid);
     if (user == undefined)
     {
       msg.channel.send("Unable to match user");
