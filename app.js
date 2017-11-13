@@ -58,7 +58,7 @@ client.elevation = message => {
 };
 
 client.on("ready", () => {
-    client.user.setPresence({game: {name: "with things", type: 0}});
+    client.user.setPresence({game: {name: "MediaButler v0.1-vdev", type: 0}});
 });
 
 var regToken = /[\w\d]{24}\.[\w\d]{6}\.[\w\d-_]{27}/g;
