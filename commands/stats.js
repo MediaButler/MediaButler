@@ -17,7 +17,7 @@ exports.run = (bot, msg, args, perms = []) => {
         {
           embed_fields.push({ "name": "Last " + i.query_days + " Days", "value": durationFormat(i.total_time) + " / " + i.total_plays + " items", "inline": true })
         });
-        bot.channel.msg({
+        bot.channel.send({
             "embed": {
             "color": 7221572,
             "timestamp": new Date(),
