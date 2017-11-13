@@ -8,6 +8,20 @@ exports.run = (bot, msg, args, perms = []) => {
     msg.channel.send('No user selected.');
   } else {
     msg.channel.startTyping();
+// get users
+
+arr.find(o => o.city === 'Amsterdam'); 
+var getUsersUrl = 'http://' + apiauth.plexpy_host + apiauth.plexpy_baseurl + '/api/v2?apikey=' + apiauth.plexpy_apikey + '&cmd=get_users;
+
+request(getUsersUrl, function (e, r, b) {
+console.log(b);
+
+});
+
+
+
+
+
     var url = 'http://' + apiauth.plexpy_host + apiauth.plexpy_baseurl + '/api/v2?apikey=' + apiauth.plexpy_apikey + '&cmd=get_user_watch_time_stats&user_id=' + args[0];
     var embed_fields = [];
     request(url, function (error, response, body) {
@@ -34,6 +48,9 @@ exports.run = (bot, msg, args, perms = []) => {
       } else { msg.channel.send('error: ' + error); } // if(!error
     msg.channel.stopTyping();
     });
+
+
+
   }
 };
 
