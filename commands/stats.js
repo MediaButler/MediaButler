@@ -8,14 +8,12 @@ exports.run = (bot, msg, args, perms = []) => {
     msg.channel.send('No user selected.');
   } else {
     msg.channel.startTyping();
-// get users
-
-//arr.find(o => o.city === 'Amsterdam'); 
 var getUsersUrl = 'http://' + apiauth.plexpy_host + apiauth.plexpy_baseurl + '/api/v2?apikey=' + apiauth.plexpy_apikey + '&cmd=get_users';
 
 request(getUsersUrl, function (e, r, b) {
-var userid = b.response.data.find(o => o.username == args[0]);
-
+var j = JSON.parse(b)
+var userid = j.response.data.find(o => o.username == args[0]).user_id;
+msg.channel.send("UserID: " + userid);
 if (userid == undefined)
 {
   msg.channel.send("Unable to match user");
