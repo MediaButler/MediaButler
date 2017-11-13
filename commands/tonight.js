@@ -9,7 +9,7 @@ const sonarr = new SonarrAPI({
 
 exports.run = (bot, msg, params = []) => {
   const max = 4462;
-  msg.channel.sendMessage('Airing tonight:');
+  msg.channel.send('Airing tonight:');
   const today = new Date();
   const yesterday = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 1);
   const tomorrow = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
