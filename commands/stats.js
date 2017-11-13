@@ -9,16 +9,29 @@ exports.run = (bot, msg, args, perms = []) => {
   } else {
     msg.channel.startTyping();
     var url = 'http://' + apiauth.plexpy_host + apiauth.plexpy_baseurl + '/api/v2?apikey=' + apiauth.plexpy_apikey + '&cmd=get_user_watch_time_stats&user_id=' + args[0];
-console.log(url);
+    var embed_fields = [];
     request(url, function (error, response, body) {
       if (!error && response.statusCode == 200) {
         var info = JSON.parse(body)
-console.log(info.response.data);
-	info.response.data.forEach(i =>
+      	info.response.data.forEach(i =>
         {
-          msg.channel.send('Days: ' + i.query_days + ', Plays: ' + i.total_plays + ', Time: ' + durationFormat(i.total_time));
+          embed_fields.push({ "name": "Last " + i.query_days + " Days", "value": durationFormat(i.total_time) + " / " + i.total_plays + " items", "inline": true })
         });
-
+        bot.channel.msg({
+            "embed": {
+            "color": 7221572,
+            "timestamp": new Date(),
+            "footer": {
+              "icon_url": msg.author.avatarURL,
+              "text": "called by " + msg.author.username
+            },
+            "author": {
+              "name": "Statistics for " + args[0],
+              "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
+            },
+            "fields": embed_fields
+            }
+        });
       } else { msg.channel.send('error: ' + error); } // if(!error
     msg.channel.stopTyping();
     });
