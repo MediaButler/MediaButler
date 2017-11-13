@@ -48,6 +48,7 @@ exports.run = (client, message, args, perms) => {
         "seasonFolder": true,
         "rootFolderPath": rootPath
       };
+      console.log(data);
       // Add show to sonarr
       sonarr.post("series", { data }).then(function (postResult){
         console.log(postResult);
