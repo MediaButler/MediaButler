@@ -36,14 +36,18 @@ exports.run = (client, message, args, perms) => {
 
   sonarr.get("series/lookup", { "term": "tvdb:" + args[0]}).then(function (result) {
     console.log(result);
+    if (result.length == 0)
+    {
+      message.channel.send("Unable to pull show matching that ID");
+    }
       // Rearrange data to look how Sonarr wants.
       let data = {
-        "tvdbId": result.tvdbId,
-        "title": result.title,
+        "tvdbId": result[0].tvdbId,
+        "title": result[0].title,
         "qualityProfileId": profileId,
-        "titleSlug": result.titleSlug,
-        "images": result.images,
-        "seasons": result.seasons,
+        "titleSlug": result[0].titleSlug,
+        "images": result[0].images,
+        "seasons": result[0].seasons,
         "monitored": true,
         "seasonFolder": true,
         "rootFolderPath": rootPath
