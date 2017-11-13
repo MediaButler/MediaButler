@@ -62,15 +62,16 @@ exports.run = (client, message) => {
   }
   dateString += dateStrings[dateStrings.length - 1];
   const embed = new Discord.RichEmbed()
-  .setTimestamp()
-  .setThumbnail(message.author.iconURL)
-  .addField(':clock: uptime', 'Bot\'s uptime', true)
-  .addField(':runner: Running on:', `**${client.guilds.size}** server(s)`, true)
-  .addField(':white_check_mark: Active for:', dateString, true)
-  .setColor(6583245);
-  message.channel.send({embed})
-  .catch(console.error);
-};exports.conf = {
+      .setTimestamp()
+      .setThumbnail(message.author.iconURL)
+      .addField(':clock: uptime', 'Bot\'s uptime', true)
+      .addField(':runner: Running on:', `**${client.guilds.size}** server(s)`, true)
+      .addField(':white_check_mark: Active for:', dateString, true)
+      .setColor(6583245);
+  message.channel.send({ embed })
+      .catch(console.error);
+};
+exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: [],
