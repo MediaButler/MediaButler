@@ -52,7 +52,7 @@ exports.run = (client, message, args, perms) => {
       sonarr.post("series", { data }).then(function (postResult){
         console.log(postResult);
         message.channel.send("I think we added it");
-      }).catch(error => { message.channel.send("Error: " + error)});
+      }).catch(error => { message.channel.send("Sorry, an unknown error occured, please check Sonarr logs")});
   });
 };
 
