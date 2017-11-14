@@ -56,9 +56,10 @@ exports.run = (client, message, args, perms) => {
       console.log(postResult);
       let banner = result[0].images.find(o => o.coverType == "banner");
       let bannerUrl = banner.url;
+      let dateFirstAired = new Date(postResult.firstAired);
       message.channel.send(
         {
-            "content": "Sucessfully added.",
+            "content": "Sucessfully added to Sonarr.",
             "embed": {
               "title": postResult.title,
               "description": postResult.overview,
@@ -84,7 +85,7 @@ exports.run = (client, message, args, perms) => {
                 },
                 {
                   "name": "First Aired",
-                  "value": new Date(postResult.firstAired),
+                  "value": dateFirstAired.getDay() + "-" + dateFirstAired.getMonth() + "-" + dateFirstAired.getFullYear(),
                   "inline": true
                 },
                 {
