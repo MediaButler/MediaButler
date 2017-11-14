@@ -14,7 +14,6 @@ exports.run = (client, message, args, perms) => {
   let profileId = apiauth.sonarr_defaultProfileId;
   let rootPath = apiauth.sonarr_defaultRootPath;
 
-
   if (!args[0]) {
     message.channel.send("No variables found. run `.help addtv`");
     return;
@@ -41,8 +40,9 @@ exports.run = (client, message, args, perms) => {
     if (result.length === 0) {
       message.chanel.send("Unable to pull show matching that ID");
     }
-// Rearrange data to look how Sonarr wants.
-    let data = {
+
+    let data = 
+    {
       "tvdbId": result[0].tvdbId,
       "title": result[0].title,
       "qualityProfileId": profileId,
@@ -53,7 +53,7 @@ exports.run = (client, message, args, perms) => {
       "seasonFolder": true,
       "rootFolderPath": rootPath
     };
-// Add show to sonarr
+
     sonarr.post("series", data).then(function (postResult) {
       let banner = result[0].images.find(o => o.coverType == "banner");
       let bannerUrl = banner.url;
