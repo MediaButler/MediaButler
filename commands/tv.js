@@ -31,7 +31,7 @@ exports.run = (bot, msg, args = []) => {
             "text": "Called by " + msg.author.username
           },
           "image": {
-            "url": "http://thetvdb.com/banners/" + banner.url
+            "url": banner.url
           },
           "author": {
             "name": "TV Show Information",
