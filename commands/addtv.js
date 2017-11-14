@@ -35,11 +35,11 @@ exports.run = (client, message, args, perms) => {
     rootPath = args[2];
   }
 
-  let msg = message.channel.send("Adding tvidId: " + args[0] + " to Sonarr");
+  message.channel.startTyping();
   
   sonarr.get("series/lookup", { "term": "tvdb:" + args[0] }).then(function (result) {
     if (result.length === 0) {
-      msg.edit("Unable to pull show matching that ID");
+      message.chanel.send("Unable to pull show matching that ID");
     }
 // Rearrange data to look how Sonarr wants.
     let data = {
@@ -53,13 +53,12 @@ exports.run = (client, message, args, perms) => {
       "seasonFolder": true,
       "rootFolderPath": rootPath
     };
-    msg.edit("Retrieved show information. Sending to Sonarr....");
 // Add show to sonarr
     sonarr.post("series", data).then(function (postResult) {
       let banner = result[0].images.find(o => o.coverType == "banner");
       let bannerUrl = banner.url;
       let dateFirstAired = new Date(postResult.firstAired);
-      msg.edit(
+      message.channel.send(
         {
             "content": "Sucessfully added to Sonarr.",
             "embed": {
@@ -124,6 +123,7 @@ exports.run = (client, message, args, perms) => {
             }
           }
       );
+      message.channel.stopTyping();      
     }, function (err) {
       message.channel.send("Sorry, an unknown error occured, please check Sonarr logs")
     });
