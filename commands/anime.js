@@ -36,12 +36,13 @@ exports.run = (bot, msg, args = []) => {
                 "name": info.data[0].attributes.titles.en,
                 "url": "https://kitsu.io/anime/" + info.data[0].attributes.slug,
                 "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
+              },
                 "fields": [
                   {
                     "name": "Kitsu ID",
                     "value": info.data[0].id,
                     "inline": true
-                  }
+                  },
                   {
                     "name": "First Aired",
                     "value": info.data[0].attributes.startDate,
