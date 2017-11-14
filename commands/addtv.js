@@ -14,6 +14,7 @@ exports.run = (client, message, args, perms) => {
   let profileId = apiauth.sonarr_defaultProfileId;
   let rootPath = apiauth.sonarr_defaultRootPath;
 
+
   if (!args[0]) {
     message.channel.send("No variables found. run `.help addtv`");
     return;
@@ -34,9 +35,11 @@ exports.run = (client, message, args, perms) => {
     rootPath = args[2];
   }
 
+  message.channel.startTyping();
+  
   sonarr.get("series/lookup", { "term": "tvdb:" + args[0] }).then(function (result) {
     if (result.length === 0) {
-      message.channel.send("Unable to pull show matching that ID");
+      message.chanel.send("Unable to pull show matching that ID");
     }
 // Rearrange data to look how Sonarr wants.
     let data = {
@@ -50,25 +53,28 @@ exports.run = (client, message, args, perms) => {
       "seasonFolder": true,
       "rootFolderPath": rootPath
     };
-    console.log(data);
 // Add show to sonarr
     sonarr.post("series", data).then(function (postResult) {
-      console.log(postResult);
+      let banner = result[0].images.find(o => o.coverType == "banner");
+      let bannerUrl = banner.url;
+      let dateFirstAired = new Date(postResult.firstAired);
       message.channel.send(
         {
-            "message": "Sucessfully added.",            
-            "content": "Sucessfully added.",
+            "content": "Sucessfully added to Sonarr.",
             "embed": {
               "title": postResult.title,
-              "description": response.overview,
+              "description": postResult.overview,
               "color": 13619085,
               "timestamp": new Date(),
               "footer": {
-                "icon_url": msg.author.avatarURL,
-                "text": "Called by " + msg.author.username
+                "icon_url": message.author.avatarURL,
+                "text": "Called by " + message.author.username
+              },
+              "image": {
+                "url": "http://thetvdb.com/banners/" + banner.url
               },
               "author": {
-                "name": postResult.title,
+                "name": "Sucessfully Added",
                 "url": "https://www.thetvdb.com/?tab=series&id=" + postResult.tvdbId,
                 "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
               },
@@ -80,7 +86,7 @@ exports.run = (client, message, args, perms) => {
                 },
                 {
                   "name": "First Aired",
-                  "value": postResult.firstAired,
+                  "value": dateFirstAired.getDay() + "-" + dateFirstAired.getMonth() + "-" + dateFirstAired.getFullYear(),
                   "inline": true
                 },
                 {
@@ -117,8 +123,8 @@ exports.run = (client, message, args, perms) => {
             }
           }
       );
+      message.channel.stopTyping();      
     }, function (err) {
-      console.log(err);
       message.channel.send("Sorry, an unknown error occured, please check Sonarr logs")
     });
   });
