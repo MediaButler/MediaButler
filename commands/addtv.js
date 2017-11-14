@@ -8,9 +8,6 @@ var sonarr = new SonarrAPI({
 });
 
 exports.run = (client, message, args, perms) => {
-  var tvdbId;
-  var showTitle;
-  var rootFolderPath;
   var profileId = apiauth.sonarr_defaultProfileId;
   var rootPath = apiauth.sonarr_defaultRootPath;
 
