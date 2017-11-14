@@ -30,36 +30,27 @@ exports.run = (bot, msg, args = []) => {
                 "text": "Called by " + msg.author.username
               },
               "image": {
-                "url": info.data[0].attributes.coverImage.tiny,
+                "url": info.data[0].attributes.posterImage.tiny + ".jpg",
               },
               "author": {
                 "name": info.data[0].attributes.titles.en,
                 "url": "https://kitsu.io/anime/" + info.data[0].attributes.slug,
                 "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
+              },
                 "fields": [
-                  {
-                    "name": "Kitsu ID",
-                    "value": info.data[0].id,
-                    "inline": true
-                  }
-                  {
-                    "name": "First Aired",
-                    "value": info.data[0].attributes.startDate,
-                    "inline": true
-                  },
-                  {
-                    "name": "Rating",
-                    "value": info.data[0].attributes.averageRating + "/100",
-                    "inline": true
-                  },
                   {
                     "name": "JP Title",
                     "value": info.data[0].attributes.titles.ja_jp,
                     "inline": true
                   },
                   {
-                    "name": "Status",
-                    "value": info.data[0].attributes.status,
+                    "name": "First Aired",
+                    "value": info.data[0].attributes.startDate,
+                    "inline": true
+                  },
+                  {
+                    "name": "Kitsu ID",
+                    "value": info.data[0].id,
                     "inline": true
                   },
                   {
@@ -68,8 +59,13 @@ exports.run = (bot, msg, args = []) => {
                     "inline": true
                   },
                   {
-                    "name": "Episode count",
-                    "value": info.data[0].attributes.episodeCount || "Not defined",
+                    "name": "Rating",
+                    "value": info.data[0].attributes.averageRating + "/100",
+                    "inline": true
+                  },
+                  {
+                    "name": "Status",
+                    "value": info.data[0].attributes.status,
                     "inline": true
                   }
                 ]
