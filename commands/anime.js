@@ -30,7 +30,7 @@ exports.run = (bot, msg, args = []) => {
                     "text": "Called by " + msg.author.username
                   },
                   "image": {
-                    "url": info.data[0].attributes.posterImage.tiny + ".jpg",
+                    "url": info.data[0].attributes.coverImage.tiny,
                   },
                   "author": {
                     "name": info.data[0].attributes.titles.en,
@@ -39,18 +39,13 @@ exports.run = (bot, msg, args = []) => {
                   },
                   "fields": [
                     {
-                      "name": "Anime",
-                      "value": info.data[0].attributes.canonicalTitle,
+                      "name": "JP Title",
+                      "value": info.data[0].attributes.titles.ja_jp,
                       "inline": true
                     },
                     {
-                      "name": "Status",
-                      "value": info.data[0].attributes.status,
-                      "inline": true
-                    },
-                    {
-                      "name": "Start date",
-                      "value": info.data[0].attributes.averageRating + "/100",
+                      "name": "First Aired",
+                      "value": info.data[0].attributes.startDate,
                       "inline": true
                     },
                     {
@@ -59,13 +54,18 @@ exports.run = (bot, msg, args = []) => {
                       "inline": true
                     },
                     {
-                      "name": "Avg. Rating",
-                      "value": info.data[0].attributes.startDate,
+                      "name": "Ranked",
+                      "value": info.data[0].attributes.ratingRank,
                       "inline": true
                     },
                     {
-                      "name": "Ranked",
-                      "value": info.data[0].attributes.ratingRank,
+                      "name": "Rating",
+                      "value": info.data[0].attributes.averageRating + "/100",
+                      "inline": true
+                    },
+                    {
+                      "name": "Status",
+                      "value": info.data[0].attributes.status,
                       "inline": true
                     },
                     {
