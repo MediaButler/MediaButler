@@ -39,11 +39,6 @@ exports.run = (bot, msg, args = []) => {
               },
                 "fields": [
                   {
-                    "name": "JP Title",
-                    "value": info.data[0].attributes.titles.ja_jp,
-                    "inline": true
-                  },
-                  {
                     "name": "First Aired",
                     "value": info.data[0].attributes.startDate,
                     "inline": true
@@ -67,7 +62,12 @@ exports.run = (bot, msg, args = []) => {
                     "name": "Status",
                     "value": info.data[0].attributes.status,
                     "inline": true
-                  }
+                  },
+                  {
+                    "name": "JP Title",
+                    "value": info.data[0].attributes.titles.ja_jp,
+                    "inline": true
+                  },
                 ]
               }
             }
