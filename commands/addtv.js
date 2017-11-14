@@ -60,7 +60,7 @@ exports.run = (client, message, args, perms) => {
             "content": "Sucessfully added.",
             "embed": {
               "title": postResult.title,
-              "description": response.overview,
+              "description": postResult.overview,
               "color": 13619085,
               "timestamp": new Date(),
               "footer": {
