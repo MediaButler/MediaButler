@@ -30,7 +30,7 @@ exports.run = (bot, msg, args = []) => {
                     "text": "Called by " + msg.author.username
                   },
                   "image": {
-                    "url": imageUrl,
+                    "url": data[0].attributes.posterImage.tiny + ".jpg",
                   },
                   "author": {
                     "name": data[0].attributes.titles.en,
