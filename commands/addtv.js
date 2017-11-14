@@ -56,7 +56,6 @@ exports.run = (client, message, args, perms) => {
       console.log(postResult);
       message.channel.send(
         {
-            "message": "Sucessfully added.",            
             "content": "Sucessfully added.",
             "embed": {
               "title": postResult.title,
