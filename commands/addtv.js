@@ -54,7 +54,69 @@ exports.run = (client, message, args, perms) => {
 // Add show to sonarr
     sonarr.post("series", data).then(function (postResult) {
       console.log(postResult);
-      message.channel.send("I think we added it");
+      message.channel.send(
+        {
+            "message": "Sucessfully added.",            
+            "content": "Sucessfully added.",
+            "embed": {
+              "title": postResult.title,
+              "description": response.overview,
+              "color": 13619085,
+              "timestamp": new Date(),
+              "footer": {
+                "icon_url": msg.author.avatarURL,
+                "text": "Called by " + msg.author.username
+              },
+              "author": {
+                "name": postResult.title,
+                "url": "https://www.thetvdb.com/?tab=series&id=" + postResult.tvdbId,
+                "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
+              },
+              "fields": [
+                {
+                  "name": "Network",
+                  "value": postResult.network,
+                  "inline": true
+                },
+                {
+                  "name": "First Aired",
+                  "value": postResult.firstAired,
+                  "inline": true
+                },
+                {
+                  "name": "Airs at",
+                  "value": postResult.airTime,
+                  "inline": true
+                },
+                {
+                  "name": "Genres",
+                  "value": postResult.genres.join(', '),
+                  "inline": true
+                },
+                {
+                  "name": "Status",
+                  "value": postResult.status,
+                  "inline": true
+                },
+                {
+                  "name": "Rating",
+                  "value": postResult.ratings.value + " (" + postResult.ratings.votes + " votes)",
+                  "inline": true
+                },
+                {
+                  "name": "Runtime",
+                  "value": postResult.runtime + " mins",
+                  "inline": true
+                },
+                {
+                  "name": "TVDb ID",
+                  "value": postResult.tvdbId,
+                  "inline": true
+                }
+              ]
+            }
+          }
+      );
     }, function (err) {
       console.log(err);
       message.channel.send("Sorry, an unknown error occured, please check Sonarr logs")
