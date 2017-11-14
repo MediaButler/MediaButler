@@ -64,8 +64,8 @@ exports.run = (client, message, args, perms) => {
               "color": 13619085,
               "timestamp": new Date(),
               "footer": {
-                "icon_url": msg.author.avatarURL,
-                "text": "Called by " + msg.author.username
+                "icon_url": message.author.avatarURL,
+                "text": "Called by " + message.author.username
               },
               "author": {
                 "name": postResult.title,
