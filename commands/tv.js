@@ -56,7 +56,7 @@ exports.run = (bot, msg, args = []) => {
             },
             {
               "name": "Genres",
-              "value": result[0].genre.join(', '),
+              "value": result[0].genres.join(', '),
               "inline": true
             },
             {
