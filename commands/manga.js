@@ -49,6 +49,16 @@ exports.run = (bot, msg, args = []) => {
                       "inline": true
                     },
                     {
+                      "name": "Avg. Rating",
+                      "value": info.data[0].attributes.averageRating + "/100",
+                      "inline": true
+                    },
+                    {
+                      "name": "Serialization",
+                      "value": info.data[0].attributes.serialization,
+                      "inline": true
+                    },
+                    {
                       "name": "Kitsu ID",
                       "value": info.data[0].id,
                       "inline": true

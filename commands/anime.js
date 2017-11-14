@@ -14,7 +14,7 @@ exports.run = (bot, msg, args = []) => {
           msg.channel.send('Cant find anime.')
         } else {
 
-           const overview = info.data[0].attributes.synopsis === undefined ? "No description" : info.data[0].attributes.synopsis;
+          const overview = info.data[0].attributes.synopsis === undefined ? "No description" : info.data[0].attributes.synopsis;
 
           let trimmedOverview = overview.substring(0, 550);
 
@@ -40,17 +40,32 @@ exports.run = (bot, msg, args = []) => {
                   "fields": [
                     {
                       "name": "Anime",
-                      "value": info.data[0].attributes.titles.en,
-                      "inline": true
-                    },
-                    {
-                      "name": "Age Rating Guide",
-                      "value": info.data[0].attributes.ageRatingGuide,
+                      "value": info.data[0].attributes.canonicalTitle,
                       "inline": true
                     },
                     {
                       "name": "Status",
                       "value": info.data[0].attributes.status,
+                      "inline": true
+                    },
+                    {
+                      "name": "Start date",
+                      "value": info.data[0].attributes.averageRating + "/100",
+                      "inline": true
+                    },
+                    {
+                      "name": "Episode count",
+                      "value": info.data[0].attributes.episodeCount,
+                      "inline": true
+                    },
+                    {
+                      "name": "Avg. Rating",
+                      "value": info.data[0].attributes.startDate,
+                      "inline": true
+                    },
+                    {
+                      "name": "Ranked",
+                      "value": info.data[0].attributes.ratingRank,
                       "inline": true
                     },
                     {
