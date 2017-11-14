@@ -40,7 +40,7 @@ exports.run = (bot, msg, args = []) => {
                   "fields": [
                     {
                       "name": "Manga",
-                      "value": info.data[0].attributes.titles.en,
+                      "value": info.data[0].attributes.canonicalTitle,
                       "inline": true
                     },
                     {
