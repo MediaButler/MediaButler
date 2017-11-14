@@ -50,7 +50,7 @@ exports.run = (bot, msg, args = []) => {
                     },
                     {
                       "name": "Episode count",
-                      "value": info.data[0].attributes.episodeCount,
+                      "value": info.data[0].attributes.episodeCount || "Not defined",
                       "inline": true
                     },
                     {
