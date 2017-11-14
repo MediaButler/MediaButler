@@ -12,9 +12,11 @@ exports.run = (bot, msg, args = []) => {
 
   sonarr.get("series/lookup", { "term": args.join(" ") }).then(function (result) {
     if (result.length === 0) {
-      message.chanel.send("Unable to pull show matching that ID");
+      msg.chanel.send("Unable to pull show matching that ID");
     }
 
+    let banner = result[0].images.find(o => o.coverType == "banner");
+    let bannerUrl = banner.url;
     msg.channel.send(
       {
         "embed": 
@@ -28,7 +30,7 @@ exports.run = (bot, msg, args = []) => {
             "text": "Called by " + msg.author.username
           },
           "image": {
-            "url": "http://thetvdb.com/banners/" + result[0].images.banner.url
+            "url": "http://thetvdb.com/banners/" + banner.url
           },
           "author": {
             "name": "TV Show Information",
