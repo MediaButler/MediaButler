@@ -17,7 +17,8 @@ exports.run = (bot, msg, args = []) => {
 
     let banner = result[0].images.find(o => o.coverType == "banner");
     let bannerUrl = banner.url;
-    console.log(result);
+    let tvShow = result[0];
+    console.log(tvShow);
     msg.channel.send(
       {
         "embed": 
