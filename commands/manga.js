@@ -44,11 +44,6 @@ exports.run = (bot, msg, args = []) => {
                       "inline": true
                     },
                     {
-                      "name": "Age Rating Guide",
-                      "value": info.data[0].attributes.ageRatingGuide,
-                      "inline": true
-                    },
-                    {
                       "name": "Status",
                       "value": info.data[0].attributes.status,
                       "inline": true
