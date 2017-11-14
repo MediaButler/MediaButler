@@ -15,10 +15,8 @@ exports.run = (bot, msg, args = []) => {
       msg.chanel.send("Unable to pull show matching that ID");
     }
 
-    let banner = result[0].images.find(o => o.coverType == "banner");
-    let bannerUrl = banner.url;
     let tvShow = result[0];
-    console.log(tvShow);
+    let banner = tvShow.images.find(o => o.coverType == "banner");
     msg.channel.send(
       {
         "embed": 
