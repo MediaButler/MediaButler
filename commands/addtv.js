@@ -54,6 +54,8 @@ exports.run = (client, message, args, perms) => {
 // Add show to sonarr
     sonarr.post("series", data).then(function (postResult) {
       console.log(postResult);
+      let banner = result[0].images.find(o => o.coverType == "banner");
+      let bannerUrl = banner.url;
       message.channel.send(
         {
             "content": "Sucessfully added.",
@@ -66,8 +68,11 @@ exports.run = (client, message, args, perms) => {
                 "icon_url": message.author.avatarURL,
                 "text": "Called by " + message.author.username
               },
+              "image": {
+                "url": "http://thetvdb.com/banners/" + banner.url
+              },
               "author": {
-                "name": postResult.title,
+                "name": "Sucessfully Added",
                 "url": "https://www.thetvdb.com/?tab=series&id=" + postResult.tvdbId,
                 "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
               },
@@ -79,7 +84,7 @@ exports.run = (client, message, args, perms) => {
                 },
                 {
                   "name": "First Aired",
-                  "value": postResult.firstAired,
+                  "value": new Date(postResult.firstAired),
                   "inline": true
                 },
                 {
