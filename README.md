@@ -2,9 +2,19 @@
 Discord bot for use with PleX and several other apps that work with it.
 Still early dev, but active and welcomes any/all help
 
-### Installation Help
-Please see the wiki page https://github.com/MediaButler/MediaButler/wiki/Installation
+## Prerequisites
 
-### Other help and support
+* [NodeJS](https://nodejs.org/en/) - The server framework
+* [npm](https://www.npmjs.com/) - Package manager
+
+## Installation Help
+Please see the wiki page https://github.com/MediaButler/MediaButler/wiki/Install
+
+## Authors
+
+* [Vertig0ne](https://github.com/Vertig0ne)
+* [Tailchakra](https://github.com/Tailchakra)
+
+## Other help and support
 Our Discord for chat and support:
- https://discord.gg/nH9t5sm
+https://discord.gg/nH9t5sm
