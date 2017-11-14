@@ -8,7 +8,7 @@ Still early dev, but active and welcomes any/all help
 * [npm](https://www.npmjs.com/) - Package manager
 
 ## Installation Help
-Please see the wiki page https://github.com/MediaButler/MediaButler/wiki/Installation
+Please see the wiki page https://github.com/MediaButler/MediaButler/wiki/Install
 
 ## Authors
 
