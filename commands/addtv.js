@@ -123,7 +123,6 @@ exports.run = (client, message, args, perms) => {
           }
       );
     }, function (err) {
-      console.log(err);
       message.channel.send("Sorry, an unknown error occured, please check Sonarr logs")
     });
   });
