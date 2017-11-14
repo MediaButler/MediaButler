@@ -19,63 +19,62 @@ exports.run = (bot, msg, args = []) => {
           let trimmedOverview = overview.substring(0, 550);
 
           msg.channel.send({
-                "content": "As requested....",
-                "embed": {
-                  "title": info.data[0].attributes.titles.en,
-                  "description": trimmedOverview + "... https://kitsu.io/anime/" + info.data[0].attributes.slug,
-                  "color": 11360941,
-                  "timestamp": new Date(),
-                  "footer": {
-                    "icon_url": msg.author.avatarURL,
-                    "text": "Called by " + msg.author.username
+            "content": "As requested....",
+            "embed": {
+              "title": info.data[0].attributes.titles.en,
+              "description": trimmedOverview + "... https://kitsu.io/anime/" + info.data[0].attributes.slug,
+              "color": 11360941,
+              "timestamp": new Date(),
+              "footer": {
+                "icon_url": msg.author.avatarURL,
+                "text": "Called by " + msg.author.username
+              },
+              "image": {
+                "url": info.data[0].attributes.coverImage.tiny,
+              },
+              "author": {
+                "name": info.data[0].attributes.titles.en,
+                "url": "https://kitsu.io/anime/" + info.data[0].attributes.slug,
+                "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
+                "fields": [
+                  {
+                    "name": "Kitsu ID",
+                    "value": info.data[0].id,
+                    "inline": true
+                  }
+                  {
+                    "name": "First Aired",
+                    "value": info.data[0].attributes.startDate,
+                    "inline": true
                   },
-                  "image": {
-                    "url": info.data[0].attributes.coverImage.tiny,
+                  {
+                    "name": "Rating",
+                    "value": info.data[0].attributes.averageRating + "/100",
+                    "inline": true
                   },
-                  "author": {
-                    "name": info.data[0].attributes.titles.en,
-                    "url": "https://kitsu.io/anime/" + info.data[0].attributes.slug,
-                    "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
+                  {
+                    "name": "JP Title",
+                    "value": info.data[0].attributes.titles.ja_jp,
+                    "inline": true
                   },
-                  "fields": [
-                    {
-                      "name": "JP Title",
-                      "value": info.data[0].attributes.titles.ja_jp,
-                      "inline": true
-                    },
-                    {
-                      "name": "First Aired",
-                      "value": info.data[0].attributes.startDate,
-                      "inline": true
-                    },
-                    {
-                      "name": "Episode count",
-                      "value": info.data[0].attributes.episodeCount || "Not defined",
-                      "inline": true
-                    },
-                    {
-                      "name": "Ranked",
-                      "value": info.data[0].attributes.ratingRank,
-                      "inline": true
-                    },
-                    {
-                      "name": "Rating",
-                      "value": info.data[0].attributes.averageRating + "/100",
-                      "inline": true
-                    },
-                    {
-                      "name": "Status",
-                      "value": info.data[0].attributes.status,
-                      "inline": true
-                    },
-                    {
-                      "name": "Kitsu ID",
-                      "value": info.data[0].id,
-                      "inline": true
-                    }
-                  ]
-                }
+                  {
+                    "name": "Status",
+                    "value": info.data[0].attributes.status,
+                    "inline": true
+                  },
+                  {
+                    "name": "Ranked",
+                    "value": info.data[0].attributes.ratingRank,
+                    "inline": true
+                  },
+                  {
+                    "name": "Episode count",
+                    "value": info.data[0].attributes.episodeCount || "Not defined",
+                    "inline": true
+                  }
+                ]
               }
+            }
           );
         } // if(!error
       }
