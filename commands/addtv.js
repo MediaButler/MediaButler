@@ -55,73 +55,76 @@ exports.run = (client, message, args, perms) => {
     };
 
     sonarr.post("series", data).then(function (postResult) {
+      let tvShow = postResult;
       let banner = result[0].images.find(o => o.coverType == "banner");
       let bannerUrl = banner.url;
       let dateFirstAired = new Date(postResult.firstAired);
+      let firstAirDateStr = dateFirstAired.getFullYear() + "-" + dateFirstAired.getMonth() + "-" + dateFirstAired.getDate()      
       message.channel.send(
         {
-            "content": "Sucessfully added to Sonarr.",
-            "embed": {
-              "title": postResult.title,
-              "description": postResult.overview,
-              "color": 13619085,
-              "timestamp": new Date(),
-              "footer": {
-                "icon_url": message.author.avatarURL,
-                "text": "Called by " + message.author.username
+          "embed": 
+          {
+            "title": tvShow.title,
+            "description": tvShow.overview,
+            "color": 13619085,
+            "timestamp": new Date(),
+            "footer": {
+              "icon_url": message.author.avatarURL,
+              "text": "Called by " + message.author.username
+            },
+            "image": {
+              "url": banner.url
+            },
+            "author": {
+              "name": "Sucessfully added to Sonarr",
+              "url": "https://www.thetvdb.com/?tab=series&id=" + tvShow.tvdbId,
+              "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
+            },
+            "fields": 
+            [
+              {
+                "name": "Network",
+                "value": tvShow.network,
+                "inline": true
               },
-              "image": {
-                "url": "http://thetvdb.com/banners/" + banner.url
+              {
+                "name": "First Aired",
+                "value": firstAirDateStr,
+                "inline": true
               },
-              "author": {
-                "name": "Sucessfully Added",
-                "url": "https://www.thetvdb.com/?tab=series&id=" + postResult.tvdbId,
-                "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
+              {
+                "name": "Airs on",
+                "value": tvShow.airTime,
+                "inline": true
               },
-              "fields": [
-                {
-                  "name": "Network",
-                  "value": postResult.network,
-                  "inline": true
-                },
-                {
-                  "name": "First Aired",
-                  "value": dateFirstAired.getDay() + "-" + dateFirstAired.getMonth() + "-" + dateFirstAired.getFullYear(),
-                  "inline": true
-                },
-                {
-                  "name": "Airs at",
-                  "value": postResult.airTime,
-                  "inline": true
-                },
-                {
-                  "name": "Genres",
-                  "value": postResult.genres.join(', '),
-                  "inline": true
-                },
-                {
-                  "name": "Status",
-                  "value": postResult.status,
-                  "inline": true
-                },
-                {
-                  "name": "Rating",
-                  "value": postResult.ratings.value + " (" + postResult.ratings.votes + " votes)",
-                  "inline": true
-                },
-                {
-                  "name": "Runtime",
-                  "value": postResult.runtime + " mins",
-                  "inline": true
-                },
-                {
-                  "name": "TVDb ID",
-                  "value": postResult.tvdbId,
-                  "inline": true
-                }
-              ]
-            }
+              {
+                "name": "Genres",
+                "value": tvShow.genres.join(', '),
+                "inline": true
+              },
+              {
+                "name": "Status",
+                "value": tvShow.status,
+                "inline": true
+              },
+              {
+                "name": "Rating",
+                "value": tvShow.ratings.value + " (" + tvShow.ratings.votes + " votes)",
+                "inline": true
+              },
+              {
+                "name": "Runtime",
+                "value": tvShow.runtime + " mins",
+                "inline": true
+              },
+              {
+                "name": "TVDb ID",
+                "value": tvShow.tvdbId,
+                "inline": true
+              }
+            ]
           }
+        }
       );
       message.channel.stopTyping();      
     }, function (err) {
