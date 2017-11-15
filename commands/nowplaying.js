@@ -2,18 +2,27 @@ const apiauth = require('../apiauth.json');
 const request = require('request');
 exports.run = (bot, msg, params = []) => {
   const max = 4462;
-
+  let url = 'http://' + apiauth.plexpy_host + apiauth.plexpy_baseurl + '/api/v2?apikey=' + apiauth.plexpy_apikey + '&cmd=get_activity';
   msg.channel.startTyping();
-  request('http://' + apiauth.plexpy_host + apiauth.plexpy_baseurl + '/api/v2?apikey=' + apiauth.plexpy_apikey + '&cmd=get_activity', function (error, response, body) {
-    if (!error && response.statusCode === 200) {
-      const info = JSON.parse(body);
-      msg.channel.send("There are currently " + info.response.data.stream_count + " active streams");
+  msg.channel.send("Starting...")
+    .then(m => {
+      m.edit("Querying PlexPy for Information...");
+      request(url, function (error, response, body) {
+        if (error && response.statusCode !== 200) {
+          m.edit("ERR: Unable to retrieve data from PlexPy.");
+          return;
+        }
+        let info = JSON.parse(body);
+        if (info === undefined) {
+          m.edit("ERR: Unable to parse information from PlexPy");
+          return;
+        }
 
-      if (info.response.data.stream_count > 0) {
-        let i = 0;
-        info.response.data.sessions.forEach(s => {
-          console.log(s);
-          msg.channel.send(
+        m.edit("There are currently " + info.response.data.stream_count + " active streams");
+        if (info.response.data.stream_count > 0) {
+          let i = 0;
+          info.response.data.sessions.forEach(s => {
+            msg.channel.send(
               {
                 "content": "Steam " + i + " Info",
                 "embed": {
@@ -47,12 +56,11 @@ exports.run = (bot, msg, params = []) => {
                   ]
                 }
               });
-          i++;
-        })
-      }
-      msg.channel.stopTyping();
-    }
-  })
+            i++;
+          })
+        }
+      });
+    });
 };
 
 exports.conf = {

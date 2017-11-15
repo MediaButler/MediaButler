@@ -23,13 +23,14 @@ exports.run = (client, message, args, perms) => {
     }
 
     if (args[1]) {
-      m.edit("Detected quality profile override.. Scanning for profileId");
-      sonarr.get("profile").then(function (result) {
+      m.edit("Detected quality profile override.. Scanning for `profileId`");
+      sonarr.get("profile")
+      .then(result => {
         let profile = result.find(q => q.name === args[1]);
         profileId = profile.id;
         m.edit("profileId found.")
         if (profileId === undefined) {
-          m.edit("ERR: Profile not found.");
+          m.edit("ERR: `profileId` not found.");
           message.channel.stopTyping();
           return;
         }
