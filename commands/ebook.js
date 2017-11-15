@@ -1,22 +1,26 @@
 const apiauth = require('../apiauth.json');
-const SimpleGoodreads = require('simple-goodreads');
+const books = require('google-books-search');
 
 exports.run = (bot, msg, args = []) => {
   const max = 4462;
-  const goodreads = new SimpleGoodreads();
   const query = args.join(" ");
 
-  goodreads.searchBook(query, (err, book) => {
-    if (book.title == undefined) {
+  books.search(query, (error, res) => {
+    if (res == undefined) {
       msg.channel.send("No results in the Goodreads database. Check the book name.")
     }
     else {
-      console.log(book);
+
+      const thumbnail = res[0].thumbnail === undefined ? "http://via.placeholder.com/200x300" : res[0].thumbnail;
+      const overview = res[0].description === null ? "No description" : res[0].description;
+      let trimmedOverview = overview.substring(0, 200);
+
+      console.log(res[0]);
       msg.channel.send({
             "embed":
             {
-              "title": book.Title,
-              // "description": book.Plot,
+              "title": res[0].title,
+               "description": trimmedOverview + "... https://books.google.nl/books/about/" + res[0].title + ".html?id=" + res[0].id + "&redir_esc=y",
               "color": 13619085,
               "timestamp": new Date(),
               "footer": {
@@ -24,33 +28,53 @@ exports.run = (bot, msg, args = []) => {
                 "text": "Called by " + msg.author.username
               },
               "thumbnail": {
-                "url": book.image_url
+                "url": thumbnail
               },
               "author": {
-                "name": "Movie Information",
-        //        "url": "https://www.themoviedb.org/movie/" + res2.id,
+                "name": "Book Information",
+                "url": "https://books.google.nl/books/about/" + res[0].title + ".html?id=" + res[0].id + "&redir_esc=y",
                 "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
               },
               "fields":
              [
               {
-                "name": "Year",
-                "value": book.publication_year,
+                "name": "Release date",
+                "value": res[0].publishedDate,
                 "inline": true
               },
               {
                 "name": "Author",
-                "value": book.author,
+                "value": res[0].authors[0],
+                "inline": true
+              },
+              {
+                "name": "Publisher",
+                "value": res[0].publisher,
                 "inline": true
               },
               {
                 "name": "Rating",
-                "value": book.rating + "/5",
+                "value": res[0].averageRating + "/5",
                 "inline": true
               },
               {
-                "name": "Goodreads ID",
-                "value": book.id,
+                "name": "Category",
+                "value": res[0].categories[0],
+                "inline": true
+              },
+              {
+                "name": "Page count",
+                "value": res[0].pageCount,
+                "inline": true
+              },
+              {
+                "name": "Googlebooks ID",
+                "value": res[0].id,
+                "inline": true
+              },
+              {
+                "name": "ISBN13",
+                "value": res[0].industryIdentifiers[0].identifier,
                 "inline": true
               }
            ]
