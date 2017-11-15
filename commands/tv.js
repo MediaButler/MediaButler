@@ -23,8 +23,9 @@ exports.run = (bot, msg, args = []) => {
       if (!error && res.statusCode === 200) {
         let info = JSON.parse(body);
 
-        const votes = info.imdbRating||info.imdbVotes === "N/A" ? "No votes" : info.imdbRating + "/10 (" + info.imdbVotes + " votes)";
-        const genre = info.Genre.length > 24 ? info.Genre.substring(0, 23) + "..." : info.Genre
+        const rating = info.imdbRating === "N/A" ? "No rating" : info.imdbRating + "/10";
+        const votes = info.imdbRating === "N/A" ? "" : " (" + info.imdbVotes + " votes)";
+        const genre = info.Genre.length > 24 ? info.Genre.substring(0, 22) + "..." : info.Genre
 
         msg.channel.send({
             "embed":
@@ -74,7 +75,7 @@ exports.run = (bot, msg, args = []) => {
            },
            {
              "name": "Rating",
-             "value": votes,
+             "value": rating + votes,
              "inline": true
            },
            {
@@ -104,6 +105,6 @@ exports.conf = {
 };
 exports.help = {
   name: "tv",
-  description: "Pulls info for a tv show.",
+  description: "Pulls info for series or anime.",
   usage: "tv <show>"
 };
