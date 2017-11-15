@@ -17,13 +17,12 @@ exports.run = (bot, msg, args = []) => {
 
     let tvShow = result[0];
     let banner = tvShow.images.find(o => o.coverType == 'banner');
-    console.log(banner);
     msg.channel.send(
       {
         "embed": 
         {
-          "title": result[0].title,
-          "description": result[0].overview,
+          "title": tvShow.title,
+          "description": tvShow.overview,
           "color": 13619085,
           "timestamp": new Date(),
           "footer": {
@@ -35,49 +34,49 @@ exports.run = (bot, msg, args = []) => {
           },
           "author": {
             "name": "TV Show Information",
-            "url": "https://www.thetvdb.com/?tab=series&id=" + result[0].tvdbId,
+            "url": "https://www.thetvdb.com/?tab=series&id=" + tvShow.tvdbId,
             "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
           },
           "fields": 
           [
             {
               "name": "Network",
-              "value": result[0].network,
+              "value": tvShow.network,
               "inline": true
             },
             {
               "name": "First Aired",
-              "value": result[0].firstAired,
+              "value": tvShow.firstAired,
               "inline": true
             },
             {
               "name": "Airs on",
-              "value": result[0].airsDayOfWeek + " " + result[0].airsTime,
+              "value": tvShow.airTime,
               "inline": true
             },
             {
               "name": "Genres",
-              "value": result[0].genres.join(', '),
+              "value": tvShow.genres.join(', '),
               "inline": true
             },
             {
               "name": "Status",
-              "value": result[0].status,
+              "value": tvShow.status,
               "inline": true
             },
             {
               "name": "Rating",
-              "value": result[0].siteRating + " (" + result[0].siteRatingCount + " votes)",
+              "value": tvShow.ratings.value + " (" + tvShow.ratings.votes + " votes)",
               "inline": true
             },
             {
               "name": "Runtime",
-              "value": result[0].runtime + " mins",
+              "value": tvShow.runtime + " mins",
               "inline": true
             },
             {
               "name": "TVDb ID",
-              "value": result[0].tvdbId,
+              "value": tvShow.tvdbId,
               "inline": true
             }
           ]
