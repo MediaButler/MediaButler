@@ -17,6 +17,8 @@ exports.run = (bot, msg, args = []) => {
 
     let tvShow = result[0];
     let banner = tvShow.images.find(o => o.coverType == 'banner');
+    let firstAirDate = new Date(tvShow.firstAirDate);
+    let firstAirDateStr = firstAirDate.getFullYear() + "-" + firstAirDate.getMonth() + "-" + firstAirDate.getDate()
     msg.channel.send(
       {
         "embed": 
@@ -46,7 +48,7 @@ exports.run = (bot, msg, args = []) => {
             },
             {
               "name": "First Aired",
-              "value": tvShow.firstAired,
+              "value": firstAirDateStr,
               "inline": true
             },
             {
