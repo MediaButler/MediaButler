@@ -1,7 +1,20 @@
 const apiauth = require('../apiauth.json');
-const tmdb = require('moviedb')(apiauth.themoviedbkey);
+var SonarrAPI = require('sonarr-api');
+var sonarr = new SonarrAPI({
+  hostname: apiauth.radarr_host.split(":")[0],
+  apiKey: apiauth.radarr_apikey,
+  port: apiauth.radarr_host.split(":")[1],
+  urlBase: apiauth.radarr_baseurl
+});
+
 exports.run = (bot, msg, args = []) => {
   const max = 4462;
+
+  sonarr.get("movies/lookup", { "term": args.join(" ") }).then(function (result) {
+    if (result.length === 0) {
+      msg.chanel.send("Unable to pull movie matching that ID");
+    }
+  });
 
   tmdb.searchMovie({ query: args.join(" ") }, (err, res) => {
     if (res.results[0] == undefined) {
