@@ -14,14 +14,18 @@ exports.run = (bot, msg, args = []) => {
           msg.channel.send('Cant find manga.')
         } else {
 
-           const overview = info.data[0].attributes.synopsis === undefined ? "No description" : info.data[0].attributes.synopsis;
+           const endDatevar = info.data[0].attributes.endDate === null ? "Still running" : info.data[0].attributes.endDate;
+           const volumeCountvar = info.data[0].attributes.volumeCount === null ? "No count registered" : info.data[0].attributes.volumeCount;
+           const chapterCountvar = info.data[0].attributes.chapterCount === null ? "No count" : info.data[0].attributes.chapterCount;
+           const overview = info.data[0].attributes.synopsis === null ? "No description" : info.data[0].attributes.synopsis;
+           const status = info.data[0].attributes.status === "finished" ? "Finished" : "Running";
+           const endDate = info.data[0].attributes.status === null ? "Still running" : "Running";
 
-          let trimmedOverview = overview.substring(0, 550);
+          let trimmedOverview = overview.substring(0, 200);
 
           msg.channel.send({
-                "content": "As requested....",
                 "embed": {
-                  "title": info.data[0].attributes.titles.en,
+                  "title": info.data[0].attributes.canonicalTitle,
                   "description": trimmedOverview + "... https://kitsu.io/manga/" + info.data[0].attributes.slug,
                   "color": 11360941,
                   "timestamp": new Date(),
@@ -29,28 +33,43 @@ exports.run = (bot, msg, args = []) => {
                     "icon_url": msg.author.avatarURL,
                     "text": "Called by " + msg.author.username
                   },
-                  "image": {
+                  "thumbnail": {
                     "url": info.data[0].attributes.posterImage.tiny + ".jpg",
                   },
                   "author": {
-                    "name": info.data[0].attributes.titles.en,
+                    "name": "Manga Information",
                     "url": "https://kitsu.io/manga/" + info.data[0].attributes.slug,
                     "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
                   },
                   "fields": [
                     {
-                      "name": "Manga",
-                      "value": info.data[0].attributes.canonicalTitle,
+                      "name": "Start Date",
+                      "value": info.data[0].attributes.startDate,
+                      "inline": true
+                    },
+                    {
+                      "name": "End Date",
+                      "value": endDatevar,
                       "inline": true
                     },
                     {
                       "name": "Status",
-                      "value": info.data[0].attributes.status,
+                      "value": status,
+                      "inline": true
+                    },
+                    {
+                      "name": "Volume Count",
+                      "value": volumeCountvar,
                       "inline": true
                     },
                     {
                       "name": "Avg. Rating",
                       "value": info.data[0].attributes.averageRating + "/100",
+                      "inline": true
+                    },
+                    {
+                      "name": "Chapter Count",
+                      "value": chapterCountvar,
                       "inline": true
                     },
                     {
@@ -62,7 +81,7 @@ exports.run = (bot, msg, args = []) => {
                       "name": "Kitsu ID",
                       "value": info.data[0].id,
                       "inline": true
-                    }
+                    },
                   ]
                 }
               }

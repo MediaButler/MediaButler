@@ -1,3 +1,4 @@
+const request = require('request');
 const apiauth = require('../apiauth.json');
 const tmdb = require('moviedb')(apiauth.themoviedbkey);
 exports.run = (bot, msg, args = []) => {
@@ -9,7 +10,6 @@ exports.run = (bot, msg, args = []) => {
     }
     else {
       tmdb.movieInfo({ id: res.results[0].id }, (err2, res2) => {
-// move genre object array to list of names
         let i = 0;
         let g = [];
         while (i < res2.genres.length) {
@@ -17,70 +17,81 @@ exports.run = (bot, msg, args = []) => {
           i++
         }
 
-        msg.channel.send(
-            {
-              "message": res.results[0].title,
-              "embed": {
-                "title": res.results[0].title,
-                "description": res.results[0].overview,
-                "url": "https://www.themoviedb.org/movie/" + res2.id,
-                "color": 11360941,
-                "timestamp": new Date(),
-                "footer": {
-                  "icon_url": msg.author.avatarURL,
-                  "text": "Called by " + msg.author.username
-                },
-                "image": {
-                  "url": " http://image.tmdb.org/t/p/w185" + res2.poster_path
-                },
-                "author": {
-                  "name": res2.original_title,
-                  "url": "https://www.themoviedb.org/movie/" + res2.id,
-                  "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
-                },
-                "fields": [
-                  {
-                    "name": "Genres",
-                    "value": g.join(", ")
-                  },
-                  {
-                    "name": "Rating",
-                    "value": res2.vote_average + " (" + res2.vote_count + " votes)",
-                    "inline": true
-                  },
-                  {
-                    "name": "Release Date",
-                    "value": res2.release_date,
-                    "inline": true
-                  },
-                  {
-                    "name": "Studio",
-                    "value": res2.production_companies[0].name,
-                    "inline": true
-                  },
-                  {
-                    "name": "Language",
-                    "value": res2.original_language,
-                    "inline": true
-                  },
-                  {
-                    "name": "Status",
-                    "value": res2.status,
-                    "inline": true
-                  },
-                  {
-                    "name": "TMDb ID",
-                    "value": res2.id,
-                    "inline": true
-                  },
-                  {
-                    "name": "Tagline",
-                    "value": res2.tagline,
-                    "inline": false
-                  }
+        const url = 'http://www.omdbapi.com/?t=' + args.join(" ") + '&apikey=5af02350&type=movie';
+        request(url, function (error, res3, body) {
+          if (!error && res3.statusCode === 200) {
+            let info = JSON.parse(body);
+
+            const rating = info.imdbRating === "N/A" ? "No rating" : info.imdbRating + "/10";
+            const votes = info.imdbRating === "N/A" ? "" : " (" + info.imdbVotes + " votes)";
+            const genre = info.Genre.length > 24 ? info.Genre.substring(0, 23) + "..." : info.Genre
+
+        msg.channel.send({
+                 "embed":
+                 {
+                   "title": info.Title,
+                   "description": info.Plot,
+                   "color": 13619085,
+                   "timestamp": new Date(),
+                   "footer": {
+                     "icon_url": msg.author.avatarURL,
+                     "text": "Called by " + msg.author.username
+                   },
+                   "thumbnail": {
+                     "url": info.Poster
+                   },
+                   "author": {
+                     "name": "Movie Information",
+                     "url": "https://www.themoviedb.org/movie/" + res2.id,
+                     "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
+                   },
+                   "fields":
+                  [
+                   {
+                     "name": "Year",
+                     "value": info.Year,
+                     "inline": true
+                   },
+                   {
+                     "name": "Rated",
+                     "value": info.Rated,
+                     "inline": true
+                   },
+                   {
+                     "name": "Release date",
+                     "value": info.Released,
+                     "inline": true
+                   },
+                   {
+                     "name": "Genre",
+                     "value": genre,
+                     "inline": true
+                   },
+                   {
+                     "name": "Runtime",
+                     "value": info.Runtime,
+                     "inline": true
+                   },
+                   {
+                     "name": "Rating",
+                     "value": rating + votes,
+                     "inline": true
+                   },
+                   {
+                     "name": "IMDb ID",
+                     "value": info.imdbID,
+                     "inline": true
+                   },
+                   {
+                     "name": "TMDb ID",
+                     "value": res2.id,
+                     "inline": true
+                   }
                 ]
               }
             })
+          }
+        });
       })
     }
   })
