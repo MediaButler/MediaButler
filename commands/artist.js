@@ -16,10 +16,10 @@ exports.run = (bot, msg, args = []) => {
         } else {
 
           const overview = info[0].overview === undefined ? "No description" : info[0].overview;
-          const imageUrl = info[0].images[2] === undefined ? "https://via.placeholder.com/750x150" : info[0].images[2].url;
+          const imageUrl = info[0].images[3] === undefined ? "https://via.placeholder.com/200x300" : info[0].images[3].url;
           const active = info[0].ended === false ? "Yes" : "No";
 
-          let trimmedOverview = overview.substring(0, 550);
+          let trimmedOverview = overview.substring(0, 200);
 
           msg.channel.send({
                 "content": "As requested....",
@@ -32,7 +32,7 @@ exports.run = (bot, msg, args = []) => {
                     "icon_url": msg.author.avatarURL,
                     "text": "Called by " + msg.author.username
                   },
-                  "image": {
+                  "thumbnail": {
                     "url": imageUrl,
                   },
                   "author": {
@@ -42,12 +42,7 @@ exports.run = (bot, msg, args = []) => {
                   },
                   "fields": [
                     {
-                      "name": "Artist",
-                      "value": info[0].artistName,
-                      "inline": true
-                    },
-                    {
-                      "name": "Type",
+                      "name": "Artist type",
                       "value": info[0].artistType,
                       "inline": true
                     },
@@ -57,14 +52,14 @@ exports.run = (bot, msg, args = []) => {
                       "inline": true
                     },
                     {
-                      "name": "Artist Active",
+                      "name": "Artist active",
                       "value": active,
                       "inline": true
                     },
                     {
                       "name": "Musicbrainz ID",
                       "value": info[0].foreignArtistId,
-                      "inline": true
+                      "inline": false
                     }
                   ]
                 }
