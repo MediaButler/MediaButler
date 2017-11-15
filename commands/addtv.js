@@ -59,6 +59,7 @@ exports.run = (client, message, args, perms) => {
       let banner = result[0].images.find(o => o.coverType == "banner");
       let bannerUrl = banner.url;
       let dateFirstAired = new Date(postResult.firstAired);
+      let firstAirDateStr = dateFirstAired.getFullYear() + "-" + dateFirstAired.getMonth() + "-" + dateFirstAired.getDate()      
       message.channel.send(
         {
           "embed": 
