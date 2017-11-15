@@ -61,6 +61,7 @@ exports.run = (bot, msg, params = []) => {
         }
       });
     });
+    msg.channel.stopTyping();    
 };
 
 exports.conf = {
