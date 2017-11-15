@@ -20,7 +20,7 @@ exports.run = (bot, msg, args = []) => {
             "embed":
             {
               "title": res[0].title,
-               "description": trimmedOverview + "... https://books.google.nl/books/about/" + res[0].title + ".html?id=" + res[0].id + "&redir_esc=y",
+               "description": trimmedOverview + "..." + res[0].link,
               "color": 13619085,
               "timestamp": new Date(),
               "footer": {
@@ -32,7 +32,7 @@ exports.run = (bot, msg, args = []) => {
               },
               "author": {
                 "name": "Book Information",
-                "url": "https://books.google.nl/books/about/" + res[0].title + ".html?id=" + res[0].id + "&redir_esc=y",
+                "url": res[0].link,
                 "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
               },
               "fields":
