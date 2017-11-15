@@ -26,8 +26,7 @@ exports.run = (bot, msg, args = []) => {
         const votes = info.imdbRating||info.imdbVotes === "N/A" ? "No votes" : info.imdbRating + "/10 (" + info.imdbVotes + " votes)";
         const genre = info.Genre.length > 24 ? info.Genre.substring(0, 23) + "..." : info.Genre
 
-        msg.channel.send(
-          {
+        msg.channel.send({
             "embed":
             {
               "title": info.Title,
