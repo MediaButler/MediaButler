@@ -1,3 +1,4 @@
+const request = require('request');
 const apiauth = require('../apiauth.json');
 const SonarrAPI = require('../node_modules/sonarr-api/lib/api.js');
 const sonarr = new SonarrAPI({
@@ -9,35 +10,36 @@ const sonarr = new SonarrAPI({
 
 exports.run = (bot, msg, args = []) => {
   const max = 4462;
-  const query = args.join(" ");
 
   sonarr.get("series/lookup", { "term": args.join(" ") }).then(function (result) {
-    const url = 'http://www.omdbapi.com/?t=' + query + '&apikey=5af02350&type=series';
+    if (result.length === 0) {
+      msg.chanel.send("Unable to pull show matching that ID");
+    }
+
+    let tvShow = result[0];
+    let banner = tvShow.images.find(o => o.coverType == 'banner');
+    const url = 'http://www.omdbapi.com/?t=' + args.join(" ") + '&apikey=5af02350&type=series';
     request(url, function (error, res, body) {
       if (!error && res.statusCode === 200) {
         let info = JSON.parse(body);
-        if (result.length === 0) {
-          msg.chanel.send("Unable to pull show matching that ID");
-        }
 
-        let tvShow = result[0];
-        let banner = tvShow.images.find(o => o.coverType == 'banner');
-        let firstAirDate = new Date(tvShow.firstAired);
-        let firstAirDateStr = firstAirDate.getFullYear() + "-" + firstAirDate.getMonth() + "-" + firstAirDate.getDate()
+        const votes = info.imdbRating||info.imdbVotes === "N/A" ? "No votes" : info.imdbRating + "/10 (" + info.imdbVotes + " votes)";
+        const genre = info.Genre.length > 24 ? info.Genre.substring(0, 23) + "..." : info.Genre
+
         msg.channel.send(
           {
             "embed":
             {
-              "title": tvShow.title,
-              "description": tvShow.overview,
+              "title": info.Title,
+              "description": info.Plot,
               "color": 13619085,
               "timestamp": new Date(),
               "footer": {
                 "icon_url": msg.author.avatarURL,
                 "text": "Called by " + msg.author.username
               },
-              "image": {
-                "url": banner.url
+              "thumbnail": {
+                "url": info.Poster
               },
               "author": {
                 "name": "TV Show Information",
@@ -45,53 +47,53 @@ exports.run = (bot, msg, args = []) => {
                 "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
               },
               "fields":
-              [
-                {
-                  "name": "Network",
-                  "value": tvShow.network,
-                  "inline": true
-                },
-                {
-                  "name": "First Aired",
-                  "value": firstAirDateStr,
-                  "inline": true
-                },
-                {
-                  "name": "Airs on",
-                  "value": tvShow.airTime,
-                  "inline": true
-                },
-                {
-                  "name": "Genres",
-                  "value": tvShow.genres.join(', '),
-                  "inline": true
-                },
-                {
-                  "name": "Status",
-                  "value": tvShow.status,
-                  "inline": true
-                },
-                {
-                  "name": "Rating",
-                  "value": tvShow.ratings.value + " (" + tvShow.ratings.votes + " votes)",
-                  "inline": true
-                },
-                {
-                  "name": "Runtime",
-                  "value": tvShow.runtime + " mins",
-                  "inline": true
-                },
-                {
-                  "name": "TVDb ID",
-                  "value": tvShow.tvdbId,
-                  "inline": true
-                }
-              ]
+         [
+           {
+             "name": "Year",
+             "value": info.Year,
+             "inline": true
+           },
+           {
+             "name": "Rated",
+             "value": info.Rated,
+             "inline": true
+           },
+           {
+             "name": "Release date",
+             "value": info.Released,
+             "inline": true
+           },
+           {
+             "name": "Genre",
+             "value": genre,
+             "inline": true
+           },
+           {
+             "name": "Runtime",
+             "value": info.Runtime,
+             "inline": true
+           },
+           {
+             "name": "Rating",
+             "value": votes,
+             "inline": true
+           },
+           {
+             "name": "IMDb ID",
+             "value": info.imdbID,
+             "inline": true
+           },
+           {
+             "name": "TVDb ID",
+             "value": tvShow.tvdbId,
+             "inline": true
+           }
+         ]
             }
           }
-        }
+        )
       }
-    )
+    });
   });
 };
 

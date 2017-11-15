@@ -16,7 +16,7 @@ exports.run = (bot, msg, args = []) => {
 
            const endDatevar = info.data[0].attributes.endDate === null ? "Still running" : info.data[0].attributes.endDate;
            const volumeCountvar = info.data[0].attributes.volumeCount === null ? "No count registered" : info.data[0].attributes.volumeCount;
-           const chapterCountvar = info.data[0].attributes.chapterCount === null ? "No count registered" : info.data[0].attributes.chapterCount;
+           const chapterCountvar = info.data[0].attributes.chapterCount === null ? "No count" : info.data[0].attributes.chapterCount;
            const overview = info.data[0].attributes.synopsis === null ? "No description" : info.data[0].attributes.synopsis;
            const status = info.data[0].attributes.status === "finished" ? "Finished" : "Running";
            const endDate = info.data[0].attributes.status === null ? "Still running" : "Running";
@@ -25,7 +25,7 @@ exports.run = (bot, msg, args = []) => {
 
           msg.channel.send({
                 "embed": {
-                  "title": info.data[0].attributes.titles.en,
+                  "title": info.data[0].attributes.canonicalTitle,
                   "description": trimmedOverview + "... https://kitsu.io/manga/" + info.data[0].attributes.slug,
                   "color": 11360941,
                   "timestamp": new Date(),
