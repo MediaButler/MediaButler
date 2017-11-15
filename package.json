@@ -19,6 +19,7 @@
     "node-tvdb": "^3.2.0",
     "nodebrainz": "^2.1.1",
     "request": "^2.83.0",
+    "simple-goodreads": "^1.0.1",
     "sonarr-api": "^0.2.0"
   }
 }
