@@ -11,6 +11,7 @@ Still early dev, but active and welcomes any/all help
 
 ## Installation
 [Complete configuration tutorial](https://github.com/MediaButler/MediaButler/wiki/Install)
+
     git clone https://github.com/MediaButler/MediaButler.git
     cd MediaButler
     cp settings.example.json settings.json
