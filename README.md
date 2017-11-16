@@ -18,3 +18,6 @@ Please see the wiki page https://github.com/MediaButler/MediaButler/wiki/Install
 ## Other help and support
 Our Discord for chat and support:
 https://discord.gg/nH9t5sm
+
+## License
+This is free software under the GPL v2 open source license. Feel free to do with it what you wish, but any modification must be open sourced.
