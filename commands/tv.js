@@ -46,49 +46,49 @@ exports.run = (bot, msg, args = []) => {
                 "url": "https://www.thetvdb.com/?tab=series&id=" + tvShow.tvdbId,
                 "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
               },
-              "fields":
-         [
-           {
-             "name": "Year",
-             "value": info.Year,
-             "inline": true
-           },
-           {
-             "name": "Rated",
-             "value": info.Rated,
-             "inline": true
-           },
-           {
-             "name": "Release date",
-             "value": info.Released,
-             "inline": true
-           },
-           {
-             "name": "Genre",
-             "value": genre,
-             "inline": true
-           },
-           {
-             "name": "Runtime",
-             "value": info.Runtime,
-             "inline": true
-           },
-           {
-             "name": "Rating",
-             "value": rating + votes,
-             "inline": true
-           },
-           {
-             "name": "IMDb ID",
-             "value": info.imdbID,
-             "inline": true
-           },
-           {
-             "name": "TVDb ID",
-             "value": tvShow.tvdbId,
-             "inline": true
-           }
-         ]
+                  "fields":
+             [
+               {
+                 "name": "Year",
+                 "value": info.Year,
+                 "inline": true
+               },
+               {
+                 "name": "Rated",
+                 "value": info.Rated,
+                 "inline": true
+               },
+               {
+                 "name": "Release date",
+                 "value": info.Released,
+                 "inline": true
+               },
+               {
+                 "name": "Genre",
+                 "value": genre,
+                 "inline": true
+               },
+               {
+                 "name": "Runtime",
+                 "value": info.Runtime,
+                 "inline": true
+               },
+               {
+                 "name": "Rating",
+                 "value": rating + votes,
+                 "inline": true
+               },
+               {
+                 "name": "IMDb ID",
+                 "value": info.imdbID,
+                 "inline": true
+               },
+               {
+                 "name": "TVDb ID",
+                 "value": tvShow.tvdbId,
+                 "inline": true
+               }
+             ]
             }
           }
         )
