@@ -20,7 +20,18 @@ Still early dev, but active and welcomes any/all help
     nano apiauth.json
     npm install
 
-## Authors
+## Features
+
+* Pull info for tv shows, films, anime, manga, books and music artists.
+* Pull user stats from PlexPy.
+* Pull user watched history from PlexPy.
+* Pull Plex now playing info from PlexPy.
+* Pull tonights shows info from Sonarr.
+* Add tv shows to Sonarr.
+* Have MediaButler remind you what and when.
+* Show bot uptime.
+
+# Authors
 * [Vertig0ne](https://github.com/Vertig0ne)
 * [Tailchakra](https://github.com/Tailchakra)
 
