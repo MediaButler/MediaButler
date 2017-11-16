@@ -31,7 +31,7 @@ Still early dev, but active and welcomes any/all help
 * Have MediaButler remind you what and when.
 * Show bot uptime.
 
-# Authors
+## Authors
 * [Vertig0ne](https://github.com/Vertig0ne)
 * [Tailchakra](https://github.com/Tailchakra)
 
