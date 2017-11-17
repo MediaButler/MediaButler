@@ -1,6 +1,6 @@
 const apiauth = require('../apiauth.json');
-const SonarrAPI = require('../node_modules/sonarr-api/lib/api.js');
-const sonarr = new SonarrAPI({
+var SonarrAPI = require('sonarr-api');
+var sonarr = new SonarrAPI({
   hostname: apiauth.radarr_host.split(":")[0],
   apiKey: apiauth.radarr_apikey,
   port: apiauth.radarr_host.split(":")[1],
@@ -29,8 +29,6 @@ exports.run = (client, msg, args, perms) => {
   if (args[2]) {
     rootPath = args[2];
   }
-
-
 };
 
 exports.conf = {

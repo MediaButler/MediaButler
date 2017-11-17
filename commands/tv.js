@@ -1,6 +1,6 @@
 const request = require('request');
 const apiauth = require('../apiauth.json');
-const SonarrAPI = require('../node_modules/sonarr-api/lib/api.js');
+const SonarrAPI = require('sonarr-api');
 const sonarr = new SonarrAPI({
   hostname: apiauth.sonarr_host.split(":")[0],
   apiKey: apiauth.sonarr_apikey,
