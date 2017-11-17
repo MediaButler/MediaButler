@@ -13,7 +13,7 @@ exports.run = (bot, msg, args = []) => {
     if (!error) {
       let info = JSON.parse(body);
       let correctedArtist = info.corrections.correction.artist.name;
-      let url = `http://ws.audioscrobbler.com/2.0/?method=artist.getInfo&artist=${correctedArtist}&api_key=cd564d2f0dd91dd49b4e1d655dffd02c&format=json`;
+      let url = 'http://ws.audioscrobbler.com/2.0/?method=artist.getInfo&artist=' + correctedArtist + '&api_key=cd564d2f0dd91dd49b4e1d655dffd02c&format=json';
       request(url, function (error, res2, body) {
         if (!error) {
           let info = JSON.parse(body);
