@@ -2,43 +2,43 @@ const apiauth = require('../apiauth.json');
 const request = require('request');
 
 exports.run = (bot, msg, params = []) => {
-  const max = 4462;
+  let max = 4462;
   let url;
   if (params[1] === undefined) {
-    url = 'http://' + apiauth.plexpy_host + apiauth.plexpy_baseurl + '/api/v2?apikey=' + apiauth.plexpy_apikey + '&cmd=get_history&length=5&user=' + params[0];
+    url = `http://${apiauth.plexpy_host}${apiauth.plexpy_baseurl}/api/v2?apikey=${apiauth.plexpy_apikey}&cmd=get_history&length=5&user=${params[0]}`;
   } else {
-    url = 'http://' + apiauth.plexpy_host + apiauth.plexpy_baseurl + '/api/v2?apikey=' + apiauth.plexpy_apikey + '&cmd=get_history&length=' + params[1] + '&user=' + params[0];
+    url = `http://${apiauth.plexpy_host}${apiauth.plexpy_baseurl}/api/v2?apikey=${apiauth.plexpy_apikey}&cmd=get_history&length=${params[1]}&user=${params[0]}`;
   }
   msg.channel.startTyping();
   request(url, function (error, response, body) {
     if (!error && response.statusCode === 200) {
-      const info = JSON.parse(body);
+      let info = JSON.parse(body);
       msg.channel.send({
-            "embed": {
-              "color": 11360941,
-              "timestamp": new Date(),
-              "footer": {
-                "icon_url": msg.author.avatarURL,
-                "text": "Called by " + msg.author.username
-              },
-              "author": {
-                "name": "Stats for " + params[0]
-              },
-              "fields": [
-                {
-                  "name": "Total Duration",
-                  "value": info.response.data.total_duration,
-                  "inline": true
-                },
-                {
-                  "name": "Shown Duration",
-                  "value": info.response.data.filter_duration,
-                  "inline": true
-                }
-              ]
+        "embed": {
+          "color": 11360941,
+          "timestamp": new Date(),
+          "footer": {
+            "icon_url": msg.author.avatarURL,
+            "text": `Called by ${msg.author.username}`
+          },
+          "author": {
+            "name": `Stats for ${params[0]}`
+          },
+          "fields": [
+            {
+              "name": "Total Duration",
+              "value": info.response.data.total_duration,
+              "inline": true
+            },
+            {
+              "name": "Shown Duration",
+              "value": info.response.data.filter_duration,
+              "inline": true
             }
-          }
-      );
+          ]
+        }
+
+      });
       if (info.response.data.data.length > 0) {
         info.response.data.data.forEach(f => {
           msg.channel.send(
@@ -62,12 +62,12 @@ exports.run = (bot, msg, params = []) => {
                     },
                     {
                       "name": "Player",
-                      "value": f.platform + " " + f.player,
+                      "value": `${f.platform} ${f.player}`,
                       "inline": true
                     },
                     {
                       "name": "Watched",
-                      "value": f.percent_complete + "%",
+                      "value": `${f.percent_complete}%`,
                       "inline": true
                     }
                   ]
@@ -103,6 +103,6 @@ function timeConverter(UNIX_timestamp) {
   const hour = a.getHours();
   const min = a.getMinutes();
   const sec = a.getSeconds();
-  const time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
+  const time = `${date} ${month} ${year} ${hour}:${min}:${sec}`;
   return time;
 }

@@ -8,11 +8,11 @@ const sonarr = new SonarrAPI({
 });
 
 exports.run = (bot, msg, params = []) => {
-  const max = 4462;
+  let max = 4462;
   msg.channel.send('Airing tonight:');
-  const today = new Date();
-  const yesterday = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 1);
-  const tomorrow = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
+  let today = new Date();
+  let yesterday = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 1);
+  let tomorrow = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
   today.setUTCHours(20);
   tomorrow.setUTCHours(0o6);
   sonarr.get("calendar", {
@@ -26,7 +26,7 @@ exports.run = (bot, msg, params = []) => {
           "title": r.title,
           "color": 1360941,
           "author": {
-            "name": r.series.title + " (S" + r.seasonNumber + "E" + r.episodeNumber + ")"
+            "name": `${r.series.title} S${r.seasonNumber}E${r.episodeNumber})`
           },
           "fields": [
             {
@@ -36,12 +36,12 @@ exports.run = (bot, msg, params = []) => {
             },
             {
               "name": "Runtime",
-              "value": r.series.runtime + " mins",
+              "value": `${r.series.runtime} mins`,
               "inline": true
             },
             {
               "name": "When",
-              "value": r.airDate + " " + r.series.airTime,
+              "value": `${r.airDate} ${r.series.airTime}`,
               "inline": true
             }
           ]
@@ -50,7 +50,7 @@ exports.run = (bot, msg, params = []) => {
       msg.channel.stopTyping();
     });
   }, function (err) {
-    msg.channel.send("There was a error processing the request: " + err);
+    msg.channel.send(`There was a error processing the request: ${err}`);
   });
 };
 
