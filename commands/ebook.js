@@ -14,7 +14,6 @@ exports.run = (bot, msg, args = []) => {
       let overview = res[0].description === null ? "No description" : res[0].description;
       let trimmedOverview = overview.substring(0, 200);
 
-      console.log(res[0]);
       msg.channel.send({
         "embed": {
           "title": res[0].title,
