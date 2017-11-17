@@ -7,12 +7,12 @@ const sonarr = new SonarrAPI({
   urlBase: apiauth.radarr_baseurl
 });
 
-exports.run = (client, message, args, perms) => {
+exports.run = (client, msg, args, perms) => {
   let profileId = apiauth.radarr_defaultProfileId;
   let rootPath = apiauth.radarr_defaultRootPath;
 
   if (!args[0]) {
-    message.channel.send("No variables found. run `.help addtv`");
+    msg.channel.send("No variables found. run `.help addtv`");
     return;
   }
 
@@ -21,7 +21,7 @@ exports.run = (client, message, args, perms) => {
       let profile = result.find(q => q.name === args[1]);
       profileId = profile.id;
       if (profileId === undefined) {
-        message.channel.send("Profile not found.");
+        msg.channel.send("Profile not found.");
       }
     });
   }

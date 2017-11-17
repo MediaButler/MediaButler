@@ -35,7 +35,7 @@ exports.run = (client, msg, args, perms) => {
 
   msg.channel.startTyping();
 
-  sonarr.get("series/lookup", { "term": "tvdb:" + args[0] }).then(function (result) {
+  sonarr.get("series/lookup", { "term": `tvdb: ${args[0]}` }).then(function (result) {
     if (result.length === 0) {
       msg.chanel.send("Unable to pull show matching that ID");
     }
@@ -58,7 +58,7 @@ exports.run = (client, msg, args, perms) => {
       let banner = result[0].images.find(o => o.coverType === "banner");
       let bannerUrl = banner.url;
       let dateFirstAired = new Date(postResult.firstAired);
-      let firstAirDateStr = dateFirstAired.getFullYear() + "-" + dateFirstAired.getMonth() + "-" + dateFirstAired.getDate();
+      let firstAirDateStr = `${dateFirstAired.getFullYear()}-${dateFirstAired.getMonth()}-${dateFirstAired.getDate()}`;
 
       msg.channel.send({
         "embed": {
@@ -68,14 +68,14 @@ exports.run = (client, msg, args, perms) => {
           "timestamp": new Date(),
           "footer": {
             "icon_url": msg.author.avatarURL,
-            "text": "Called by " + msg.author.username
+            "text": `Called by ${msg.author.username}`
           },
           "image": {
             "url": banner.url
           },
           "author": {
             "name": "Successfully added to Sonarr",
-            "url": "https://www.thetvdb.com/?tab=series&id=" + tvShow.tvdbId,
+            "url": `https://www.thetvdb.com/?tab=series&id=${tvShow.tvdbId}`,
             "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
           },
           "fields": [
@@ -106,12 +106,12 @@ exports.run = (client, msg, args, perms) => {
             },
             {
               "name": "Rating",
-              "value": tvShow.ratings.value + " (" + tvShow.ratings.votes + " votes)",
+              "value": `${tvShow.ratings.value}(${tvShow.ratings.votes}votes)`,
               "inline": true
             },
             {
               "name": "Runtime",
-              "value": tvShow.runtime + " mins",
+              "value": `${tvShow.runtime} min`,
               "inline": true
             },
             {
