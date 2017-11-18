@@ -1,11 +1,11 @@
 const Discord = require('discord.js');
 
 exports.run = (client, message) => {
-  const ms = client.uptime;
-  const cd = 24 * 60 * 60 * 1000; // Calc days
-  const ch = 60 * 60 * 1000; // Calc hours
-  const cm = 60 * 1000; // Calc minutes
-  const cs = 1000; // Calc seconds
+  let ms = client.uptime;
+  let cd = 24 * 60 * 60 * 1000; // Calc days
+  let ch = 60 * 60 * 1000; // Calc hours
+  let cm = 60 * 1000; // Calc minutes
+  let cs = 1000; // Calc seconds
   let days = Math.floor(ms / cd);
   let dms = days * cd; // Days, in ms
   let hours = Math.floor((ms - dms) / ch);
@@ -30,25 +30,25 @@ exports.run = (client, message) => {
   if (days === 1) {
     dateStrings.push('**1** day');
   } else if (days > 1) {
-    dateStrings.push('**' + String(days) + '** days');
+    dateStrings.push(`**${String(days)}** days`);
   }
 
   if (hours === 1) {
     dateStrings.push('**1** hour');
   } else if (hours > 1) {
-    dateStrings.push('**' + String(hours) + '** hours');
+    dateStrings.push(`**${String(hours)}** hours`);
   }
 
   if (minutes === 1) {
     dateStrings.push('**1** minute');
   } else if (minutes > 1) {
-    dateStrings.push('**' + String(minutes) + '** minutes');
+    dateStrings.push(`**${String(minutes)}** minutes`);
   }
 
   if (seconds === 1) {
     dateStrings.push('**1** second');
   } else if (seconds > 1) {
-    dateStrings.push('**' + String(seconds) + '** seconds');
+    dateStrings.push(`**${String(seconds)}** seconds`);
   }
 
   let dateString = '';

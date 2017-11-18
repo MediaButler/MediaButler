@@ -1,74 +1,77 @@
-const apiauth = require('../apiauth.json');
 const request = require('request');
 
 exports.run = (bot, msg, args = []) => {
-  const max = 4462;
-  const query = args.join(" ");
+  let max = 4462;
+  let query = args.join(" ");
+
   if (!args[0]) {
-    msg.channel.send('Dont forget to add an artist!');
-  } else {
-    const url = 'http://' + apiauth.lidarr_host + apiauth.lidarr_baseurl + '/api/v1/artist/lookup?term=' + query + '&apikey=' + apiauth.lidarr_apikey;
-    request(url, function (error, res, body) {
-      if (!error && res.statusCode === 200) {
-        let info = JSON.parse(body);
-        if (info[0] === undefined) {
-          msg.channel.send('Cant find artist.')
-        } else {
+    msg.channel.send('stop screwing up');
+  }
+  let urlCorrection = `http://ws.audioscrobbler.com/2.0/?method=artist.getCorrection&artist=${query}&api_key=cd564d2f0dd91dd49b4e1d655dffd02c&format=json`;
+  request(urlCorrection, function (error, res2, body) {
+    if (!error) {
+      let info = JSON.parse(body);
+      let correctedArtist = info.corrections.correction.artist.name;
+      let url = `http://ws.audioscrobbler.com/2.0/?method=artist.getInfo&artist=${correctedArtist}&api_key=cd564d2f0dd91dd49b4e1d655dffd02c&format=json`;
+      request(url, function (error, res2, body) {
+        if (!error) {
+          let info = JSON.parse(body);
 
-          const overview = info[0].overview === undefined ? "No description" : info[0].overview;
-          const imageUrl = info[0].images[3] === undefined ? "https://via.placeholder.com/200x300" : info[0].images[3].url;
-          const active = info[0].ended === false ? "Yes" : "No";
-
+          let onTour = info.artist.onTour === "0" ? "No" : "Yes";
+          let overview = info.artist.bio.content === null ? "No description" : info.artist.bio.content;
           let trimmedOverview = overview.substring(0, 200);
 
           msg.channel.send({
-                "content": "As requested....",
-                "embed": {
-                  "title": info[0].artistName,
-                  "description": trimmedOverview + "... https://musicbrainz.org/artist/" + info[0].foreignArtistId,
-                  "color": 11360941,
-                  "timestamp": new Date(),
-                  "footer": {
-                    "icon_url": msg.author.avatarURL,
-                    "text": "Called by " + msg.author.username
-                  },
-                  "thumbnail": {
-                    "url": imageUrl,
-                  },
-                  "author": {
-                    "name": info[0].artistName,
-                    "url": "https://musicbrainz.org/artist/" + info[0].foreignArtistId,
-                    "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
-                  },
-                  "fields": [
-                    {
-                      "name": "Artist type",
-                      "value": info[0].artistType,
-                      "inline": true
-                    },
-                    {
-                      "name": "Genre",
-                      "value": info[0].disambiguation || "No genre defined",
-                      "inline": true
-                    },
-                    {
-                      "name": "Artist active",
-                      "value": active,
-                      "inline": true
-                    },
-                    {
-                      "name": "Musicbrainz ID",
-                      "value": info[0].foreignArtistId,
-                      "inline": false
-                    }
-                  ]
+            "embed": {
+              "title": info.artist.name,
+              "description": `${trimmedOverview}...${info.artist.url}`,
+              "color": 11360941,
+              "timestamp": new Date(),
+              "footer": {
+                "icon_url": msg.author.avatarURL,
+                "text": `Called by ${msg.author.username}`
+              },
+              "thumbnail": {
+                "url": info.artist.image[2]['#text'],
+              },
+              "author": {
+                "name": "Artist Information",
+                "url": info.artist.url,
+                "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
+              },
+              "fields": [
+                {
+                  "name": "Published",
+                  "value": info.artist.bio.published,
+                  "inline": true
+                },
+                {
+                  "name": "Genre",
+                  "value": `${info.artist.tags.tag[0].name}, ${info.artist.tags.tag[1].name}`,
+                  "inline": true
+                },
+                {
+                  "name": "LastFM listeners",
+                  "value": info.artist.stats.listeners,
+                  "inline": true
+                },
+                {
+                  "name": "On tour",
+                  "value": onTour,
+                  "inline": true
+                },
+                {
+                  "name": "Musicbrainz ID",
+                  "value": info.artist.mbid,
+                  "inline": false
                 }
-              }
-          );
-        } // if(!error
-      }
-    });
-  }
+              ]
+            }
+          })
+        }
+      });
+    }
+  });
 };
 
 exports.conf = {

@@ -1,5 +1,5 @@
 const fs = require('fs');
-exports.run = (client, message, args) => {
+exports.run = (client, msg, args) => {
   let command;
   if (client.commands.has(args[0])) {
     command = args[0];
@@ -8,11 +8,11 @@ exports.run = (client, message, args) => {
   }
   if (!command) {
     fs.readdir('./commands/', (err, files) => {
-      if (err) message.channel.send(err);
-      message.channel.send(`Reloading a total of ${files.length} commands.`);
+      if (err) msg.channel.send(err);
+      msg.channel.send(`Reloading a total of ${files.length} commands.`);
       files.forEach(f => {
-        const props = require(`./${f}`);
-        message.channel.send(`Loading Command: ${props.help.name}.`)
+        let props = require(`./${f}`);
+        msg.channel.send(`Loading Command: ${props.help.name}.`)
             .then(m => {
               client.reload(props.help.name)
                   .then(() => {
@@ -23,9 +23,9 @@ exports.run = (client, message, args) => {
                   });
             });
       })
-    }) //return message.channel.send(`I cannot find the command: ${args[0]}`);
+    }) //return msg.channel.send(`I cannot find the command: ${args[0]}`);
   } else {
-    message.channel.send(`Reloading: ${command}`)
+    msg.channel.send(`Reloading: ${command}`)
         .then(m => {
           client.reload(command)
               .then(() => {
