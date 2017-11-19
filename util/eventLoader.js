@@ -9,4 +9,5 @@ module.exports = client => {
 //  client.on('guildBanAdd', reqEvent('guildBanAdd'));
 //  client.on('guildBanRemove', reqEvent('guildBanRemove'));
   client.on('guildCreate', reqEvent('guildCreate'));
+  client.on('guildDelete', reqEvent('guildDelete'));  
 };
