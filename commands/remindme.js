@@ -10,10 +10,10 @@ exports.run = (client, message, args) => {
   } else if (isNaN(args[0])) {
     message.channel.send(`Invalid input, first argument should be a number`);
   } else {
-    const value = args[0];
-    const final = value * 60000;
-    const original = args.slice(1);
-    const finalText = original.join(" ");
+    let value = args[0];
+    let final = value * 60000;
+    let original = args.slice(1);
+    let finalText = original.join(" ");
     message.channel.send(`I will make sure to remind you in ${value} minute(s).`);
 
     function timer() {

@@ -2,29 +2,28 @@ const apiauth = require('../apiauth.json');
 const request = require('request');
 exports.run = (bot, msg, params = []) => {
   const max = 4462;
-  let url = 'http://' + apiauth.plexpy_host + apiauth.plexpy_baseurl + '/api/v2?apikey=' + apiauth.plexpy_apikey + '&cmd=get_activity';
+  let url = `http://${apiauth.plexpy_host}${apiauth.plexpy_baseurl}/api/v2?apikey=${apiauth.plexpy_apikey}&cmd=get_activity`;
   msg.channel.startTyping();
   msg.channel.send("Starting...")
-    .then(m => {
-      m.edit("Querying PlexPy for Information...");
-      request(url, function (error, response, body) {
-        if (error && response.statusCode !== 200) {
-          m.edit("ERR: Unable to retrieve data from PlexPy.");
-          return;
-        }
-        let info = JSON.parse(body);
-        if (info === undefined) {
-          m.edit("ERR: Unable to parse information from PlexPy");
-          return;
-        }
+      .then(m => {
+        m.edit("Querying PlexPy for Information...");
+        request(url, function (error, response, body) {
+          if (error && response.statusCode !== 200) {
+            m.edit("ERR: Unable to retrieve data from PlexPy.");
+            return;
+          }
+          let info = JSON.parse(body);
+          if (info === undefined) {
+            m.edit("ERR: Unable to parse information from PlexPy");
+            return;
+          }
 
-        m.edit("There are currently " + info.response.data.stream_count + " active streams");
-        if (info.response.data.stream_count > 0) {
-          let i = 0;
-          info.response.data.sessions.forEach(s => {
-            msg.channel.send(
-              {
-                "content": "Steam " + i + " Info",
+          m.edit(`There are currently ${info.response.data.stream_count} active streams`);
+          if (info.response.data.stream_count > 0) {
+            let i = 0;
+            info.response.data.sessions.forEach(s => {
+              msg.channel.send({
+                "content": `Stream ${i} Info`,
                 "embed": {
                   "title": s.full_title,
                   "description": s.summary,
@@ -32,15 +31,15 @@ exports.run = (bot, msg, params = []) => {
                   "timestamp": new Date(),
                   "footer": {
                     "icon_url": msg.author.avatarURL,
-                    "text": "Called by " + msg.author.username
+                    "text": `Called by ${msg.author.username}`
                   },
                   "author": {
-                    "name": "Stream " + i
+                    "name": `Stream ${i}`
                   },
                   "fields": [
                     {
                       "name": "Resolution",
-                      "value": s.stream_video_width + 'x' + s.stream_video_resolution,
+                      "value": `${s.stream_video_width}x${s.stream_video_resolution}`,
                       "inline": true
                     },
                     {
@@ -56,12 +55,12 @@ exports.run = (bot, msg, params = []) => {
                   ]
                 }
               });
-            i++;
-          })
-        }
+              i++;
+            })
+          }
+        });
       });
-    });
-    msg.channel.stopTyping();    
+  msg.channel.stopTyping();
 };
 
 exports.conf = {
