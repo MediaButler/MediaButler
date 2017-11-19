@@ -1,3 +1,4 @@
+const sqlite3 = require('sqlite3').verbose();
 exports.run = (client, message, params, perms) => {
       message.channel.send("Hello, World!");
 };
