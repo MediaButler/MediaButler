@@ -7,7 +7,7 @@ module.exports = (guild, client) => {
     const guildId = guild.id;
     db.serialize(() => 
     {
-        db.run(`INSERT INTO guildSettings("guildId", "setting")
+        db.run(`INSERT INTO guildSettings('guildId', 'setting')
             VALUES(guildId, "plexpy.host"),
                 (guildId, "plexpy.baseurl"),
                 (guildId, "plexpy.apikey"),
