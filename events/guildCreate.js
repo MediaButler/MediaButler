@@ -7,24 +7,24 @@ module.exports = (guild, client) => {
     const guildId = guild.id;
     db.serialize(() => 
     {
-        db.run(`INSERT INTO guildSettings('guildId', 'setting')
-            VALUES(guildId, "plexpy.host"),
-                (guildId, "plexpy.baseurl"),
-                (guildId, "plexpy.apikey"),
-                (guildId, "sonarr.host"),
-                (guildId, "sonarr.baseurl"),
-                (guildId, "sonarr.apikey"),
-                (guildId, "radarr.host"),
-                (guildId, "radarr.baseurl"),
-                (guildId, "radarr.apikey"),
-                (guildId, "lidarr.host"),
-                (guildId, "lidarr.baseurl"),
-                (guildId, "lidarr.apikey"),
-                (guildId, "tmdb.apikey"),
-                (guildId, "tvdb.apikey"),
-                (guildId, "self.adminChannel"),
-                (guildId, "self.adminRole"),
-                (guildId, "self.modRole")
+        db.run(`INSERT INTO guildSettings(guildId, setting)
+            VALUES(${guildId}, "plexpy.host"),
+                (${guildId}, "plexpy.baseurl"),
+                (${guildId}, "plexpy.apikey"),
+                (${guildId}, "sonarr.host"),
+                (${guildId}, "sonarr.baseurl"),
+                (${guildId}, "sonarr.apikey"),
+                (${guildId}, "radarr.host"),
+                (${guildId}, "radarr.baseurl"),
+                (${guildId}, "radarr.apikey"),
+                (${guildId}, "lidarr.host"),
+                (${guildId}, "lidarr.baseurl"),
+                (${guildId}, "lidarr.apikey"),
+                (${guildId}, "tmdb.apikey"),
+                (${guildId}, "tvdb.apikey"),
+                (${guildId}, "self.adminChannel"),
+                (${guildId}, "self.adminRole"),
+                (${guildId}, "self.modRole")
         `);
     });
     db.close();
