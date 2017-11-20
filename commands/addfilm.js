@@ -5,21 +5,22 @@ exports.run = (client, msg, args, perms) => {
   getSettings(msg.guild.id)
   .then((settings) => {
     settings = JSON.parse(settings);
-    let radarrHost = settings.find(x => x.setting == "radarr.host");
-    let radarrBaseurl = settings.find(x => x.setting == "radarr.baseurl");
-    let radarrApikey = settings.find(x => x.setting == "radarr.apikey");
-    let radarrDefaultProfileId = settings.find(x => x.setting == "radarr.defaultprofileid");
-    let radarrDefaultRootPath = settings.find(x => x.setting == "radarr.defaultrootpath");
+    const host = settings.find(x => x.setting == "radarr.host").value;
+    const baseUrl = settings.find(x => x.setting == "radarr.baseurl").value;
+    const apiKey = settings.find(x => x.setting == "radarr.apikey").value;
+    const defaultProfileId = settings.find(x => x.setting == "radarr.defaultprofileid").value;
+    const defaultRootPath = settings.find(x => x.setting == "radarr.defaultrootpath").value;
 
-    var sonarr = new SonarrAPI({
-      hostname: radarrHost.value.split(":")[0],
-      apiKey: radarrApikey.value,
-      port: radarrHost.value.split(":")[1],
-      urlBase: radarrBaseurl.value
-    });
+    if (host == null || baseUrl == null || apiKey == null)
+    {
+      msg.channel.send("Radarr settings not configured");
+      return;
+    }
+
+    const radarr = new SonarrAPI({ hostname: host.split(":")[0], apiKey: apiKey, port: host.split(":")[1], urlBase: baseUrl });
     
-    let profileId = radarrDefaultProfileId.value;
-    let rootPath = radarrDefaultRootPath.value;
+    let profileId = defaultProfileId;
+    let rootPath = defaultRootPath;
 
     if (!args[0]) {
       msg.channel.send("No variables found. run `.help addtv`");
