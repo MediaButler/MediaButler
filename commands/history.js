@@ -9,12 +9,13 @@ exports.run = (bot, msg, params = []) => {
     const plexpyHost = settings.find(x => x.setting == "plexpy.host").value;
     const plexpyBaseurl = settings.find(x => x.setting == "plexpy.baseurl").value;
     const plexpyApikey = settings.find(x => x.setting == "plexpy.apikey").value;
-    let length = 5;
-    let url = `http://${plexpyHost}${plexpyBaseurl}/api/v2?apikey=${plexpyApikey}&cmd=get_history&length=${length}&user=${query}`;
 
     if (!params[0]) msg.channel.send("ERR: No username specified"); return;
     let query = params[0];
     if (params[1]) length = params[1];
+
+    let length = 5;
+    let url = `http://${plexpyHost}${plexpyBaseurl}/api/v2?apikey=${plexpyApikey}&cmd=get_history&length=${length}&user=${query}`;
 
     msg.channel.startTyping();
     request(url, function (error, response, body) {
