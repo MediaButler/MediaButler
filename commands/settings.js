@@ -6,7 +6,8 @@ exports.run = (client, message, params = [], perms) => {
     {
         let guildId = message.guild.id;
         getSettings(guildId)
-        .then((settings) => { console.log(settings); });
+        .then((res) => { console.log(res); });
+
         return;
     }
     let setting = params[0];
