@@ -7,7 +7,9 @@ exports.run = (client, message, params = [], perms) => {
     if (params[0] === undefined)
     {
         let guildId = message.guild.id;
-        console.log(getSettings(guildId));
+        let settings = getSettings(guildId);
+        console.log(settings);
+        return;
     }
     let setting = params[0];
     let value = params[1];
