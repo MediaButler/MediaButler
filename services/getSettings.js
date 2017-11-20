@@ -9,5 +9,5 @@ module.exports = (guildId) =>
             return JSON.stringify(rows);
             db.close();
         });
-    }
+    });
 }
