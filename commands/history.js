@@ -41,7 +41,7 @@ exports.run = (bot, msg, params = []) => {
         if (info.response.data.data.length > 0) {
           info.response.data.data.forEach(f => {
 
-            msg.channel.send({embed: createHistoryItemModal(embedItem)});
+            msg.channel.send({embed: createHistoryItemModal(f)});
           });
         } else {
           msg.channel.send("Sorry, no results found");
