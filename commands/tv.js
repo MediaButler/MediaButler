@@ -1,5 +1,6 @@
 const getSettings = require('../services/getSettings');
 const SonarrAPI = require('sonarr-api');
+const request = require('request');
 
 exports.run = (bot, msg, args = []) => {
   let max = 4462;
