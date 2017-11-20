@@ -6,9 +6,9 @@ module.exports = function (guildId)
     let sql = `SELECT setting,value FROM guildSettings WHERE guildId = ${guildId}`;
     db.serialize(function() {
         db.all(sql, function(err, rows) {
-            console.log(rows);
-            return (JSON.stringify(rows));
+            let output = JSON.stringify(rows);
         });
     });
     db.close();
+    return output;
 };
