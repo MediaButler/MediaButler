@@ -1,4 +1,3 @@
-const apiauth = require('../apiauth.json');
 const getSettings = require('../services/getSettings');
 const request = require('request');
 exports.run = (bot, msg, params = []) => {
