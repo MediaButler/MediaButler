@@ -7,28 +7,26 @@ exports.run = (bot, msg, args = []) => {
   getSettings(msg.guild.id)
   .then((settings) => {
     settings = JSON.parse(settings);
-    const sonarrHost = settings.find(x => x.setting == "sonarr.host");
-    const sonarrBaseurl = settings.find(x => x.setting == "sonarr.baseurl");
-    const sonarrApikey = settings.find(x => x.setting == "sonarr.apikey");
-    const sonarrDefaultProfileId = settings.find(x => x.setting == "sonarr.defaultprofileid");
-    const sonarrDefaultRootPath = settings.find(x => x.setting == "sonarr.defaultrootpath");
+    const host = settings.find(x => x.setting == "sonarr.host").value;
+    const baseurl = settings.find(x => x.setting == "sonarr.baseurl").value;
+    const apikey = settings.find(x => x.setting == "sonarr.apikey").value;
+    const defaultProfileId = settings.find(x => x.setting == "sonarr.defaultprofileid").value;
+    const defailtRootPath = settings.find(x => x.setting == "sonarr.defaultrootpath").value;
+    const sonarr = new SonarrAPI({ hostname: host.split(":")[0], apiKey: apikey, port: host.split(":")[1], urlBase: baseurl });
 
-    const sonarr = new SonarrAPI({
-      hostname: sonarrHost.value.split(":")[0],
-      apiKey: sonarrApikey.value,
-      port: sonarrHost.value.split(":")[1],
-      urlBase: sonarrBaseurl.value
-    });
-
-  sonarr.get("series/lookup", { "term": args.join(" ") }).then((result) => {
-    if (result.length === 0) {
-      msg.chanel.send("Unable to pull show matching that ID");
+    if (host == null || baseurl == null || apikey == null) {
+      msg.channel.send("Sonarr settings not configured.");
     }
 
-    let tvShow = result[0];
-    let banner = tvShow.images.find(o => o.coverType === 'banner');
-    let url = `http://www.omdbapi.com/?t=${args.join(" ")}&apikey=5af02350&type=series`;
-    request(url, function (error, res, body) {
+    sonarr.get("series/lookup", { "term": args.join(" ") }).then((result) => {
+      if (result.length === 0) {
+        msg.chanel.send("Unable to pull show matching that ID");
+      }
+
+      let tvShow = result[0];
+      let banner = tvShow.images.find(o => o.coverType === 'banner');
+      let url = `http://www.omdbapi.com/?t=${args.join(" ")}&apikey=5af02350&type=series`;
+      request(url, function (error, res, body) {
       if (!error && res.statusCode === 200) {
         let info = JSON.parse(body);
 
@@ -95,13 +93,12 @@ exports.run = (bot, msg, args = []) => {
                 "value": tvShow.tvdbId,
                 "inline": true
               }
-            ]
-          }
-        })
-      }
+            ]}
+          })
+        }
+      });
     });
   });
-});
 };
 
 exports.conf = {
