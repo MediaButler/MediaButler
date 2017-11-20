@@ -1,13 +1,19 @@
-const apiauth = require('../apiauth.json');
+const getSettings = require('../services/getSettings');
 const request = require('request');
 
 exports.run = (bot, msg, params = []) => {
   let max = 4462;
+  getSettings(msg.guild.id)
+  .then((settings) => {
+    settings = JSON.parse(settings);
+    let plexpyHost = settings.find(x => x.setting == "plexpy.host");
+    let plexpyBaseurl = settings.find(x => x.setting == "plexpy.baseurl");
+    let plexpyApikey = settings.find(x => x.setting == "plexpy.apikey");
   let url;
   if (params[1] === undefined) {
-    url = `http://${apiauth.plexpy_host}${apiauth.plexpy_baseurl}/api/v2?apikey=${apiauth.plexpy_apikey}&cmd=get_history&length=5&user=${params[0]}`;
+    url = `http://${plexpyHost.value}${plexpyBaseurl.value}/api/v2?apikey=${plexpyApikey.value}&cmd=get_history&length=5&user=${params[0]}`;
   } else {
-    url = `http://${apiauth.plexpy_host}${apiauth.plexpy_baseurl}/api/v2?apikey=${apiauth.plexpy_apikey}&cmd=get_history&length=${params[1]}&user=${params[0]}`;
+    url = `http://${plexpyHost.value}${plexpyBaseurl.value}/api/v2?apikey=${plexpyApikey.value}&cmd=get_history&length=${params[1]}&user=${params[0]}`;
   }
   msg.channel.startTyping();
   request(url, function (error, response, body) {
@@ -80,6 +86,7 @@ exports.run = (bot, msg, params = []) => {
     }
     msg.channel.stopTyping();
   });
+});
 };
 
 exports.conf = {

@@ -1,15 +1,23 @@
-const request = require('request');
-const apiauth = require('../apiauth.json');
+const getSettings = require('../services/getSettings');
 const SonarrAPI = require('sonarr-api');
-const sonarr = new SonarrAPI({
-  hostname: apiauth.sonarr_host.split(":")[0],
-  apiKey: apiauth.sonarr_apikey,
-  port: apiauth.sonarr_host.split(":")[1],
-  urlBase: apiauth.sonarr_baseurl
-});
 
 exports.run = (bot, msg, args = []) => {
   let max = 4462;
+  getSettings(msg.guild.id)
+  .then((settings) => {
+    settings = JSON.parse(settings);
+    const sonarrHost = settings.find(x => x.setting == "sonarr.host");
+    const sonarrBaseurl = settings.find(x => x.setting == "sonarr.baseurl");
+    const sonarrApikey = settings.find(x => x.setting == "sonarr.apikey");
+    const sonarrDefaultProfileId = settings.find(x => x.setting == "sonarr.defaultprofileid");
+    const sonarrDefaultRootPath = settings.find(x => x.setting == "sonarr.defaultrootpath");
+
+    const sonarr = new SonarrAPI({
+      hostname: sonarrHost.value.split(":")[0],
+      apiKey: sonarrApikey.value,
+      port: sonarrHost.value.split(":")[1],
+      urlBase: sonarrBaseurl.value
+    });
 
   sonarr.get("series/lookup", { "term": args.join(" ") }).then((result) => {
     if (result.length === 0) {
@@ -92,6 +100,7 @@ exports.run = (bot, msg, args = []) => {
       }
     });
   });
+});
 };
 
 exports.conf = {

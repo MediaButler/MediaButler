@@ -1,14 +1,21 @@
-const apiauth = require('../apiauth.json');
+const getSettings = require('../services/getSettings');
 const request = require('request');
 
 exports.run = (bot, msg, args, perms = []) => {
   let max = 4462;
+  getSettings(msg.guild.id)
+  .then((settings) => {
+    settings = JSON.parse(settings);
+    let plexpyHost = settings.find(x => x.setting == "plexpy.host");
+    let plexpyBaseurl = settings.find(x => x.setting == "plexpy.baseurl");
+    let plexpyApikey = settings.find(x => x.setting == "plexpy.apikey");
+
   if (!args[0]) {
     msg.channel.send('No user selected.');
   } else {
     msg.channel.startTyping();
 
-    let getUsersUrl = `http://${apiauth.plexpy_host}${apiauth.plexpy_baseurl}/api/v2?apikey=${apiauth.plexpy_apikey}&cmd=get_users`;
+    let getUsersUrl = `http://${plexpyHost.value}${plexpyBaseurl.value}/api/v2?apikey=${plexpyApikey.value}&cmd=get_users`;
     request(getUsersUrl, function (e, r, b) {
       let j = JSON.parse(b);
       let user = j.response.data.find(o => o.username === args[0]);
@@ -17,7 +24,7 @@ exports.run = (bot, msg, args, perms = []) => {
       }
       else {
         let userid = user.user_id;
-        let url = `http://${apiauth.plexpy_host}${apiauth.plexpy_baseurl}/api/v2?apikey=${apiauth.plexpy_apikey}&cmd=get_user_watch_time_stats&user_id=${userid}`;
+        let url = `http://${plexpyHost.value}${plexpyBaseurl.value}/api/v2?apikey=${plexpyApikey.value}&cmd=get_user_watch_time_stats&user_id=${userid}`;
         let embed_fields = [];
         request(url, function (error, response, body) {
           if (!error && response.statusCode === 200) {
@@ -51,6 +58,7 @@ exports.run = (bot, msg, args, perms = []) => {
       }
     });
   }
+});
 };
 
 exports.conf = {
