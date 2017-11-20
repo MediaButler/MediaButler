@@ -38,14 +38,13 @@ exports.run = (bot, msg, params = []) => {
         .addField("Shown Duration", info.response.data.filter_duration, true);
         msg.channel.send({embed});
 
-        if (info.response.data.data.length > 0) {
-          info.response.data.data.forEach(f => {
-
-            msg.channel.send({embed: createHistoryItemModal(f)});
-          });
-        } else {
+        if (info.response.data.data.length === 0) {
           msg.channel.send("Sorry, no results found");
+          return;          
         }
+        info.response.data.data.forEach(f => {
+          msg.channel.send({embed: createHistoryItemModal(f)});
+        });
       }
       msg.channel.stopTyping();
     });
