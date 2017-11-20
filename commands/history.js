@@ -6,79 +6,39 @@ exports.run = (bot, msg, params = []) => {
   getSettings(msg.guild.id)
   .then((settings) => {
     settings = JSON.parse(settings);
-    let plexpyHost = settings.find(x => x.setting == "plexpy.host");
-    let plexpyBaseurl = settings.find(x => x.setting == "plexpy.baseurl");
-    let plexpyApikey = settings.find(x => x.setting == "plexpy.apikey");
+    let plexpyHost = settings.find(x => x.setting == "plexpy.host").value;
+    let plexpyBaseurl = settings.find(x => x.setting == "plexpy.baseurl").value;
+    let plexpyApikey = settings.find(x => x.setting == "plexpy.apikey").value;
   let url;
   if (params[1] === undefined) {
-    url = `http://${plexpyHost.value}${plexpyBaseurl.value}/api/v2?apikey=${plexpyApikey.value}&cmd=get_history&length=5&user=${params[0]}`;
+    url = `http://${plexpyHost}${plexpyBaseurl.value}/api/v2?apikey=${plexpyApikey}&cmd=get_history&length=5&user=${params[0]}`;
   } else {
-    url = `http://${plexpyHost.value}${plexpyBaseurl.value}/api/v2?apikey=${plexpyApikey.value}&cmd=get_history&length=${params[1]}&user=${params[0]}`;
+    url = `http://${plexpyHost}${plexpyBaseurl.value}/api/v2?apikey=${plexpyApikey}&cmd=get_history&length=${params[1]}&user=${params[0]}`;
   }
   msg.channel.startTyping();
   request(url, function (error, response, body) {
     if (!error && response.statusCode === 200) {
       let info = JSON.parse(body);
-      msg.channel.send({
-        "embed": {
-          "color": 11360941,
-          "timestamp": new Date(),
-          "footer": {
-            "icon_url": msg.author.avatarURL,
-            "text": `Called by ${msg.author.username}`
-          },
-          "author": {
-            "name": `Stats for ${params[0]}`
-          },
-          "fields": [
-            {
-              "name": "Total Duration",
-              "value": info.response.data.total_duration,
-              "inline": true
-            },
-            {
-              "name": "Shown Duration",
-              "value": info.response.data.filter_duration,
-              "inline": true
-            }
-          ]
-        }
+      const embed = new Discord.RichEmbed()
+      .setAuthor(`Stats for ${params[0]}`)
+      .setColor(11360941)
+      .setTimestamp()
+      .setFooter(`Called by ${msg.author.username}`, msg.author.avatarURL)
+      .addField("Total Duration", info.response.data.total_duration, true)
+      .addField("Shown Duration", info.response.data.filter_duration, true);
+      msg.channel.send({embed});
 
-      });
       if (info.response.data.data.length > 0) {
         info.response.data.data.forEach(f => {
-          msg.channel.send(
-              {
-                "embed": {
-                  "title": f.full_title,
-                  "color": 11360941,
-                  "author": {
-                    "name": "History Item"
-                  },
-                  "fields": [
-                    {
-                      "name": "Watched at",
-                      "value": timeConverter(f.started),
-                      "inline": true
-                    },
-                    {
-                      "name": "Type",
-                      "value": f.transcode_decision,
-                      "inline": true
-                    },
-                    {
-                      "name": "Player",
-                      "value": `${f.platform} ${f.player}`,
-                      "inline": true
-                    },
-                    {
-                      "name": "Watched",
-                      "value": `${f.percent_complete}%`,
-                      "inline": true
-                    }
-                  ]
-                }
-              })
+          const embedItem = new Discord.RichEmbed()
+          .setTitle(f.full_title)
+          .setColor(11360941)
+          .setAuthor("History Item")
+          .addField("Watched at", timeConverter(f.started), true)
+          .addField("Type", f.transcode_decision, true)
+          .addField("Player", `${f.platform} ${f.player}`, true)
+          .addField("Watched", `${f.percent_complete}%`, true);
+          msg.channel.send({embedItem})
         })
       } else {
         msg.channel.send("Sorry, no results found");
