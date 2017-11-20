@@ -1,5 +1,3 @@
-const gs = require('../services/getSettings');
-
 const sqlite3 = require('sqlite3').verbose();
 let db = new sqlite3.Database('./settings.sqlite');
 
@@ -7,7 +5,7 @@ exports.run = (client, message, params = [], perms) => {
     if (params[0] === undefined)
     {
         let guildId = message.guild.id;
-        let settings = gs.getSettings(guildId)
+        getSettings(guildId)
         .then((settings) => { console.log(settings); });
         return;
     }
