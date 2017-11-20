@@ -26,7 +26,7 @@ exports.run = (bot, msg, args = []) => {
         },
         "author": {
           "name": "TV Show Information",
-          "url": `https://www.thetvdb.com/?tab=series&id=${tvShow.tvdbId}`,
+          "url": `https://www.thetvdb.com/?tab=series&id=`,
           "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
         },
         "fields": [
@@ -64,12 +64,12 @@ exports.run = (bot, msg, args = []) => {
             "name": "IMDb ID",
             "value": info.imdbID,
             "inline": true
-          },
-          {
-            "name": "TVDb ID",
-            "value": tvShow.tvdbId,
-            "inline": true
           }
+//          {
+//            "name": "TVDb ID",
+//            "value": tvShow.tvdbId,
+//            "inline": true
+//          }
         ]}
       })
     }
