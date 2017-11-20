@@ -10,7 +10,8 @@ exports.run = (bot, msg, params = []) => {
     const plexpyHost = settings.find(x => x.setting == "plexpy.host").value;
     const plexpyBaseurl = settings.find(x => x.setting == "plexpy.baseurl").value;
     const plexpyApikey = settings.find(x => x.setting == "plexpy.apikey").value;
-
+    let queryLength = 5;
+    
     if (plexpyHost == null || plexpyBaseurl == null || plexpyApikey == null) {
       msg.channel.send("ERR: PlexPy not configured");
       return;
@@ -20,9 +21,8 @@ exports.run = (bot, msg, params = []) => {
       return;
     }
     let query = params[0];
-    if (params[1]) length = params[1];
+    if (params[1]) queryLength = params[1];
 
-    let queryLength = 5;
     let url = `http://${plexpyHost}${plexpyBaseurl}/api/v2?apikey=${plexpyApikey}&cmd=get_history&length=${queryLength}&user=${query}`;
 
     msg.channel.startTyping();
