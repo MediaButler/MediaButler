@@ -56,8 +56,8 @@ client.elevation = message => {
     if (modRole && message.member.roles.has(modRole.id)) permlvl = 2;
     if (adminRole && message.member.roles.has(adminRole.id)) permlvl = 3;
     if (message.author.id === message.guild.ownerid) permlvl = 4;
+    return permlvl;    
   });
-  return permlvl;
 };
 
 var regToken = /[\w\d]{24}\.[\w\d]{6}\.[\w\d-_]{27}/g;
