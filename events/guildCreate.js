@@ -1,34 +1,29 @@
 const sqlite3 = require('sqlite3').verbose();
 let db = new sqlite3.Database('./settings.sqlite');
-
 module.exports = (guild, client) => {
-    // We have joined a new discord server, we need to populate and prepare for configuration.
-    // Looking at a db backend, possibly sqlite to hold the "server configurations"
-    const guildId = guild.id;
-    db.serialize(() => 
-    {
+    db.serialize(() => {
         db.run(`INSERT INTO guildSettings(guildId, setting)
-            VALUES(${guildId}, "plexpy.host"),
-                (${guildId}, "plexpy.baseurl"),
-                (${guildId}, "plexpy.apikey"),
-                (${guildId}, "sonarr.host"),
-                (${guildId}, "sonarr.baseurl"),
-                (${guildId}, "sonarr.apikey"),
-                (${guildId}, "sonarr.defaultprofileid"),
-                (${guildId}, "sonarr.defaultrootpath"),
-                (${guildId}, "radarr.host"),
-                (${guildId}, "radarr.baseurl"),
-                (${guildId}, "radarr.apikey"),
-                (${guildId}, "radarr.defaultprofileid"),
-                (${guildId}, "radarr.defaultrootpath"),                
-                (${guildId}, "lidarr.host"),
-                (${guildId}, "lidarr.baseurl"),
-                (${guildId}, "lidarr.apikey"),
-                (${guildId}, "tmdb.apikey"),
-                (${guildId}, "tvdb.apikey"),
-                (${guildId}, "self.adminChannel"),
-                (${guildId}, "self.adminRole"),
-                (${guildId}, "self.modRole")
+            VALUES(${guild.id}, "plexpy.host"),
+                (${guild.id}, "plexpy.baseurl"),
+                (${guiild.id}, "plexpy.apikey"),
+                (${guild.id}, "sonarr.host"),
+                (${guild.id}, "sonarr.baseurl"),
+                (${guild.id}, "sonarr.apikey"),
+                (${guild.id}, "sonarr.defaultprofileid"),
+                (${guild.id}, "sonarr.defaultrootpath"),
+                (${guild.id}, "radarr.host"),
+                (${guild.id}, "radarr.baseurl"),
+                (${guild.id}, "radarr.apikey"),
+                (${guild.id}, "radarr.defaultprofileid"),
+                (${guild.id}, "radarr.defaultrootpath"),                
+                (${guild.id}, "lidarr.host"),
+                (${guild.id}, "lidarr.baseurl"),
+                (${guild.id}, "lidarr.apikey"),
+                (${guild.id}, "tmdb.apikey"),
+                (${guild.id}, "tvdb.apikey"),
+                (${guild.id}, "self.adminChannel"),
+                (${guild.id}, "self.adminRole"),
+                (${guild.id}, "self.modRole")
         `);
     });
     db.close();
