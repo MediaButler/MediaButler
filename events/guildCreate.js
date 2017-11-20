@@ -1,6 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
 let db = new sqlite3.Database('./settings.sqlite');
-module.exports = (guild, client) => {
+module.exports = (guild) => {
     db.serialize(() => {
         db.run(`INSERT INTO guildSettings(guildId, setting)
             VALUES(${guild.id}, "plexpy.host"),
@@ -27,5 +27,5 @@ module.exports = (guild, client) => {
         `);
     });
     db.close();
-    guild.owner.send(`Hello, I am ${client.user.username} your personal Media Butler!\nTo get going we are going to need to set a few settings, please look at the set command and our github wiki to get going`);
+    guild.owner.send(`Hello, I am ${guild.client.user.username} your personal Media Butler!\nTo get going we are going to need to set a few settings, please look at the set command and our github wiki to get going`);
 };
