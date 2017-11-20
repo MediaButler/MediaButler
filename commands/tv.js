@@ -2,8 +2,6 @@ const request = require('request');
 
 exports.run = (bot, msg, args = []) => {
   let max = 4462;
-  let tvShow = result[0];
-  let banner = tvShow.images.find(o => o.coverType === 'banner');
   let url = `http://www.omdbapi.com/?t=${args.join(" ")}&apikey=5af02350&type=series`;
   request(url, function (error, res, body) {
   if (!error && res.statusCode === 200) {
@@ -28,7 +26,7 @@ exports.run = (bot, msg, args = []) => {
         },
         "author": {
           "name": "TV Show Information",
-          "url": `https://www.thetvdb.com/?tab=series&id=${tvShow.tvdbId}`,
+          "url": `https://www.thetvdb.com/?tab=series&id=`,
           "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
         },
         "fields": [
@@ -66,12 +64,12 @@ exports.run = (bot, msg, args = []) => {
             "name": "IMDb ID",
             "value": info.imdbID,
             "inline": true
-          },
-          {
-            "name": "TVDb ID",
-            "value": tvShow.tvdbId,
-            "inline": true
           }
+//          {
+//            "name": "TVDb ID",
+//            "value": tvShow.tvdbId,
+//            "inline": true
+//          }
         ]}
       })
     }
