@@ -12,7 +12,7 @@ exports.run = (bot, msg, params = []) => {
     const plexpyApikey = settings.find(x => x.setting == "plexpy.apikey").value;
     let queryLength = 5;
     
-    (plexpyHost == null || plexpyBaseurl == null || plexpyApikey == null) ? msg.channel.send("ERR: PlexPy not configured"); return;
+    if (plexpyHost == null || plexpyBaseurl == null || plexpyApikey == null) { msg.channel.send("ERR: PlexPy not configured"); return; }
     
     if (!params[0]) {
       msg.channel.send("ERR: No username specified"); 
