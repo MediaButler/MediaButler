@@ -2,7 +2,6 @@ const request = require('request');
 
 exports.run = (bot, msg, args = []) => {
   let max = 4462;
-  let tvShow = result[0];
   let banner = tvShow.images.find(o => o.coverType === 'banner');
   let url = `http://www.omdbapi.com/?t=${args.join(" ")}&apikey=5af02350&type=series`;
   request(url, function (error, res, body) {
