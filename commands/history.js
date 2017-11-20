@@ -3,51 +3,51 @@ const request = require('request');
 const Discord = require('discord.js');
 
 exports.run = (bot, msg, params = []) => {
-  let max = 4462;
   getSettings(msg.guild.id)
   .then((settings) => {
     settings = JSON.parse(settings);
-    let plexpyHost = settings.find(x => x.setting == "plexpy.host").value;
-    let plexpyBaseurl = settings.find(x => x.setting == "plexpy.baseurl").value;
-    let plexpyApikey = settings.find(x => x.setting == "plexpy.apikey").value;
-  let url;
-  if (params[1] === undefined) {
-    url = `http://${plexpyHost}${plexpyBaseurl}/api/v2?apikey=${plexpyApikey}&cmd=get_history&length=5&user=${params[0]}`;
-  } else {
-    url = `http://${plexpyHost}${plexpyBaseurl}/api/v2?apikey=${plexpyApikey}&cmd=get_history&length=${params[1]}&user=${params[0]}`;
-  }
-  msg.channel.startTyping();
-  request(url, function (error, response, body) {
-    if (!error && response.statusCode === 200) {
-      let info = JSON.parse(body);
-      const embed = new Discord.RichEmbed()
-      .setAuthor(`Stats for ${params[0]}`)
-      .setColor(11360941)
-      .setTimestamp()
-      .setFooter(`Called by ${msg.author.username}`, msg.author.avatarURL)
-      .addField("Total Duration", info.response.data.total_duration, true)
-      .addField("Shown Duration", info.response.data.filter_duration, true);
-      msg.channel.send({embed});
+    const plexpyHost = settings.find(x => x.setting == "plexpy.host").value;
+    const plexpyBaseurl = settings.find(x => x.setting == "plexpy.baseurl").value;
+    const plexpyApikey = settings.find(x => x.setting == "plexpy.apikey").value;
+    let length = 5;
+    let url = `http://${plexpyHost}${plexpyBaseurl}/api/v2?apikey=${plexpyApikey}&cmd=get_history&length=${length}&user=${query}`;
 
-      if (info.response.data.data.length > 0) {
-        info.response.data.data.forEach(f => {
-          const embedItem = new Discord.RichEmbed()
-          .setTitle(f.full_title)
-          .setColor(11360941)
-          .setAuthor("History Item")
-          .addField("Watched at", timeConverter(f.started), true)
-          .addField("Type", f.transcode_decision, true)
-          .addField("Player", `${f.platform} ${f.player}`, true)
-          .addField("Watched", `${f.percent_complete}%`, true);
-          msg.channel.send({embedItem})
-        })
-      } else {
-        msg.channel.send("Sorry, no results found");
+    if (!params[0]) msg.channel.send("ERR: No username specified"); return;
+    let query = params[0];
+    if (params[1]) length = params[1];
+
+    msg.channel.startTyping();
+    request(url, function (error, response, body) {
+      if (!error && response.statusCode === 200) {
+        let info = JSON.parse(body);
+        const embed = new Discord.RichEmbed()
+        .setAuthor(`Stats for ${params[0]}`)
+        .setColor(11360941)
+        .setTimestamp()
+        .setFooter(`Called by ${msg.author.username}`, msg.author.avatarURL)
+        .addField("Total Duration", info.response.data.total_duration, true)
+        .addField("Shown Duration", info.response.data.filter_duration, true);
+        msg.channel.send({embed});
+
+        if (info.response.data.data.length > 0) {
+          info.response.data.data.forEach(f => {
+            const embedItem = new Discord.RichEmbed()
+            .setTitle(f.full_title)
+            .setColor(11360941)
+            .setAuthor("History Item")
+            .addField("Watched at", timeConverter(f.started), true)
+            .addField("Type", f.transcode_decision, true)
+            .addField("Player", `${f.platform} ${f.player}`, true)
+            .addField("Watched", `${f.percent_complete}%`, true);
+            msg.channel.send({embedItem});
+          });
+        } else {
+          msg.channel.send("Sorry, no results found");
+        }
       }
-    }
-    msg.channel.stopTyping();
+      msg.channel.stopTyping();
+    });
   });
-});
 };
 
 exports.conf = {
