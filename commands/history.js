@@ -10,7 +10,10 @@ exports.run = (bot, msg, params = []) => {
     const plexpyBaseurl = settings.find(x => x.setting == "plexpy.baseurl").value;
     const plexpyApikey = settings.find(x => x.setting == "plexpy.apikey").value;
 
-    if (!params[0]) msg.channel.send("ERR: No username specified"); return;
+    if (!params[0]) {
+      msg.channel.send("ERR: No username specified"); 
+      return;
+    }
     let query = params[0];
     if (params[1]) length = params[1];
 
