@@ -9,7 +9,10 @@ exports.run = (bot, msg, params = []) => {
     const plexpyHost = settings.find(x => x.setting == "plexpy.host").value;
     const plexpyBaseurl = settings.find(x => x.setting == "plexpy.baseurl").value;
     const plexpyApikey = settings.find(x => x.setting == "plexpy.apikey").value;
-
+    if (plexpyHost == null || plexpyBaseurl == null || plexpyApikey == null) {
+      msg.channel.send("ERR: PlexPy not configured");
+      return;
+    }
     if (!params[0]) {
       msg.channel.send("ERR: No username specified"); 
       return;
@@ -55,10 +58,10 @@ exports.run = (bot, msg, params = []) => {
 };
 
 exports.conf = {
-  enabled: true, // not used yet
-  guildOnly: false, // not used yet
+  enabled: true, 
+  guildOnly: false, 
   aliases: [],
-  permLevel: 0 // Permissions Required, higher is more power
+  permLevel: 0 
 };
 exports.help = {
   name: "history",
