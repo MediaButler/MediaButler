@@ -1,16 +1,16 @@
 const sqlite3 = require('sqlite3').verbose();
-let db = new sqlite3.Database('./settings.sqlite');
 const gs = require('../services/getSettings');
 
 exports.run = (client, message, params = [], perms) => {
+    let db = new sqlite3.Database('./settings.sqlite');    
     if (params[0] === undefined)
     {
         let guildId = message.guild.id;
         getSettings(guildId)
         .then((res) => { console.log(res); });
-
         return;
     }
+
     let setting = params[0];
     let value = params[1];
     let guildId = message.guild.id;
@@ -23,6 +23,7 @@ exports.run = (client, message, params = [], perms) => {
         }
         message.channel.send("Sucessfully Updated");
     });
+    db.close();
 };
 
 exports.conf = {
