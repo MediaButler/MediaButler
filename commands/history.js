@@ -17,8 +17,8 @@ exports.run = (bot, msg, params = []) => {
     let query = params[0];
     if (params[1]) length = params[1];
 
-    let length = 5;
-    let url = `http://${plexpyHost}${plexpyBaseurl}/api/v2?apikey=${plexpyApikey}&cmd=get_history&length=${length}&user=${query}`;
+    let queryLength = 5;
+    let url = `http://${plexpyHost}${plexpyBaseurl}/api/v2?apikey=${plexpyApikey}&cmd=get_history&length=${queryLength}&user=${query}`;
 
     msg.channel.startTyping();
     request(url, function (error, response, body) {
