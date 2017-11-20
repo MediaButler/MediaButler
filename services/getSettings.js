@@ -6,7 +6,7 @@ module.exports = function (guildId)
     let sql = `SELECT setting,value FROM guildSettings WHERE guildId = ${guildId}`;
     let output;
     db.all(sql, function(err, rows) {
-        output = JSON.stringify(rows);
+        output = rows;
     });
     db.close();
     return output;
