@@ -1,6 +1,7 @@
 const getSettings = require('../services/getSettings');
 const createHistoryItemModal = require('../services/createHistoryItemModal');
 const request = require('request');
+const Discord = require('discord.js');
 
 exports.run = (bot, msg, params = []) => {
   getSettings(msg.guild.id)
