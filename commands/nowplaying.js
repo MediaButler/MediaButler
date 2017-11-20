@@ -5,6 +5,7 @@ exports.run = (bot, msg, params = []) => {
   const max = 4462;
   getSettings(msg.guild.id)
   .then((settings) => {
+    settings = JSON.parse(settings);
     let plexpyHost = settings.find(x => x.setting == "plexpy.host");
     let plexpyBaseurl = settings.find(x => x.setting == "plexpy.baseurl");
     let plexpyApikey = settings.find(x => x.setting == "plexpy.apikey");
