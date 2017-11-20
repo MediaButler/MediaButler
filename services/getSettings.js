@@ -1,7 +1,7 @@
 var sqlite3 = require('sqlite3').verbose();
 let db = new sqlite3.Database('./settings.sqlite');
 
-exports.getSettings = guildId =>
+module.exports = function (guildId)
 {
     let sql = `SELECT setting,value FROM guildSettings WHERE guildId = ${guildId}`;
     db.serialize(function() {
