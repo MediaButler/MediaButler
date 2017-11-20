@@ -11,9 +11,9 @@ exports.run = (bot, msg, params = []) => {
     let plexpyApikey = settings.find(x => x.setting == "plexpy.apikey").value;
   let url;
   if (params[1] === undefined) {
-    url = `http://${plexpyHost}${plexpyBaseurl.value}/api/v2?apikey=${plexpyApikey}&cmd=get_history&length=5&user=${params[0]}`;
+    url = `http://${plexpyHost}${plexpyBaseurl}/api/v2?apikey=${plexpyApikey}&cmd=get_history&length=5&user=${params[0]}`;
   } else {
-    url = `http://${plexpyHost}${plexpyBaseurl.value}/api/v2?apikey=${plexpyApikey}&cmd=get_history&length=${params[1]}&user=${params[0]}`;
+    url = `http://${plexpyHost}${plexpyBaseurl}/api/v2?apikey=${plexpyApikey}&cmd=get_history&length=${params[1]}&user=${params[0]}`;
   }
   msg.channel.startTyping();
   request(url, function (error, response, body) {
