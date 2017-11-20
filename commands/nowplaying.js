@@ -1,8 +1,16 @@
 const apiauth = require('../apiauth.json');
+const getSettings = require('../services/getSettings');
 const request = require('request');
 exports.run = (bot, msg, params = []) => {
   const max = 4462;
-  let url = `http://${apiauth.plexpy_host}${apiauth.plexpy_baseurl}/api/v2?apikey=${apiauth.plexpy_apikey}&cmd=get_activity`;
+  getSettings(msg.guild.id)
+  .then((settings) => {
+    let plexpyHost = settings.find(x => x.setting == "plexpy.host");
+    let plexpyBaseurl = settings.find(x => x.setting == "plexpy.baseurl");
+    let plexpyApikey = settings.find(x => x.setting == "plexpy.apikey");
+
+  let url = `http://${plexpyHost.value}${plexpyBaseurl.value}/api/v2?apikey=${plexpyApikey.value}&cmd=get_activity`;
+  console.log(url);
   msg.channel.startTyping();
   msg.channel.send("Starting...")
       .then(m => {
@@ -61,6 +69,7 @@ exports.run = (bot, msg, params = []) => {
         });
       });
   msg.channel.stopTyping();
+});
 };
 
 exports.conf = {
