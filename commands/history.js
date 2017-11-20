@@ -44,7 +44,7 @@ exports.run = (bot, msg, params = []) => {
             .addField("Player", `${f.platform} ${f.player}`, true)
             .addField("Watched", `${f.percent_complete}%`, true);
             console.log(embedItem);
-            msg.channel.send({embedItem});
+            msg.channel.send({embed: embedItem});
           });
         } else {
           msg.channel.send("Sorry, no results found");
