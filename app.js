@@ -50,6 +50,7 @@ client.elevation = message => {
   let permlvl = 0;
   getSettings(message.guild.id)
   .then((settings) => {
+    settings = JSON.parse(settings);
     const modRole = message.guild.roles.find('name', settings.find(x => x.setting == "self.modrole").value);
     const adminRole = message.guild.roles.find('name', settings.find(x => x.setting == "self.adminrole").value);
     if (modRole && message.member.roles.has(modRole.id)) permlvl = 2;
