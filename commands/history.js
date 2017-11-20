@@ -43,7 +43,6 @@ exports.run = (bot, msg, params = []) => {
             .addField("Type", f.transcode_decision, true)
             .addField("Player", `${f.platform} ${f.player}`, true)
             .addField("Watched", `${f.percent_complete}%`, true);
-            console.log(embedItem);
             msg.channel.send({embed: embedItem});
           });
         } else {
