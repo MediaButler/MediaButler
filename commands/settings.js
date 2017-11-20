@@ -4,7 +4,7 @@ let db = new sqlite3.Database('./settings.sqlite');
 exports.run = (client, message, params = [], perms) => {
     if (params[0] === undefined)
     {
-        console.log(module.exports.getSettings(message.guild.id));
+        console.log(exports.getSettings(message.guild.id));
     }
     let setting = params[0];
     let value = params[1];
