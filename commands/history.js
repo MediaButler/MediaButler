@@ -1,6 +1,6 @@
 const getSettings = require('../services/getSettings');
+const createHistoryItemModal = require('../services/createHistoryItemModal');
 const request = require('request');
-const Discord = require('discord.js');
 
 exports.run = (bot, msg, params = []) => {
   getSettings(msg.guild.id)
@@ -9,6 +9,7 @@ exports.run = (bot, msg, params = []) => {
     const plexpyHost = settings.find(x => x.setting == "plexpy.host").value;
     const plexpyBaseurl = settings.find(x => x.setting == "plexpy.baseurl").value;
     const plexpyApikey = settings.find(x => x.setting == "plexpy.apikey").value;
+
     if (plexpyHost == null || plexpyBaseurl == null || plexpyApikey == null) {
       msg.channel.send("ERR: PlexPy not configured");
       return;
@@ -38,15 +39,8 @@ exports.run = (bot, msg, params = []) => {
 
         if (info.response.data.data.length > 0) {
           info.response.data.data.forEach(f => {
-            let embedItem = new Discord.RichEmbed()
-            .setTitle(f.full_title)
-            .setColor(11360941)
-            .setAuthor("History Item")
-            .addField("Watched at", timeConverter(f.started), true)
-            .addField("Type", f.transcode_decision, true)
-            .addField("Player", `${f.platform} ${f.player}`, true)
-            .addField("Watched", `${f.percent_complete}%`, true);
-            msg.channel.send({embed: embedItem});
+
+            msg.channel.send({embed: createHistoryItemModal(embedItem)});
           });
         } else {
           msg.channel.send("Sorry, no results found");
@@ -68,16 +62,3 @@ exports.help = {
   description: "Pulls the <user>'s last [limit] history items",
   usage: "history <user> [limit]"
 };
-
-function timeConverter(UNIX_timestamp) {
-  const a = new Date(UNIX_timestamp * 1000);
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  const year = a.getFullYear();
-  const month = months[a.getMonth()];
-  const date = a.getDate();
-  const hour = a.getHours();
-  const min = a.getMinutes();
-  const sec = a.getSeconds();
-  const time = `${date} ${month} ${year} ${hour}:${min}:${sec}`;
-  return time;
-}
