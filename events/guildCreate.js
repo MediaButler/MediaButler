@@ -5,7 +5,7 @@ module.exports = (guild, client) => {
         db.run(`INSERT INTO guildSettings(guildId, setting)
             VALUES(${guild.id}, "plexpy.host"),
                 (${guild.id}, "plexpy.baseurl"),
-                (${guiild.id}, "plexpy.apikey"),
+                (${guild.id}, "plexpy.apikey"),
                 (${guild.id}, "sonarr.host"),
                 (${guild.id}, "sonarr.baseurl"),
                 (${guild.id}, "sonarr.apikey"),
