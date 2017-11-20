@@ -8,7 +8,7 @@ exports.run = (client, message, params = [], perms) => {
     {
         let guildId = message.guild.id;
         let settings = getSettings(guildId);
-        console.log(settings);
+        console.log("hi " + settings);
         return;
     }
     let setting = params[0];
