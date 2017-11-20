@@ -35,7 +35,7 @@ exports.run = (bot, msg, params = []) => {
 
         if (info.response.data.data.length > 0) {
           info.response.data.data.forEach(f => {
-            const embedItem = new Discord.RichEmbed()
+            let embedItem = new Discord.RichEmbed()
             .setTitle(f.full_title)
             .setColor(11360941)
             .setAuthor("History Item")
