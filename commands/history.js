@@ -1,5 +1,6 @@
 const getSettings = require('../services/getSettings');
 const request = require('request');
+const Discord = require('discord.js');
 
 exports.run = (bot, msg, params = []) => {
   let max = 4462;
