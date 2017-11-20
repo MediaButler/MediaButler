@@ -2,7 +2,6 @@ const getSettings = require('../services/getSettings');
 const createHistoryItemModal = require('../services/createHistoryItemModal');
 const request = require('request');
 const Discord = require('discord.js');
-
 exports.run = (bot, msg, params = []) => {
   getSettings(msg.guild.id)
   .then((settings) => {
@@ -20,7 +19,6 @@ exports.run = (bot, msg, params = []) => {
     }
     let query = params[0];
     if (params[1]) queryLength = params[1];
-
     let url = `http://${plexpyHost}${plexpyBaseurl}/api/v2?apikey=${plexpyApikey}&cmd=get_history&length=${queryLength}&user=${query}`;
 
     msg.channel.startTyping();
@@ -28,18 +26,13 @@ exports.run = (bot, msg, params = []) => {
       if (!error && response.statusCode === 200) {
         let info = JSON.parse(body);
         const embed = new Discord.RichEmbed()
-        .setAuthor(`Stats for ${params[0]}`)
-        .setColor(11360941)
-        .setTimestamp()
+        .setAuthor(`Stats for ${params[0]}`).setColor(11360941).setTimestamp()
         .setFooter(`Called by ${msg.author.username}`, msg.author.avatarURL)
         .addField("Total Duration", info.response.data.total_duration, true)
         .addField("Shown Duration", info.response.data.filter_duration, true);
         msg.channel.send({embed});
 
-        if (info.response.data.data.length === 0) {
-          msg.channel.send("Sorry, no results found");
-          return;          
-        }
+        if (info.response.data.data.length === 0) msg.channel.send("Sorry, no results found");
         info.response.data.data.forEach(f => {
           msg.channel.send({embed: createHistoryItemModal(f)});
         });
@@ -48,7 +41,6 @@ exports.run = (bot, msg, params = []) => {
     });
   });
 };
-
 exports.conf = {
   enabled: true, 
   guildOnly: false, 
