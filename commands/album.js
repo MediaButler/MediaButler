@@ -17,7 +17,7 @@ exports.run = (bot, msg, args = []) => {
         return new RegExp( '\\b' + word + '\\b', 'i').test(s);
       }
 
-      if (albumLength.length === 1 || mbidInQuery(query, 'mbid')) {
+      if (mbidInQuery(query, 'mbid')) {
         let urlInfo = `http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=cd564d2f0dd91dd49b4e1d655dffd02c&mbid=${args[1]}&format=json`;
         request(urlInfo, function (error, res, body) {
           if (!error) {
