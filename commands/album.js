@@ -65,9 +65,10 @@ exports.run = (bot, msg, args = []) => {
           if (!error) {
             let info = JSON.parse(body);
 
+            console.log(info);
             msg.channel.send({
               "embed": {
-                "title": `${info.album.artist} - ${info.album.name}`,
+                "title": `${info.result.album.artist} - ${info.result.album.name}`,
                 "description": info.album.wiki.summary,
                 "color": 11360941,
                 "timestamp": new Date(),
@@ -82,7 +83,7 @@ exports.run = (bot, msg, args = []) => {
                 "fields": [
                   {
                     "name": Genre,
-                    "value": info.album.tags.tag[0].name,
+                    "value": info.result.album.tags.tag[0].name,
                     "inline": true
                   }
                 ]
