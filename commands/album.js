@@ -91,15 +91,16 @@ exports.run = (bot, msg, args = []) => {
       });
     }
   });
+}
 
-  exports.conf = {
-    enabled: true, // not used yet
-    guildOnly: false, // not used yet
-    aliases: [],
-    permLevel: 0 // Permissions Required, higher is more power
-  };
-  exports.help = {
-    name: "album",
-    description: "Pulls info for an album",
-    usage: "album <artist name>"
-  };
+exports.conf = {
+  enabled: true, // not used yet
+  guildOnly: false, // not used yet
+  aliases: [],
+  permLevel: 0 // Permissions Required, higher is more power
+};
+exports.help = {
+  name: "album",
+  description: "Pulls info for an album",
+  usage: "album <artist name>"
+};
