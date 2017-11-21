@@ -14,8 +14,8 @@ exports.run = (bot, msg, args = []) => {
       console.log(info);
       msg.channel.send({
         "embed": {
-          "title": 'test',
-          "description": 'test',
+          "title": 'We need your help with this',
+          "description": `We have found ${info.results.totalResults} albums containing the word ${query}. These are the 5 first coming up in the MB database. Need a more specific search? Try adding the artist name.`,
           "color": 11360941,
           "timestamp": new Date(),
           "footer": {
@@ -23,7 +23,7 @@ exports.run = (bot, msg, args = []) => {
             "text": `Called by ${msg.author.username}`
           },
           "author": {
-            "name": "Artist Information",
+            "name": "Album Information",
             "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
           },
           "fields": [
