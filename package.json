@@ -4,7 +4,7 @@
   "description": "Your Media Butler",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Error: no test specified\" && exit 0",
     "start": "node app.js"
   },
   "author": "Vertig0ne, Tailchakra",
@@ -22,6 +22,7 @@
     "node-tvdb": "^3.2.0",
     "nodebrainz": "^2.1.1",
     "request": "^2.83.0",
-    "sonarr-api": "^0.2.0"
+    "sonarr-api": "^0.2.0",
+    "sqlite3": "~3.1.13"
   }
 }

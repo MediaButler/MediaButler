@@ -57,10 +57,6 @@ client.elevation = message => {
   return permlvl;
 };
 
-client.on("ready", () => {
-    client.user.setPresence({game: {name: "MediaButler v0.1", type: 0}});
-});
-
 var regToken = /[\w\d]{24}\.[\w\d]{6}\.[\w\d-_]{27}/g;
 // client.on('debug', e => {
 //   console.log(chalk.bgBlue.green(e.replace(regToken, 'that was redacted')));

@@ -1,13 +1,23 @@
-const apiauth = require('../apiauth.json');
+const getSettings = require('../services/getSettings');
 const SonarrAPI = require('sonarr-api');
-const sonarr = new SonarrAPI({
-  hostname: apiauth.sonarr_host.split(":")[0],
-  apiKey: apiauth.sonarr_apikey,
-  port: apiauth.sonarr_host.split(":")[1],
-  urlBase: apiauth.sonarr_baseurl
-});
 
 exports.run = (client, msg, args, perms) => {
+  getSettings(msg.guild.id)
+  .then((settings) => {
+    settings = JSON.parse(settings);
+    const sonarrHost = settings.find(x => x.setting == "sonarr.host");
+    const sonarrBaseurl = settings.find(x => x.setting == "sonarr.baseurl");
+    const sonarrApikey = settings.find(x => x.setting == "sonarr.apikey");
+    const sonarrDefaultProfileId = settings.find(x => x.setting == "sonarr.defaultprofileid");
+    const sonarrDefaultRootPath = settings.find(x => x.setting == "sonarr.defaultrootpath");
+
+    const sonarr = new SonarrAPI({
+      hostname: sonarrHost.value.split(":")[0],
+      apiKey: sonarrApikey.value,
+      port: sonarrHost.value.split(":")[1],
+      urlBase: sonarrBaseurl.value
+    });
+
   let tvdbId;
   let showTitle;
   let rootFolderPath;
@@ -25,15 +35,15 @@ exports.run = (client, msg, args, perms) => {
         if (args[1]) {
           m.edit("Detected quality profile override.. Scanning for `profileId`");
           sonarr.get("profile")
-              .then(result => {
-                let profile = result.find(q => q.name === args[1]);
-                profileId = profile.id;
-                m.edit("profileId found.");
-                if (profileId === undefined) {
-                  m.edit("ERR: `profileId` not found.");
-                  message.channel.stopTyping();
-                }
-              });
+          .then(result => {
+            let profile = result.find(q => q.name === args[1]);
+            profileId = profile.id;
+            m.edit("profileId found.");
+            if (profileId === undefined) {
+              m.edit("ERR: `profileId` not found.");
+              message.channel.stopTyping();
+            }
+          });
         }
 
         if (args[2]) {
@@ -135,6 +145,7 @@ exports.run = (client, msg, args, perms) => {
           });
         });
       });
+    });
 };
 
 exports.conf = {
