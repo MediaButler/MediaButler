@@ -40,7 +40,7 @@ exports.run = (bot, msg, args = []) => {
                 },
                 "fields": [
                   {
-                    "name": Genre,
+                    "name": "Genre",
                     "value": info.album.tags.tag[0].name,
                     "inline": true
                   }
