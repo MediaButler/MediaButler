@@ -18,7 +18,7 @@ exports.run = (bot, msg, args = []) => {
       }
 
       if (albumLength.length === 1 || mbidInQuery(query, 'mbid')) {
-        let urlInfo = `http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=cd564d2f0dd91dd49b4e1d655dffd02c&mbid=${info.results.albummatches.album[0].mbid}&format=json`;
+        let urlInfo = `http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=cd564d2f0dd91dd49b4e1d655dffd02c&mbid=${args[1]}&format=json`;
         request(urlInfo, function (error, res, body) {
           if (!error) {
             let info = JSON.parse(body);
