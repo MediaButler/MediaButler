@@ -11,7 +11,7 @@ exports.run = (bot, msg, args = []) => {
     if (!error) {
       let info = JSON.parse(body);
 
-      const albumLength = info.results.albummatches.album[0];
+      const albumLength = info.results.albummatches.album;
       albumLength.forEach(function (item, index, array) {
         if (array.length > 1) {
           msg.channel.send({
