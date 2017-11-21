@@ -15,7 +15,7 @@ exports.run = (bot, msg, args = []) => {
       msg.channel.send({
         "embed": {
           "title": 'We need your help with this',
-          "description": `We have found ${info.results.totalResults} albums containing the word ${query}. These are the 5 first coming up in the MB database. Need a more specific search? Try adding the artist name.`,
+          "description": `We have found multiple albums containing the word ${query}. These are the 5 first coming up in the MB database. Need a more specific search? Try adding the artist name.`,
           "color": 11360941,
           "timestamp": new Date(),
           "footer": {
@@ -28,30 +28,31 @@ exports.run = (bot, msg, args = []) => {
           },
           "fields": [
             {
-              "name": info.results.albummatches.album[0].artist,
-              "value": info.results.albummatches.album[0].name,
+              "name": `${info.results.albummatches.album[0].artist} - ${info.results.albummatches.album[0].name}`,
+              "value": info.results.albummatches.album[0].mbid,
               "inline": false
             },
             {
-              "name": info.results.albummatches.album[1].artist,
-              "value": info.results.albummatches.album[1].name,
+              "name": `${info.results.albummatches.album[1].artist} - ${info.results.albummatches.album[1].name}`,
+              "value": info.results.albummatches.album[1].mbid,
               "inline": false
             },
             {
-              "name": info.results.albummatches.album[2].artist,
-              "value": info.results.albummatches.album[2].name,
+              "name": `${info.results.albummatches.album[2].artist} - ${info.results.albummatches.album[2].name}`,
+              "value": info.results.albummatches.album[2].mbid,
               "inline": false
             },
             {
-              "name": info.results.albummatches.album[3].artist,
-              "value": info.results.albummatches.album[3].name,
+              "name": `${info.results.albummatches.album[3].artist} - ${info.results.albummatches.album[3].name}`,
+              "value": info.results.albummatches.album[3].mbid,
               "inline": false
             },
             {
-              "name": info.results.albummatches.album[4].artist,
-              "value": info.results.albummatches.album[4].name,
+              "name": `${info.results.albummatches.album[4].artist} - ${info.results.albummatches.album[4].name}`,
+              "value": info.results.albummatches.album[4].mbid,
               "inline": false
-            }
+            },
+
           ]
         }
       })
