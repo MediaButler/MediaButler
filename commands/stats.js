@@ -1,4 +1,4 @@
-const getSettings = require('../services/getSettings');
+const getSettings = require('../util/getSettings');
 const request = require('request');
 
 exports.run = (bot, msg, args, perms = []) => {

@@ -1,4 +1,4 @@
-const getSettings = require('../services/getSettings');
+const getSettings = require('../util/getSettings');
 const SonarrAPI = require('sonarr-api');
 
 exports.run = (client, msg, args, perms) => {

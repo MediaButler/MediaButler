@@ -1,5 +1,5 @@
-const getSettings = require('../services/getSettings');
-const createHistoryItemModal = require('../services/createHistoryItemModal');
+const getSettings = require('../util/getSettings');
+const createHistoryItemModal = require('../util/createHistoryItemModal');
 const request = require('request');
 const Discord = require('discord.js');
 exports.run = (bot, msg, params = []) => {
