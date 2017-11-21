@@ -26,7 +26,7 @@ exports.run = (bot, msg, args = []) => {
             console.log(info);
             msg.channel.send({
               "embed": {
-                "title": `${info.result.album.artist} - ${info.result.album.name}`,
+                "title": `${info.album.artist} - ${info.album.name}`,
                 "description": info.album.wiki.summary,
                 "color": 11360941,
                 "timestamp": new Date(),
@@ -41,7 +41,7 @@ exports.run = (bot, msg, args = []) => {
                 "fields": [
                   {
                     "name": Genre,
-                    "value": info.result.album.tags.tag[0].name,
+                    "value": info.album.tags.tag[0].name,
                     "inline": true
                   }
                 ]
