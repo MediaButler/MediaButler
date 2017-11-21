@@ -5,6 +5,7 @@ const chalk = require('chalk');
 const fs = require('fs');
 const moment = require('moment');
 require('./util/eventLoader')(client);
+const getSettings = require('./services/getSettings');
 
 const log = message => {
   console.log(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${message}`);
@@ -46,15 +47,17 @@ client.reload = command => {
 };
 
 client.elevation = message => {
-  /* This function should resolve to an ELEVATION level which
-     is then sent to the command handler for verification*/
   let permlvl = 0;
-  const mod_role = message.guild.roles.find('name', settings.modrolename);
-  if (mod_role && message.member.roles.has(mod_role.id)) permlvl = 2;
-  const admin_role = message.guild.roles.find('name', settings.adminrolename);
-  if (admin_role && message.member.roles.has(admin_role.id)) permlvl = 3;
-  if (message.author.id === settings.ownerid) permlvl = 4;
-  return permlvl;
+  getSettings(message.guild.id)
+  .then((settings) => {
+    settings = JSON.parse(settings);
+    const modRole = message.guild.roles.find('name', settings.find(x => x.setting == "self.modRole").value);
+    const adminRole = message.guild.roles.find('name', settings.find(x => x.setting == "self.adminRole").value);
+    if (modRole && message.member.roles.has(modRole.id)) permlvl = 2;
+    if (adminRole && message.member.roles.has(adminRole.id)) permlvl = 3;
+    if (message.author.id === message.guild.ownerid) permlvl = 4;
+    return permlvl;    
+  });
 };
 
 var regToken = /[\w\d]{24}\.[\w\d]{6}\.[\w\d-_]{27}/g;
