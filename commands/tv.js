@@ -5,7 +5,7 @@ const getTvShowInfo = require('../services/getTvShowInfoFromOmdb');
 exports.run = (bot, msg, args = []) => {
   getTvShowInfo(args)
   .then((tvShow) => {
-    let e = createTvShowItemModal(info);
+    let e = createTvShowItemModal(tvShow);
     e.setFooter(`Called by ${msg.author.username}`, msg.author.avatarURL);
     msg.channel.send({ "embed": e });
   });
