@@ -50,9 +50,9 @@ exports.run = (bot, msg, args = []) => {
                 },
                 {
                   "name": `${info.results.albummatches.album[4].artist} - ${info.results.albummatches.album[4].name}`,
-                  "value": `MUSICBRAINZ ID: ${info.results.albummatches.album[4].mbid}`
+                  "value": `MUSICBRAINZ ID: ${info.results.albummatches.album[4].mbid}`,
                   "inline": false
-                },
+                }
               ]
             }
           })
@@ -80,7 +80,7 @@ exports.run = (bot, msg, args = []) => {
                     {
                       "name": Genre,
                       "value": info.album.tags.tag[0].name,
-                      "inline": false
+                      "inline": true
                     }
                   ]
                 }
