@@ -59,7 +59,7 @@ exports.run = (bot, msg, args = []) => {
         return;
       }
 
-      if (array.length === 1) {
+      if (albumLength.length === 1) {
         let urlInfo = `http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=cd564d2f0dd91dd49b4e1d655dffd02c&mbid=${info.results.albummatches.album[0].mbid}&format=json`;
         request(urlInfo, function (error, res, body) {
           if (!error) {
