@@ -1,5 +1,5 @@
 const sqlite3 = require('sqlite3').verbose();
-const gs = require('../services/getSettings');
+const gs = require('../util/getSettings');
 
 exports.run = (client, message, params = [], perms) => {
     let db = new sqlite3.Database('./settings.sqlite');    
