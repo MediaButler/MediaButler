@@ -11,53 +11,56 @@ exports.run = (bot, msg, args = []) => {
     if (!error) {
       let info = JSON.parse(body);
 
-      msg.channel.send({
-        "embed": {
-          "title": 'test',
-          "description": 'test',
-          "color": 11360941,
-          "timestamp": new Date(),
-          "footer": {
-            "icon_url": msg.author.avatarURL,
-            "text": `Called by ${msg.author.username}`
-          },
-          "thumbnail": {
-            "url": 'test',
-          },
-          "author": {
-            "name": "Artist Information",
-            "url": 'test',
-            "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
-          },
-          "fields": [
-            {
-              "name": info.res.albummatches[0].artist,
-              "value": info.res.albummatches[0].name,
-              "inline": false
-            },
-            {
-              "name": info.res.albummatches[1].artist,
-              "value": info.res.albummatches[1].name,
-              "inline": false
-            },
-            {
-              "name": info.res.albummatches[2].artist,
-              "value": info.res.albummatches[2].name,
-              "inline": false
-            },
-            {
-              "name": info.res.albummatches[3].artist,
-              "value": info.res.albummatches[3].name,
-              "inline": false
-            },
-            {
-              "name": info.res.albummatches[4].artist,
-              "value": info.res.albummatches[4].name,
-              "inline": false
-            }
-          ]
-        }
-      })
+      console.log(info);
+       msg.channel.send("Check your logs"
+      // {
+      //   "embed": {
+      //     "title": 'test',
+      //     "description": 'test',
+      //     "color": 11360941,
+      //     "timestamp": new Date(),
+      //     "footer": {
+      //       "icon_url": msg.author.avatarURL,
+      //       "text": `Called by ${msg.author.username}`
+      //     },
+      //     "thumbnail": {
+      //       "url": 'test',
+      //     },
+      //     "author": {
+      //       "name": "Artist Information",
+      //       "url": 'test',
+      //       "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
+      //     },
+      //     "fields": [
+      //       {
+      //         "name": info.res.albummatches[0].artist,
+      //         "value": info.res.albummatches[0].name,
+      //         "inline": false
+      //       },
+      //       {
+      //         "name": info.res.albummatches[1].artist,
+      //         "value": info.res.albummatches[1].name,
+      //         "inline": false
+      //       },
+      //       {
+      //         "name": info.res.albummatches[2].artist,
+      //         "value": info.res.albummatches[2].name,
+      //         "inline": false
+      //       },
+      //       {
+      //         "name": info.res.albummatches[3].artist,
+      //         "value": info.res.albummatches[3].name,
+      //         "inline": false
+      //       },
+      //       {
+      //         "name": info.res.albummatches[4].artist,
+      //         "value": info.res.albummatches[4].name,
+      //         "inline": false
+      //       }
+      //     ]
+      //   }
+      // }
+      )
     }
   });
 };
