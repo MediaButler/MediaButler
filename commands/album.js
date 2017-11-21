@@ -23,11 +23,13 @@ exports.run = (bot, msg, args = []) => {
           if (!error) {
             let info = JSON.parse(body);
 
-            console.log(info);
+            let overview = info.album.wiki.content === null ? "No description" : info.album.wiki.content;
+            let trimmedOverview = overview.substring(0, 200);
+
             msg.channel.send({
               "embed": {
                 "title": `${info.album.artist} - ${info.album.name}`,
-                "description": info.album.wiki.summary,
+                "description": `${trimmedOverview}...`,
                 "color": 11360941,
                 "timestamp": new Date(),
                 "footer": {
@@ -56,7 +58,7 @@ exports.run = (bot, msg, args = []) => {
         msg.channel.send({
           "embed": {
             "title": 'We need your help with this',
-            "description": `We have found multiple albums containing the word ${query}. These are the 5 first coming up in the MB database. Need a more specific search? Try adding the artist name.`,
+            "description": `We have found multiple albums containing the word ${query}. These are the first 5 albums coming up in the MB database. Need a more specific search? Try adding the artist name.\n\n For album info, use "!album mbid '<'musicbrainz ID'>'" \n Example: \n !album mbid 37e4a79b-723f-4501-94aa-775c609b7fdf`,
             "color": 11360941,
             "timestamp": new Date(),
             "footer": {
@@ -69,27 +71,27 @@ exports.run = (bot, msg, args = []) => {
             },
             "fields": [
               {
-                "name": `${info.results.albummatches.album[0].artist} - ${info.results.albummatches.album[0].name}`,
+                "name": `1) ${info.results.albummatches.album[0].artist} - ${info.results.albummatches.album[0].name}`,
                 "value": `MUSICBRAINZ ID: ${info.results.albummatches.album[0].mbid}`,
                 "inline": false
               },
               {
-                "name": `${info.results.albummatches.album[1].artist} - ${info.results.albummatches.album[1].name}`,
+                "name": `2) ${info.results.albummatches.album[1].artist} - ${info.results.albummatches.album[1].name}`,
                 "value": `MUSICBRAINZ ID: ${info.results.albummatches.album[1].mbid}`,
                 "inline": false
               },
               {
-                "name": `${info.results.albummatches.album[2].artist} - ${info.results.albummatches.album[2].name}`,
+                "name": `3) ${info.results.albummatches.album[2].artist} - ${info.results.albummatches.album[2].name}`,
                 "value": `MUSICBRAINZ ID: ${info.results.albummatches.album[2].mbid}`,
                 "inline": false
               },
               {
-                "name": `${info.results.albummatches.album[3].artist} - ${info.results.albummatches.album[3].name}`,
+                "name": `4) ${info.results.albummatches.album[3].artist} - ${info.results.albummatches.album[3].name}`,
                 "value": `MUSICBRAINZ ID: ${info.results.albummatches.album[3].mbid}`,
                 "inline": false
               },
               {
-                "name": `${info.results.albummatches.album[4].artist} - ${info.results.albummatches.album[4].name}`,
+                "name": `5) ${info.results.albummatches.album[4].artist} - ${info.results.albummatches.album[4].name}`,
                 "value": `MUSICBRAINZ ID: ${info.results.albummatches.album[4].mbid}`,
                 "inline": false
               }
