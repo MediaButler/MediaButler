@@ -11,7 +11,8 @@ exports.run = (bot, msg, args = []) => {
     if (!error) {
       let info = JSON.parse(body);
 
-      info.results.albummatches.album[0].forEach((item, index, array) => {
+      const albumLength = info.results.albummatches.album[0];
+      albumLength.forEach(function (item, index, array) {
         if (array.length > 1) {
           msg.channel.send({
             "embed": {
@@ -91,7 +92,7 @@ exports.run = (bot, msg, args = []) => {
       });
     }
   });
-}
+};
 
 exports.conf = {
   enabled: true, // not used yet
