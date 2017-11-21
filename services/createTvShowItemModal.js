@@ -1,9 +1,9 @@
 const Discord = require('discord.js');
 module.exports = (tvShowItem) =>
 {
-    let r = info.imdbRating === "N/A" ? "No rating" : `${info.imdbRating}/10`;
-    let v = info.imdbRating === "N/A" ? "" : ` (${info.imdbVotes} votes)`;
-    let g = info.Genre.length > 24 ? `${info.Genre.substring(0, 22)}...` : info.Genre;
+    let r = tvShowItem.imdbRating === "N/A" ? "No rating" : `${tvShowItem.imdbRating}/10`;
+    let v = tvShowItem.imdbRating === "N/A" ? "" : ` (${tvShowItem.imdbVotes} votes)`;
+    let g = tvShowItem.Genre.length > 24 ? `${tvShowItem.Genre.substring(0, 22)}...` : tvShowItem.Genre;
     let e = new Discord.RichEmbed()
     .setTitle(tvShowItem.Title)
     .setDescription(tvShowItem.Plot)
