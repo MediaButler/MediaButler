@@ -22,12 +22,8 @@ exports.run = (bot, msg, args = []) => {
             "icon_url": msg.author.avatarURL,
             "text": `Called by ${msg.author.username}`
           },
-          "thumbnail": {
-            "url": 'test',
-          },
           "author": {
             "name": "Artist Information",
-            "url": 'test',
             "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
           },
           "fields": [
