@@ -13,7 +13,38 @@ exports.run = (bot, msg, args = []) => {
 
       const albumLength = info.results.albummatches.album;
       albumLength.forEach(function (item, index, array) {
-        if (array.length > 1) {
+        if (array.length === 1) {
+          let urlInfo = `http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=cd564d2f0dd91dd49b4e1d655dffd02c&mbid=${info.results.albummatches.album[0].mbid}&format=json`;
+          request(urlInfo, function (error, res, body) {
+            if (!error) {
+              let info = JSON.parse(body);
+
+              msg.channel.send({
+                "embed": {
+                  "title": `${info.album.artist} - ${info.album.name}`,
+                  "description": info.album.wiki.summary,
+                  "color": 11360941,
+                  "timestamp": new Date(),
+                  "footer": {
+                    "icon_url": msg.author.avatarURL,
+                    "text": `Called by ${msg.author.username}`
+                  },
+                  "author": {
+                    "name": "Album Information",
+                    "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
+                  },
+                  "fields": [
+                    {
+                      "name": Genre,
+                      "value": info.album.tags.tag[0].name,
+                      "inline": true
+                    }
+                  ]
+                }
+              })
+            }
+          });
+        } else {
           msg.channel.send({
             "embed": {
               "title": 'We need your help with this',
@@ -57,37 +88,6 @@ exports.run = (bot, msg, args = []) => {
               ]
             }
           })
-        } else {
-          let urlInfo = `http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=cd564d2f0dd91dd49b4e1d655dffd02c&mbid=${info.results.albummatches.album[0].mbid}&format=json`;
-          request(urlInfo, function (error, res, body) {
-            if (!error) {
-              let info = JSON.parse(body);
-
-              msg.channel.send({
-                "embed": {
-                  "title": `${info.album.artist} - ${info.album.name}`,
-                  "description": info.album.wiki.summary,
-                  "color": 11360941,
-                  "timestamp": new Date(),
-                  "footer": {
-                    "icon_url": msg.author.avatarURL,
-                    "text": `Called by ${msg.author.username}`
-                  },
-                  "author": {
-                    "name": "Album Information",
-                    "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
-                  },
-                  "fields": [
-                    {
-                      "name": Genre,
-                      "value": info.album.tags.tag[0].name,
-                      "inline": true
-                    }
-                  ]
-                }
-              })
-            }
-          });
         }
       });
     }
