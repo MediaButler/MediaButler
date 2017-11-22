@@ -19,7 +19,7 @@ exports.run = (bot, msg, args, perms = []) => {
         m.edit("Received statistics. Building output...");
         let e = createUserStats(stats);
         e.setFooter(`Called by ${msg.author.username}`, msg.author.avatarURL);
-        m.edit({embed: e});
+        m.edit({ embed: e });
         msg.channel.stopTyping();
       });
     }).catch(e => { m.edit(`ERR: ${e}`); msg.channel.stopTyping(); });
