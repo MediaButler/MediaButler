@@ -8,8 +8,10 @@ exports.run = (bot, msg, params = []) => {
     getNowPlaying(msg.guild.id)
     .then((nowPlaying) => {
       m.edit(`There are currently ${nowPlaying.data.stream_count} streams.`);
-      let e = createNowPlayingModal(s);
-      nowPlaying.data.sessions.forEach(s => { msg.channel.send({ embed: e }) });
+      nowPlaying.data.sessions.forEach(s => { 
+        let e = createNowPlayingModal(s);
+        msg.channel.send({ embed: e });
+      });
       msg.channel.stopTyping();
     })
     .catch((e) => { m.edit(`ERR: ${e}`); msg.channel.stopTyping(); });
