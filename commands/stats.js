@@ -11,10 +11,10 @@ exports.run = (bot, msg, args, perms = []) => {
   .then(m => {
     msg.channel.startTyping();
     m.edit("Querying PlexPy for UserID");
-    getUserId(args[0])
+    getUserId(msg.guild.id, args[0])
     .then(userId => {
       m.edit(`Got UserID ${userId}. Querying PlexPy for Statistics.`);
-      getUserStats(userId)
+      getUserStats(msg.guild.id, userId)
       .then(stats => {
         let e = createUserStats(stats);
         e.setFooter(`Called by ${msg.author.username}`, msg.author.avatarURL);
