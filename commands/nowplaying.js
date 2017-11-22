@@ -10,6 +10,7 @@ exports.run = (bot, msg, params = []) => {
       m.edit(`There are currently ${nowPlaying.data.stream_count} streams.`);
       nowPlaying.data.sessions.forEach(s => { 
         let e = createNowPlayingModal(s);
+        e.setFooter(`Called by ${msg.author.username}`, msg.author.avatarURL);        
         msg.channel.send({ embed: e });
       });
       msg.channel.stopTyping();
