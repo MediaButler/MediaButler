@@ -49,10 +49,10 @@ client.reload = command => {
 client.elevation = message => {
   let permlvl = 0;
   getSettings(message.guild.id)
-  .then((settings) => {
-    settings = JSON.parse(settings);
-    const modRole = message.guild.roles.find('name', settings.find(x => x.setting == "self.modRole").value);
-    const adminRole = message.guild.roles.find('name', settings.find(x => x.setting == "self.adminRole").value);
+  .then((set) => {
+    set = JSON.parse(set);
+    const modRole = message.guild.roles.find('name', set.find(x => x.setting == "self.modRole").value);
+    const adminRole = message.guild.roles.find('name', set.find(x => x.setting == "self.adminRole").value);
     if (modRole && message.member.roles.has(modRole.id)) permlvl = 2;
     if (adminRole && message.member.roles.has(adminRole.id)) permlvl = 3;
     if (message.author.id === message.guild.ownerid) permlvl = 4;
