@@ -15,7 +15,7 @@ module.exports = (guildId, userId) =>
                     request(url, function (e, r, b) {
                         let j = JSON.parse(b);
                         if (e && r.statusCode !== 200) reject(e);
-                        resolve(JSON.stringify(j.response);
+                        resolve(JSON.stringify(j.response));
                     });
                 }
             );
