@@ -1,4 +1,3 @@
-const getDefaultProfileId = require('../util/getDefaultProfileIdSonarr');
 const getQualityProfile = require('../util/getQualityProfileIdFromSonarr');
 const getTvShow = require('../util/getTvShowFromSonarr');
 const addTvShow = require('../util/addTvShowToSonarr');
