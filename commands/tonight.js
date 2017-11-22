@@ -12,6 +12,7 @@ exports.run = (bot, msg, params = []) => {
           let e = createTonightItem(t);
           msg.channel.send({ embed: e });
         });
+        msg.channel.stopTyping();
       }).catch((e) => { m.edit(`ERR: ${e}`); msg.channel.stopTyping(); });
   });
 };
