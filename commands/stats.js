@@ -1,4 +1,3 @@
-const request = require('request');
 const getUserId = require('../util/getUserIdFromUsernamePlexpy');
 const getUserStats = require('../util/getUserStatsFromPlexpy');
 const createUserStats = require('../util/createUserStatsModal');

@@ -1,6 +1,6 @@
 const getSettings = require('./getSettings');
 const SonarrAPI = require('sonarr-api');
-module.exports = (tvShow, profileId = null, rootPath = null) => {
+module.exports = (guildId, tvShow, profileId = null, rootPath = null) => {
     const p = new Promise((resolve, reject) => 
     {
         getSettings(guildId)
