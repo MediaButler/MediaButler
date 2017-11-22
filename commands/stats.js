@@ -22,7 +22,7 @@ exports.run = (bot, msg, args, perms = []) => {
         m.edit({embed: e});
         msg.channel.stopTyping();
       });
-    });
+    }).catch(e => { m.edit(`ERR: ${e}`); msg.channel.stopTyping(); });
   });
 };
 exports.conf = {
