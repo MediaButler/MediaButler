@@ -19,4 +19,4 @@ module.exports = (tvShowItem) =>
     .addField("Rating", `${r}${v}`, true)
     .addField("IMDb ID", tvShowItem.imdbID, true);
     return e;
-}
+};
