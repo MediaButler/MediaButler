@@ -7,6 +7,7 @@ exports.run = (bot, msg, params = []) => {
     m.edit("Querying PlexPy for current activity.");
     getNowPlaying(msg.guild.id)
     .then((nowPlaying) => {
+      console.log(nowPlaying);
       m.edit(`There are currently ${nowPlaying.data.stream_count} streams.`);
       data.sessions.forEach(s => { msg.channel.send(`{embed: ${createNowPlayingModal(s)}`) });
       msg.channel.stopTyping();
