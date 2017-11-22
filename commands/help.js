@@ -12,14 +12,12 @@ exports.run = (client, message, params) => {
     }
   }
 };
-
 exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ['h', 'halp'],
   permLevel: 0
 };
-
 exports.help = {
   name: 'help',
   description: 'Displays all the available commands for your permission level.',
