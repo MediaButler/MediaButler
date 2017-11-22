@@ -35,7 +35,7 @@ exports.run = (client, msg, args, perms) => {
         m.edit({ embed: e });
         msg.channel.stopTyping();
       });
-    });
+    }).catch((e) => { m.edit(`ERR: ${e}`); return; });
   });
 };
 exports.conf = {
