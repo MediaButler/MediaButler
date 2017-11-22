@@ -5,7 +5,7 @@ module.exports = (tvShow) =>
     i.Title = tvShow.title;
     i.Plot = tvShow.overview;
     i.Poster = tvShow.images.find(o => o.coverType === "poster").url;
-    i.Year = dateFirstAired.getFullYear();
+    i.Year = d.getFullYear();
     i.Rated = tvShow.certification;
     i.Released = d.toDateString();
     i.Genre = tvShow.genres.join(", ");
