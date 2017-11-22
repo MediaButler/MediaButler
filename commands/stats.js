@@ -16,7 +16,8 @@ exports.run = (bot, msg, args, perms = []) => {
       m.edit(`Got UserID ${userId}. Querying PlexPy for Statistics.`);
       getUserStats(msg.guild.id, userId)
       .then(stats => {
-        let e = createUserStats(stats);
+        m.edit("Received statistics. Building output...");
+        let e = createUserStats(stats.data);
         e.setFooter(`Called by ${msg.author.username}`, msg.author.avatarURL);
         m.edit({embed: e});
         msg.channel.stopTyping();
