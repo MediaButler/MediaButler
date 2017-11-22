@@ -1,4 +1,3 @@
-const request = require('request');
 const Discord = require('discord.js');
 const createTvShowItemModal = require('../util/createTvShowItemModal');
 const getTvShowInfo = require('../util/getTvShowInfoFromOmdb');
