@@ -1,160 +1,49 @@
-const getSettings = require('../util/getSettings');
-const SonarrAPI = require('sonarr-api');
-
+const getQualityProfile = require('../util/getQualityProfileIdFromSonarr');
+const getTvShow = require('../util/getTvShowFromSonarr');
+const addTvShow = require('../util/addTvShowToSonarr');
+const createTvShowItem = require('../util/createTvShowItemFromSonarr');
+const createTvShowItemModal = require('../util/createTvShowItemModal');
 exports.run = (client, msg, args, perms) => {
-  getSettings(msg.guild.id)
-  .then((settings) => {
-    settings = JSON.parse(settings);
-    const sonarrHost = settings.find(x => x.setting == "sonarr.host");
-    const sonarrBaseurl = settings.find(x => x.setting == "sonarr.baseurl");
-    const sonarrApikey = settings.find(x => x.setting == "sonarr.apikey");
-    const sonarrDefaultProfileId = settings.find(x => x.setting == "sonarr.defaultprofileid");
-    const sonarrDefaultRootPath = settings.find(x => x.setting == "sonarr.defaultrootpath");
-
-    const sonarr = new SonarrAPI({
-      hostname: sonarrHost.value.split(":")[0],
-      apiKey: sonarrApikey.value,
-      port: sonarrHost.value.split(":")[1],
-      urlBase: sonarrBaseurl.value
-    });
-
-  let tvdbId;
-  let showTitle;
-  let rootFolderPath;
-  let profileId = apiauth.sonarr_defaultProfileId;
-  let rootPath = apiauth.sonarr_defaultRootPath;
-
-  message.channel.startTyping();
-  message.channel.send("Starting...")
-      .then(m => {
-        if (!args[0]) {
-          m.edit("ERR: No variables found. run `.help addtv`");
-          return;
-        }
-
-        if (args[1]) {
-          m.edit("Detected quality profile override.. Scanning for `profileId`");
-          sonarr.get("profile")
-          .then(result => {
-            let profile = result.find(q => q.name === args[1]);
-            profileId = profile.id;
-            m.edit("profileId found.");
-            if (profileId === undefined) {
-              m.edit("ERR: `profileId` not found.");
-              message.channel.stopTyping();
-            }
-          });
-        }
-
-        if (args[2]) {
-          m.edit("Root path override detected.");
-          rootPath = args[2];
-        }
-
-        m.edit("Looking up TV Show information.");
-        sonarr.get("series/lookup", { "term": `tvdb: ${args[0]}` }).then(function (result) {
-          if (result.length === 0) {
-            m.edit("ERR: Unable to pull show matching that ID");
-            message.channel.stopTyping();
-            return;
-          }
-
-          let data = {
-            "tvdbId": result[0].tvdbId,
-            "title": result[0].title,
-            "qualityProfileId": profileId,
-            "titleSlug": result[0].titleSlug,
-            "images": result[0].images,
-            "seasons": result[0].seasons,
-            "monitored": true,
-            "seasonFolder": true,
-            "rootFolderPath": rootPath
-          };
-          m.edit("Adding to Sonarr....");
-          sonarr.post("series", data).then(function (postResult) {
-            let tvShow = postResult;
-            let banner = result[0].images.find(o => o.coverType === "banner");
-            let bannerUrl = banner.url;
-            let dateFirstAired = new Date(postResult.firstAired);
-            let firstAirDateStr = `${dateFirstAired.getFullYear()}-${dateFirstAired.getMonth()}-${dateFirstAired.getDate()}`;
-            m.edit({
-              "embed": {
-                "title": tvShow.title,
-                "description": tvShow.overview,
-                "color": 13619085,
-                "timestamp": new Date(),
-                "footer": {
-                  "icon_url": message.author.avatarURL,
-                  "text": `Called by ${msg.author.username}`
-                },
-                "image": {
-                  "url": banner.url
-                },
-                "author": {
-                  "name": "Successfully added to Sonarr",
-                  "url": `https://www.thetvdb.com/?tab=series&id=${tvShow.tvdbId}`,
-                  "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
-                },
-                "fields": [
-                  {
-                    "name": "Network",
-                    "value": tvShow.network,
-                    "inline": true
-                  },
-                  {
-                    "name": "First Aired",
-                    "value": firstAirDateStr,
-                    "inline": true
-                  },
-                  {
-                    "name": "Airs on",
-                    "value": tvShow.airTime,
-                    "inline": true
-                  },
-                  {
-                    "name": "Genres",
-                    "value": tvShow.genres.join(', '),
-                    "inline": true
-                  },
-                  {
-                    "name": "Status",
-                    "value": tvShow.status,
-                    "inline": true
-                  },
-                  {
-                    "name": "Rating",
-                    "value": `${tvShow.ratings.value}(${tvShow.ratings.votes}votes)`,
-                    "inline": true
-                  },
-                  {
-                    "name": "Runtime",
-                    "value": `${tvShow.runtime} min`,
-                    "inline": true
-                  },
-                  {
-                    "name": "TVDb ID",
-                    "value": tvShow.tvdbId,
-                    "inline": true
-                  }
-                ]
-              }
-            });
-            message.channel.stopTyping();
-          }, function (err) {
-            m.edit("ERR: Sorry, an unknown error occurred.")
-          });
-        });
+  msg.channel.send("Starting...")
+  .then((m) => {
+    msg.channel.startTyping();
+    let rp = null;
+    let pid = null;
+    if (args[1]) {
+      m.edit("Detected Quality Profile override. Querying Sonarr for profileId");
+      getQualityProfile(msg.guild.id, args[1])
+      .then((profileId) => {
+        pid = profileId;
+        m.edit("Received profileId. Continuing");
       });
-    });
+    }
+    if (args[2]) {
+      m.edit("Detected rootPath override");
+      rp = args[2];
+    }
+    m.edit("Querying Sonarr for TV Show information");
+    getTvShow(msg.guild.id, args[0])
+    .then((tvShow) => {
+      m.edit("Received TV Show infromation. Adding to Sonarr.");
+      addTvShow(msg.guild.id, tvShow, pid, rp)
+      .then((tvShowAdded) => {
+        m.edit("Show added sucessfully");
+        let l = createTvShowItem(tvShow);
+        let e = createTvShowItemModal(l);
+        e.setAuthor("TV Show added sucessfully");
+        e.setFooter(`Called by ${msg.author.username}`, msg.author.avatarURL);        
+        m.edit({ embed: e });
+        msg.channel.stopTyping();
+      });
+    }).catch((e) => { m.edit(`ERR: ${e}`); return; });
+  });
 };
-
 exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: [],
   permLevel: 3
 };
-
 exports.help = {
   name: 'addtv',
   description: 'Adds a TV Show directly to Sonarr',

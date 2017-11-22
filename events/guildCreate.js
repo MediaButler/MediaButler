@@ -1,29 +1,26 @@
 const sqlite3 = require('sqlite3').verbose();
-let db = new sqlite3.Database('./settings.sqlite');
 module.exports = (guild) => {
+    let db = new sqlite3.Database('./settings.sqlite');    
     db.serialize(() => {
-        db.run(`INSERT INTO guildSettings(guildId, setting)
-            VALUES(${guild.id}, "plexpy.host"),
-                (${guild.id}, "plexpy.baseurl"),
-                (${guild.id}, "plexpy.apikey"),
-                (${guild.id}, "sonarr.host"),
-                (${guild.id}, "sonarr.baseurl"),
-                (${guild.id}, "sonarr.apikey"),
-                (${guild.id}, "sonarr.defaultprofileid"),
-                (${guild.id}, "sonarr.defaultrootpath"),
-                (${guild.id}, "radarr.host"),
-                (${guild.id}, "radarr.baseurl"),
-                (${guild.id}, "radarr.apikey"),
-                (${guild.id}, "radarr.defaultprofileid"),
-                (${guild.id}, "radarr.defaultrootpath"),                
-                (${guild.id}, "lidarr.host"),
-                (${guild.id}, "lidarr.baseurl"),
-                (${guild.id}, "lidarr.apikey"),
-                (${guild.id}, "tmdb.apikey"),
-                (${guild.id}, "tvdb.apikey"),
-                (${guild.id}, "self.adminChannel"),
-                (${guild.id}, "self.adminRole"),
-                (${guild.id}, "self.modRole")
+        db.run(`INSERT INTO guildSettings(guildId, setting, value)
+            VALUES(${guild.id}, "plexpy.url", NULL),
+                (${guild.id}, "plexpy.apikey", NULL),
+                (${guild.id}, "sonarr.url", NULL),
+                (${guild.id}, "sonarr.apikey", NULL),
+                (${guild.id}, "sonarr.defaultprofileid", NULL),
+                (${guild.id}, "sonarr.defaultrootpath", NULL),
+                (${guild.id}, "radarr.url", NULL),
+                (${guild.id}, "radarr.apikey", NULL),
+                (${guild.id}, "radarr.defaultprofileid", NULL),
+                (${guild.id}, "radarr.defaultrootpath", NULL),                
+                (${guild.id}, "lidarr.url", NULL),
+                (${guild.id}, "lidarr.apikey", NULL),
+                (${guild.id}, "tmdb.apikey", NULL),
+                (${guild.id}, "tvdb.apikey", NULL),
+                (${guild.id}, "omdb.apikey", "5af02350"),                
+                (${guild.id}, "self.adminChannel", NULL),
+                (${guild.id}, "self.adminRole", NULL),
+                (${guild.id}, "self.modRole", NULL)
         `);
     });
     db.close();
