@@ -18,8 +18,7 @@ module.exports = (guildId, username) =>
                     if (u === undefined) {
                         reject("Unable to match user");
                     }
-                    console.log(u);
-                    resolve(u.userId);
+                    resolve(u.user_id);
                     });
                 }
             );
