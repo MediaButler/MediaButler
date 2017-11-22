@@ -3,7 +3,7 @@ const getMovieInfo = require('../util/getMovieInfoFromOmdb');
 exports.run = (bot, msg, args = []) => {
   getMovieInfo(args)
   .then((movieInfo) => {
-    let e = createMovieItemModal(moviInfo);
+    let e = createMovieItemModal(movieInfo);
     e.setFooter(`Called by ${msg.author.username}`, msg.author.avatarURL);
     msg.channel.send({ "embed": e });
   });
