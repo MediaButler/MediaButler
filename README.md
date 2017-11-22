@@ -17,8 +17,6 @@ Still early dev, but active and welcomes any/all help
     cd MediaButler
     cp settings.example.json settings.json
     nano settings.json
-    cp apiauth.example.json apiauth.json
-    nano apiauth.json
     npm install
 
 ## Features
