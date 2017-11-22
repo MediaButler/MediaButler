@@ -6,12 +6,22 @@ module.exports = (guildId, tvShow, profileId = null, rootPath = null) => {
         getSettings(guildId)
         .then((settings) =>
         {
+            console.log("1");
             settings = JSON.parse(settings);
             let host = settings.find(x => x.setting == "sonarr.host").value;
+            console.log("2");            
             let baseurl = settings.find(x => x.setting == "sonarr.baseurl").value;
+            console.log("3");
+            
             let apikey = settings.find(x => x.setting == "sonarr.apikey").value;
+            console.log("4");
+            
             let defaultProfileId = settings.find(x => x.setting == "sonarr.defaultprofileid").value;
+            console.log("5");
+            
             let defaultRootPath = settings.find(x => x.setting == "sonarr.defaultrootpath").value;
+            console.log("6");
+            
             if (defaultProfileId === undefined) reject("defaultProfileId not set");
             if (defaultRootPath === undefined) reject("defaultRootPath not set");
             if (profileId === null) profileId = defaultProfileId;
