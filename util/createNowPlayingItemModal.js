@@ -6,7 +6,7 @@ module.exports = (nowPlayingItem) =>
     .setDescription(nowPlayingItem.summary)
     .setColor(11360941)
     .setTimestamp()
-    .setAuthor(`Steam Info (${nowPlayingItem.session_key})`)
+    .setAuthor(`Stream Info (${nowPlayingItem.session_key})`)
     .addField("Resolution", `${nowPlayingItem.stream_video_width}x${nowPlayingItem.stream_video_resolution}`, true)
     .addField("Type", nowPlayingItem.video_decision, true)
     .addField("Player", nowPlayingItem.product, true);
