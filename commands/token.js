@@ -33,9 +33,9 @@ exports.run = (bot, msg, args, perms = []) => {
                     let jsonObj = JSON.stringify(pinObj);
                     let query = `UPDATE guildSettings SET "value" = ? WHERE "guildId" = ? AND "setting" = "plex.pintoken"`;
                     console.log("going to save");
-                    console.log(jsonObj);
+                    console.log(escapeString(jsonObj));
                     console.log(msg.guild.id);
-                    db.executeSql(query, [escapeString(jsonObj), msg.guild.id], function(err) {
+                    db.run(query, [escapeString(jsonObj), msg.guild.id], function(err) {
                         if (err) {
                             msg.channel.send("Unable to update: " + err.message);
                           return;
