@@ -16,7 +16,7 @@ module.exports = (guildId) =>
             let i = {};
             i.host = url.value;
             i.token = token.value;
-            i.pinToken = JSON.parse(pinToken.value);
+            i.pinToken = pinToken.value;
             resolve(i);
         });
     });
