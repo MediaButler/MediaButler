@@ -13,7 +13,7 @@ module.exports = (guildId) =>
                 if (e && r.statusCode !== 200) reject(e);
                 resolve(j.response);
             });
-        });
+        }).catch((e) => { reject(e); });
     });
     return p;
 }
