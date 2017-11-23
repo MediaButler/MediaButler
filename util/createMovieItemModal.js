@@ -3,7 +3,7 @@ module.exports = (movieItem) =>
 {
     let r = movieItem.imdbRating === "N/A" ? "No rating" : `${movieItem.imdbRating}/10`;
     let v = movieItem.imdbRating === "N/A" ? "" : `(${movieItem.imdbVotes} votes)`;
-    let g = movieItem.Genre.length > 24 ? `${movieItem.Genre.substring(0, 23)} ...}` : info.Genre;
+    let g = movieItem.Genre.length > 24 ? `${movieItem.Genre.substring(0, 23)} ...}` : movieItem.Genre;
     let e = new Discord.RichEmbed()
     .setTitle(movieItem.Title)
     .setDescription(movieItem.Plot)

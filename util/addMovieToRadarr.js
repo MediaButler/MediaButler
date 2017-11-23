@@ -1,6 +1,6 @@
-const getSettings = require('./getSonarrSettings');
+const getSettings = require('./getRadarrSettings');
 const SonarrAPI = require('sonarr-api');
-module.exports = (guildId, tvShow, profileId = null, rootPath = null) => {
+module.exports = (guildId, movie, profileId = null, rootPath = null) => {
     const p = new Promise((resolve, reject) => 
     {
         getSettings(guildId)
@@ -8,23 +8,21 @@ module.exports = (guildId, tvShow, profileId = null, rootPath = null) => {
         {
             if (profileId === null) profileId = settings.profileId;
             if (rootPath === null) rootPath = settings.rootPath;
-            const sonarr = new SonarrAPI({ hostname: settings.host, apiKey: settings.apikey, port: settings.port, urlBase: `/${settings.path}` });
+            const radarr = new SonarrAPI({ hostname: settings.host, apiKey: settings.apikey, port: settings.port, urlBase: `/${settings.path}` });
             let data = {
-                "tvdbId": tvShow.tvdbId,
-                "title": tvShow.title,
+                "tmdbId": movie.tmdbId,
+                "title": movie.title,
                 "qualityProfileId": profileId,
-                "titleSlug": tvShow.titleSlug,
-                "images": tvShow.images,
-                "seasons": tvShow.seasons,
+                "titleSlug": movie.titleSlug,
+                "images": movie.images,
                 "monitored": true,
-                "seasonFolder": true,
                 "rootFolderPath": rootPath
             };
-            sonarr.post("series", data)
+            radarr.post("movie", data)
             .then((result) => {
                 if (result.title == undefined || result.title == null) reject("Could not add");
                 resolve(result);
-            });
+            }).catch((e) => { reject(e); });
         }).catch((e) => { reject(e); });
     });
     return p;

@@ -1,4 +1,4 @@
-const getSettings = require('./getSettings');
+const getSettings = require('./getPlexPySettings');
 const request = require('request');
 module.exports = (guildId, username) => 
 {
@@ -6,22 +6,15 @@ module.exports = (guildId, username) =>
     {
         getSettings(guildId)
         .then((settings) =>
-            {
-                settings = JSON.parse(settings);
-                let host = settings.find(x => x.setting == "plexpy.host").value;
-                let baseurl = settings.find(x => x.setting == "plexpy.baseurl").value;
-                let apikey = settings.find(x => x.setting == "plexpy.apikey").value;
-                let url = `http://${host}${baseurl}/api/v2?apikey=${apikey}&cmd=get_users`;
-                request(url, function (e, r, b) {
+        {
+            let url = `${settings.protocol}://${settings.host}/${settings.path}/api/v2?apikey=${settings.apikey}&cmd=get_users`;
+            request(url, function (e, r, b) {
                 let j = JSON.parse(b);
                 let u = j.response.data.find(o => o.username === username);
-                if (u === undefined) {
-                    reject("Unable to match user");
-                }
+                if (u === undefined) reject("Unable to match user");
                 resolve(u.user_id);
-                });
-            }
-        );
+            });
+        }).catch((e) => { reject(e); });
     });
     return p;
 }

@@ -14,8 +14,7 @@ exports.run = (bot, msg, params = []) => {
         msg.channel.send({ embed: e });
       });
       msg.channel.stopTyping();
-    })
-    .catch((e) => { m.edit(`ERR: ${e}`); msg.channel.stopTyping(); });
+    }).catch((e) => { m.edit(`ERR: ${e}`); msg.channel.stopTyping(); });
   });
 };
 exports.conf = {
