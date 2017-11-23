@@ -7,7 +7,7 @@ module.exports = (guildId) =>
         getSettings(guildId)
         .then((settings) =>
             {                
-                let url = `${settings.protocol}://${settings.host}/${settings.path}/api/v2?apikey=${apikey}&cmd=get_activity`;
+                let url = `${settings.protocol}://${settings.host}/${settings.path}/api/v2?apikey=${settings.apikey}&cmd=get_activity`;
                 request(url, function (e, r, b) {
                     let j = JSON.parse(b);
                     if (e && r.statusCode !== 200) reject(e);
