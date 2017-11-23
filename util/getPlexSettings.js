@@ -12,7 +12,7 @@ module.exports = (guildId) =>
             let pinToken = settings.find(x => x.setting == "plex.pintoken");
             const regex = /^(http[s]?):\/?\/?([^:\/\s]+):?([0-9]{4})?((\/\w+)*\/)([\w\-\.]+[^#?\s]+)?$/g;
             let details = regex.exec(url.value);
-            if (url.value == null || token.value == null) reject("Plex not configured");
+            if (url.value == null) reject("Plex not configured");
             let i = {};
             i.host = url.value;
             i.token = token.value;
