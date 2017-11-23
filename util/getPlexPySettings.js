@@ -9,7 +9,6 @@ module.exports = (guildId) =>
                 settings = JSON.parse(settings);
                 let url = settings.find(x => x.setting == "plexpy.url");
                 let apikey = settings.find(x => x.setting == "plexpy.apikey");
-                let s = {};
                 const regex = /^(http[s]?):\/?\/?([^:\/\s]+):?([0-9]{4})?((\/\w+)*\/)([\w\-\.]+[^#?\s]+)?$/g;
                 let details = regex.exec(url.value);
                 if (url === undefined || apikey === undefined) reject("plexpy settings not set");
@@ -18,6 +17,7 @@ module.exports = (guildId) =>
                 i.host = details[2];
                 if (details[3] !== undefined) i.host = i.host + `:${details[3]}`;
                 i.path = details[6];
+                i.apikey = apikey.value;
                 resolve(i);
             }
         );
