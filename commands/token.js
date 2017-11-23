@@ -1,6 +1,7 @@
 const plexApi = require('plex-api');
 const plexPinAuth = require('plex-api-pinauth')();
 const getSettings = require('../util/getPlexSettings');
+const escapeString = require('../util/escapeString');
 var sqlite3 = require('sqlite3').verbose();
 
 exports.run = (bot, msg, args, perms = []) => {
@@ -30,11 +31,11 @@ exports.run = (bot, msg, args, perms = []) => {
                     let db = new sqlite3.Database('./settings.sqlite');    
                     console.log("set db");
                     let jsonObj = JSON.stringify(pinObj);
-                    let query = `UPDATE guildSettings SET "value" = ''?'' WHERE "guildId" = ? AND "setting" = "plex.pintoken"`;
+                    let query = `UPDATE guildSettings SET "value" = ? WHERE "guildId" = ? AND "setting" = "plex.pintoken"`;
                     console.log("going to save");
                     console.log(jsonObj);
                     console.log(msg.guild.id);
-                    db.executeSql(query, [jsonObj, msg.guild.id], function(err) {
+                    db.executeSql(query, [escapeString(jsonObj), msg.guild.id], function(err) {
                         if (err) {
                             msg.channel.send("Unable to update: " + err.message);
                           return;
