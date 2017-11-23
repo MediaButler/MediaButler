@@ -11,8 +11,7 @@ module.exports = (guildId) =>
                 let apikey = settings.find(x => x.setting == "plexpy.apikey").value;
                 let s = {};
                 const regex = /^(http[s]?):\/?\/?([^:\/\s]+):?([0-9]{4})?((\/\w+)*\/)([\w\-\.]+[^#?\s]+)?$/g;
-                console.log(url);
-                let details = regex.match(url);
+                let details = url.value.match(regex);
                 if (url == null || apikey == null) reject("plexpy settings not set");
                 console.log(details);
                 resolve(details);
