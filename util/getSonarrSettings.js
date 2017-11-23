@@ -19,6 +19,7 @@ module.exports = (guildId) =>
                 if (details[3] !== undefined) i.port = details[3];
                 i.path = details[6];
                 i.apikey = apikey.value;
+                console.log(i);
                 resolve(i);
             }
         );
