@@ -1,12 +1,13 @@
 const request = require('request');
 const getSettings = require('../util/getPlexPySettings');
-module.exports = (guildId, user, results = 3) => 
+module.exports = (guildId, user, results = null) => 
 {
     const p = new Promise((resolve, reject) => 
     {
         getSettings(guildId)
         .then((settings) =>
-        {               
+        {       
+            if (results == null) results = 3;        
             let url = `${settings.protocol}://${settings.host}/${settings.path}/api/v2?apikey=${settings.apikey}&cmd=get_history&length=${results}&user=${user}`;
             request(url, function (e, r, b) {
                 let j = JSON.parse(b);
