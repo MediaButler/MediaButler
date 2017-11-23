@@ -12,7 +12,7 @@ exports.run = (bot, msg, params = []) => {
         let e = createNowPlayingModal(s);
         e.setFooter(`Called by ${msg.author.username}`, msg.author.avatarURL);        
         msg.channel.send({ embed: e });
-      }).catch((e) => { m.edit(`ERR: ${e}`); msg.channel.stopTyping(); return; });
+      });
       msg.channel.stopTyping();
     })
     .catch((e) => { m.edit(`ERR: ${e}`); msg.channel.stopTyping(); });
