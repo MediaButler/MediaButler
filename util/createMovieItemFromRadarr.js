@@ -7,6 +7,7 @@ module.exports = (movie) =>
     i.Rated = "N/A";
     i.Released = d.toDateString();
     i.Genre = movie.genres.join(", ");
+    if (i.Genre == "") i.Genre = "N/A";
     i.Runtime = movie.runtime;
     i.imdbRating = movie.ratings.value;
     i.imdbVotes = movie.ratings.votes;
