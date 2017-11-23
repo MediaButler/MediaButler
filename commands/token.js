@@ -7,7 +7,7 @@ exports.run = (bot, msg, args, perms = []) => {
     let d;
     getSettings(msg.guild.id)
     .then((settings) => {
-        d = new PlexAPI({
+        d = new plexApi({
             identifier: '1f02119d-2819-4667-8902-2c962b2298d0',
             product: 'MediaButler',
             version: '0.2',
