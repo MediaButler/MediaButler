@@ -30,7 +30,7 @@ exports.run = (bot, msg, args, perms = []) => {
                     let db = new sqlite3.Database('./settings.sqlite');    
                     console.log("set db");
                     let jsonObj = JSON.stringify(pinObj);
-                    let query = `UPDATE guildSettings SET "value" = "?" WHERE "guildId" = ? AND "setting" = "plex.pintoken"`;
+                    let query = `UPDATE guildSettings SET "value" = ''?'' WHERE "guildId" = ? AND "setting" = "plex.pintoken"`;
                     console.log("going to save");
                     console.log(jsonObj);
                     console.log(msg.guild.id);
