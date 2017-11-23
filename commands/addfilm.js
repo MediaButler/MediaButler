@@ -25,7 +25,7 @@ exports.run = (client, msg, args, perms) => {
     getMovie(msg.guild.id, args[0])
     .then((movie) => {
       m.edit("Received Movie infromation. Adding to Radarr.");
-      addTvShow(msg.guild.id, tvShow, pid, rp)
+      addMovie(msg.guild.id, tvShow, pid, rp)
       .then((movieAdded) => {
         m.edit("Movie added sucessfully");
         let l = createMovieItem(movie);
