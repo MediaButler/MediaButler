@@ -29,7 +29,7 @@ exports.run = (bot, msg, args, perms = []) => {
                     console.log(pinObj);
                     let db = new sqlite3.Database('./settings.sqlite');    
                     console.log("set db");
-                    let query = `UPDATE guildSettings SET 'value' = '${pinObj}' WHERE 'guildId' = '${msg.guild.id}' AND 'setting' = 'plex.pintoken'`;
+                    let query = `UPDATE guildSettings SET "value" = "${pinObj}" WHERE "guildId" = "${msg.guild.id}" AND "setting" = "plex.pintoken"`;
                     console.log("set query");
                     console.log("going to save");
                     db.run(query, function(err) {
