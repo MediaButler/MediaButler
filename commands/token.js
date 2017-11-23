@@ -18,12 +18,15 @@ exports.run = (bot, msg, args, perms = []) => {
             token: null
         });
         if (settings.token !== null) d.token = settings.token;
-
+        console.log("checked settings");
         if (d.token == null) {
-            if (!settings.pintoken) {
+            console.log("no token");
+            if (!settings.pinToken) {
+                console.log("no pin token");
                 // Setup plex pin for user
                 plexPinAuth.getNewPin()
                 .then((pinObj) => { 
+                    console.log(pinObj);
                     let db = new sqlite3.Database('./settings.sqlite');    
                     let query = `UPDATE guildSettings SET "value" = ? WHERE "guildId" = ? AND "setting" = ?`
                     let queryData = [JSON.stringify(pinObj), guildId, "plex.pintoken"];
@@ -40,7 +43,7 @@ exports.run = (bot, msg, args, perms = []) => {
             }
 
             // Verify pin and get token
-            plexPinAuth.checkPinForAuth(pinObj, function callback(err, status) {
+            plexPinAuth.checkPinForAuth(settings.pinToken, function callback(err, status) {
                 if(err) {
                     msg.channel.send(`Unable to authenticate token due to ${status}`);
                 } else {
