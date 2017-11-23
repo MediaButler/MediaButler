@@ -2,7 +2,7 @@ const getQualityProfile = require('../util/getQualityProfileIdFromRadarr');
 const getMovie = require('../util/getMovieFromRadarr');
 const addMovie = require('../util/addMovieToRadarr');
 const createMovietem = require('../util/createMovieItemFromRadarr');
-const createMovietemModal = require('../util/createTvShowItemModal');
+const createMovietemModal = require('../util/createMovieItemModal');
 exports.run = (client, msg, args, perms) => {
   msg.channel.send("Starting...")
   .then((m) => {
@@ -25,7 +25,7 @@ exports.run = (client, msg, args, perms) => {
     getMovie(msg.guild.id, args[0])
     .then((movie) => {
       m.edit("Received Movie infromation. Adding to Radarr.");
-      addMovie(msg.guild.id, tvShow, pid, rp)
+      addMovie(msg.guild.id, movie, pid, rp)
       .then((movieAdded) => {
         m.edit("Movie added sucessfully");
         let l = createMovieItem(movie);
