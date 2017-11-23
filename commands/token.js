@@ -28,8 +28,13 @@ exports.run = (bot, msg, args, perms = []) => {
                 .then((pinObj) => { 
                     console.log(pinObj);
                     let db = new sqlite3.Database('./settings.sqlite');    
+                    console.log("set db");
                     let query = `UPDATE guildSettings SET "value" = ? WHERE "guildId" = ? AND "setting" = ?`
-                    let queryData = [`${JSON.stringify(pinObj)}`, guildId, "plex.pintoken"];
+                    console.log("set query");
+                    let jsonobj = JSON.stringify(pinObj);
+                    console.log("json'd it");
+                    let queryData = [jsonobj, guildId, "plex.pintoken"];
+                    console.log(queryData);
                     console.log("going to save");
                     db.run(query, queryData, function(err) {
                         if (err) {
