@@ -6,7 +6,8 @@ module.exports = (guildId) =>
     {
         getSettings(guildId)
         .then((settings) =>
-            {                
+            {   
+                console.log("nowplaying");
                 let url = `${settings.protocol}://${settings.host}/${settings.path}/api/v2?apikey=${settings.apikey}&cmd=get_activity`;
                 console.log(url);
                 request(url, function (e, r, b) {

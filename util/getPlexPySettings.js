@@ -6,6 +6,7 @@ module.exports = (guildId) =>
         getSettings(guildId)
         .then((settings) =>
             {
+                console.log("getsettings");
                 settings = JSON.parse(settings);
                 let url = settings.find(x => x.setting == "plexpy.url");
                 let apikey = settings.find(x => x.setting == "plexpy.apikey");
