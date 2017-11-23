@@ -6,6 +6,7 @@ module.exports = (guildId, movie, profileId = null, rootPath = null) => {
         getSettings(guildId)
         .then((settings) =>
         {
+            console.log("hello");
             if (profileId === null) profileId = settings.profileId;
             if (rootPath === null) rootPath = settings.rootPath;
             const radarr = new SonarrAPI({ hostname: settings.host, apiKey: settings.apikey, port: settings.port, urlBase: `/${settings.path}` });
@@ -18,6 +19,7 @@ module.exports = (guildId, movie, profileId = null, rootPath = null) => {
                 "monitored": true,
                 "rootFolderPath": rootPath
             };
+            console.log("data made.. posting");
             radarr.post("movies", data)
             .then((result) => {
                 console.log(result);
