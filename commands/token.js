@@ -29,10 +29,11 @@ exports.run = (bot, msg, args, perms = []) => {
                     console.log(pinObj);
                     let db = new sqlite3.Database('./settings.sqlite');    
                     let query = `UPDATE guildSettings SET "value" = ? WHERE "guildId" = ? AND "setting" = ?`
-                    let queryData = [JSON.stringify(pinObj), guildId, "plex.pintoken"];
+                    let queryData = [`${JSON.stringify(pinObj)}`, guildId, "plex.pintoken"];
+                    console.log("going to save");
                     db.run(query, queryData, function(err) {
                         if (err) {
-                            message.channel.send("Unable to update: " + err.message);
+                            msg.channel.send("Unable to update: " + err.message);
                           return;
                         }
                         msg.channel.send(`Please go to https://plex.tv/pin and authenticate this code: ${pinObj.code}`);
