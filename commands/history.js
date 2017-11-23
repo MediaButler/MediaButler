@@ -7,7 +7,7 @@ exports.run = (bot, msg, params = []) => {
 
   msg.channel.send("Starting...")
   .then((m) => {
-    msg.channel.stopTyping();
+    msg.channel.startTyping();
     if (!params[0]) reject("No username specified");
     let results = null;
     let userQuery = params[0];
