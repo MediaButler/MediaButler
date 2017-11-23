@@ -16,7 +16,8 @@ module.exports = (guildId, movie, profileId = null, rootPath = null) => {
                 "titleSlug": movie.titleSlug,
                 "images": movie.images,
                 "monitored": true,
-                "rootFolderPath": rootPath
+                "rootFolderPath": rootPath,
+                "year": movie.year
             };
             radarr.post("movie", data)
             .then((result) => {
