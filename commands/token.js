@@ -43,6 +43,7 @@ exports.run = (bot, msg, args, perms = []) => {
                 });
                 return;
             }
+            console.log(settings.pinToken);
 
             // Verify pin and get token
             plexPinAuth.checkPinForAuth(settings.pinToken, function callback(err, status) {
