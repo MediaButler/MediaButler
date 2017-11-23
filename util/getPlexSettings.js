@@ -17,7 +17,7 @@ module.exports = (guildId) =>
             i.host = url.value;
             i.token = token.value;
             i.pinToken = null;
-            if (pinToken != undefined || pinToken.value != null) i.pinToken = JSON.parse(pinToken.value.replace(/\\"/g, '"'));
+            if (pinToken.value != null) i.pinToken = JSON.parse(pinToken.value.replace(/\\"/g, '"'));
             resolve(i);
         });
     });
