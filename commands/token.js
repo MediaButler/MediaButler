@@ -61,3 +61,15 @@ exports.run = (bot, msg, args, perms = []) => {
         }
     });
 }
+
+exports.conf = {
+    enabled: true, 
+    guildOnly: false, 
+    aliases: [],
+    permLevel: 4 
+  };
+  exports.help = {
+    name: "token",
+    description: "Handles Plex tokens",
+    usage: "token"
+  };
