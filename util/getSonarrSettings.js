@@ -27,7 +27,7 @@ module.exports = (guildId) =>
                 console.log(i);
                 resolve(i);
             }
-        );
+        ).catch((e) => { reject(e); });
     });
     return p;
 }

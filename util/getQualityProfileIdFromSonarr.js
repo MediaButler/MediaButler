@@ -7,6 +7,6 @@ module.exports = (guildId, quality) => {
             let profile = result.find(q => q.name === quality);
             if (profile === undefined) reject("Profile not found");
             resolve(profile.id);
-        });
+        }).catch((e) => { reject(e); });
     });
 };

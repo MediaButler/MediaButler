@@ -6,15 +6,14 @@ module.exports = (guildId, userId) =>
     {
         getSettings(guildId)
         .then((settings) =>
-            {
-                let url = `${settings.protocol}://${settings.host}/${settings.path}/api/v2?apikey=${settings.apikey}&cmd=get_user_watch_time_stats&user_id=${userId}`;
-                request(url, function (e, r, b) {
-                    let j = JSON.parse(b);
-                    if (e && r.statusCode !== 200) reject(e);
-                    resolve(j.response);
-                });
-            }
-        );
+        {
+            let url = `${settings.protocol}://${settings.host}/${settings.path}/api/v2?apikey=${settings.apikey}&cmd=get_user_watch_time_stats&user_id=${userId}`;
+            request(url, function (e, r, b) {
+                let j = JSON.parse(b);
+                if (e && r.statusCode !== 200) reject(e);
+                resolve(j.response);
+            });
+        }).catch((e) => { reject(e); });
     });
     return p;
 }
