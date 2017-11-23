@@ -1,5 +1,5 @@
 const request = require('request');
-const getSettings = require('../util/getSettings');
+const getSettings = require('../util/getPlexPySettings');
 module.exports = (guildId) => 
 {
     const p = new Promise((resolve, reject) => 
