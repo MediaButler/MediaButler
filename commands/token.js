@@ -33,7 +33,8 @@ exports.run = (bot, msg, args, perms = []) => {
                     console.log("set query");
                     let jsonobj = JSON.stringify(pinObj);
                     console.log("json'd it");
-                    let queryData = [jsonobj, guildId, "plex.pintoken"];
+                    console.log(jsonobj);
+                    let queryData = [`${jsonobj}`, guildId, "plex.pintoken"];
                     console.log(queryData);
                     console.log("going to save");
                     db.run(query, queryData, function(err) {
