@@ -1,4 +1,4 @@
-const getSettings = require('./getSettings');
+const getSettings = require('./getSonarrSettings');
 const SonarrAPI = require('sonarr-api');
 module.exports = (guildId, tvShow, profileId = null, rootPath = null) => {
     const p = new Promise((resolve, reject) => 
@@ -6,17 +6,9 @@ module.exports = (guildId, tvShow, profileId = null, rootPath = null) => {
         getSettings(guildId)
         .then((settings) =>
         {
-            settings = JSON.parse(settings);
-            let host = settings.find(x => x.setting == "sonarr.host").value;
-            let baseurl = settings.find(x => x.setting == "sonarr.baseurl").value;            
-            let apikey = settings.find(x => x.setting == "sonarr.apikey").value;            
-            let defaultProfileId = settings.find(x => x.setting == "sonarr.defaultprofileid").value;            
-            let defaultRootPath = settings.find(x => x.setting == "sonarr.defaultrootpath").value;            
-            if (defaultProfileId === undefined) reject("defaultProfileId not set");
-            if (defaultRootPath === undefined) reject("defaultRootPath not set");
-            if (profileId === null) profileId = defaultProfileId;
-            if (rootPath === null) rootPath = defaultRootPath;
-            const sonarr = new SonarrAPI({ hostname: host.split(":")[0], apiKey: apikey, port: host.split(":")[1], urlBase: baseurl });
+            if (profileId === null) profileId = settings.profileId;
+            if (rootPath === null) rootPath = settings.rootPath;
+            const sonarr = new SonarrAPI({ hostname: settings.host, apiKey: settings.apikey, port: settings.port, urlBase: `/${settings.path}` });
             let data = {
                 "tvdbId": tvShow.tvdbId,
                 "title": tvShow.title,
