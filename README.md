@@ -21,7 +21,7 @@ Still early dev, but active and welcomes any/all help
     nano apiauth.json
     npm install
 
-For an easier installation [Tronyx](https://github.com/tronyx) has provided a docker image located here:
+For an easier installation [Tronyx](https://github.com/christronyxyocum) has provided a docker image located here:
 https://hub.docker.com/r/tronyx/docker-mediabutler/
 
 ## Features
