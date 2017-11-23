@@ -31,10 +31,7 @@ exports.run = (bot, msg, args, perms = []) => {
                     console.log("set db");
                     let query = `UPDATE guildSettings SET "value" = ? WHERE "guildId" = ? AND "setting" = "plex.pintoken"`
                     console.log("set query");
-                    let jsonobj = JSON.stringify(pinObj);
-                    console.log("json'd it");
-                    console.log(jsonobj);
-                    let queryData = [`${jsonobj}`, guildId];
+                    let queryData = [jsonobj.toString(), guildId];
                     console.log(queryData);
                     console.log("going to save");
                     db.run(query, queryData, function(err) {
