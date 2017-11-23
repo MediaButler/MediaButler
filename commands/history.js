@@ -10,6 +10,7 @@ exports.run = (bot, msg, params = []) => {
     msg.channel.startTyping();
     if (!params[0]) {
       m.edit(`ERR: No username specified`);
+      msg.channel.stopTyping();
       return;
     }
     let results = null;
