@@ -17,8 +17,7 @@ module.exports = (guildId) =>
                 i.protocol = details[1];
                 i.host = details[2];
                 if (details[3] !== undefined) i.host = i.host + `:${details[3]}`;
-                i.url = details[6];
-                console.log(i);
+                i.path = details[6];
                 resolve(i);
             }
         );
