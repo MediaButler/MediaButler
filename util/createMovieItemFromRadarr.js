@@ -2,6 +2,8 @@ module.exports = (movie) =>
 {
     let d = new Date(movie.inCinemas);
     let i = {};
+    i.Title = movie.title;
+    i.Plot = movie.overview;
     i.Year = movie.year;
     i.Poster = movie.remotePoster;
     i.Rated = "N/A";
