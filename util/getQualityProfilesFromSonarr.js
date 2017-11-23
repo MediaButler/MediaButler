@@ -1,4 +1,4 @@
-const getSettings = require('./getSettings');
+const getSettings = require('./getSonarrSettings');
 const SonarrAPI = require('sonarr-api');
 module.exports = (guildId) => {
     const p = new Promise((resolve, reject) =>
@@ -6,11 +6,7 @@ module.exports = (guildId) => {
         getSettings(guildId)
         .then((settings) =>
         {
-            settings = JSON.parse(settings);
-            let host = settings.find(x => x.setting == "sonarr.host").value;
-            let baseurl = settings.find(x => x.setting == "sonarr.baseurl").value;
-            let apikey = settings.find(x => x.setting == "sonarr.apikey").value;
-            const sonarr = new SonarrAPI({ hostname: host.split(":")[0], apiKey: apikey, port: host.split(":")[1], urlBase: baseurl });
+            const sonarr = new SonarrAPI({ hostname: settings.host, apiKey: settings.apikey, port: settings.port, urlBase: `/${settings.path}` });
             sonarr.get("profile")
             .then((result) => {
                 resolve(result);
