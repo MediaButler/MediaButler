@@ -20,7 +20,7 @@ module.exports = (guildId, movie, profileId = null, rootPath = null) => {
                 "rootFolderPath": rootPath
             };
             console.log("data made.. posting");
-            radarr.post("movies", data)
+            radarr.post("movie", data)
             .then((result) => {
                 console.log(result);
                 if (result.title == undefined || result.title == null) reject("Could not add");
