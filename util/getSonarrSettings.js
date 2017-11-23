@@ -10,8 +10,9 @@ module.exports = (guildId) =>
                 let url = settings.find(x => x.setting == "sonarr.url");
                 let apikey = settings.find(x => x.setting == "sonarr.apikey");
                 const regex = /^(http[s]?):\/?\/?([^:\/\s]+):?([0-9]{4})?((\/\w+)*\/)([\w\-\.]+[^#?\s]+)?$/g;
-                let details = regex.exec(url.value);
-                if (url == undefined || apikey == undefined || url.value == null || apikey.value == null) reject("Sonarr not configured");
+                if (url == undefined || apikey == undefined) reject("Sonarr not configured");
+                if (url.value == null || apikey.value == null) reject("Sonarr not configured");    
+                let details = regex.exec(url.value);                
                 let i = {};
                 i.protocol = details[1];
                 i.host = details[2];
