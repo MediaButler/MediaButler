@@ -19,6 +19,9 @@ Still early dev, but active and welcomes any/all help
     nano settings.json
     npm install
 
+For an easier installation [Tronyx](https://github.com/christronyxyocum) has provided a docker image located here:
+https://hub.docker.com/r/tronyx/docker-mediabutler/
+
 ## Features
 
 * Pull info for tv shows, films, anime, manga, books and music artists.
@@ -29,6 +32,11 @@ Still early dev, but active and welcomes any/all help
 * Add tv shows to Sonarr.
 * Have MediaButler remind you what and when.
 * Show bot uptime.
+
+## Support
+
+The best place to get support is on our Discord channel, which you can get to by clicking [Here](https://discord.gg/nH9t5sm)
+
 
 ## Authors
 * [Vertig0ne](https://github.com/Vertig0ne)
