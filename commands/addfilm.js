@@ -34,7 +34,7 @@ exports.run = (client, msg, args, perms) => {
         e.setFooter(`Called by ${msg.author.username}`, msg.author.avatarURL);        
         m.edit({ embed: e });
         msg.channel.stopTyping();
-      });
+      }).catch((e) => { m.edit(`ERR: ${e}`); return; });
     }).catch((e) => { m.edit(`ERR: ${e}`); return; });
   });
 };
