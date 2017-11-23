@@ -2,7 +2,7 @@ const getQualityProfile = require('../util/getQualityProfileIdFromRadarr');
 const getMovie = require('../util/getMovieFromRadarr');
 const addMovie = require('../util/addMovieToRadarr');
 const createMovietem = require('../util/createMovieItemFromRadarr');
-const createMovietemModal = require('../util/createMovieItemModal');
+const createMovieItemModal = require('../util/createMovieItemModal');
 exports.run = (client, msg, args, perms) => {
   msg.channel.send("Starting...")
   .then((m) => {
