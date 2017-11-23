@@ -1,5 +1,5 @@
 const getQualityProfile = require('../util/getQualityProfileIdFromRadarr');
-const getMovie = require('../util/getTvShowFromRadarr');
+const getMovie = require('../util/getMovieFromRadarr');
 const addMovie = require('../util/addMovieToRadarr');
 const createMovietem = require('../util/createTvShowItemFromRadarr');
 const createMovietemModal = require('../util/createTvShowItemModal');
