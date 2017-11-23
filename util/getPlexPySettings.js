@@ -10,8 +10,8 @@ module.exports = (guildId) =>
                 let url = settings.find(x => x.setting == "plexpy.url");
                 let apikey = settings.find(x => x.setting == "plexpy.apikey").value;
                 let s = {};
-                let regex = new RegExp('^(http[s]?):\/?\/?([^:\/\s]+):?([0-9]{4})?((\/\w+)*\/)([\w\-\.]+[^#?\s]+)?$');
-                let details = url.match(regex);
+                const regex = /^(http[s]?):\/?\/?([^:\/\s]+):?([0-9]{4})?((\/\w+)*\/)([\w\-\.]+[^#?\s]+)?$/g;
+                let details = regex.exec(url);
                 if (url == null || apikey == null) reject("plexpy settings not set");
                 console.log(details);
                 resolve(details);
