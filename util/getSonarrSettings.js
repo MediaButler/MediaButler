@@ -25,7 +25,6 @@ module.exports = (guildId) =>
             i.apikey = apikey.value;
             i.profileId = profileid.value;
             i.rootPath = rootpath.value;
-            console.log(i);
             resolve(i);
         }).catch((e) => { reject(e); });
     });
