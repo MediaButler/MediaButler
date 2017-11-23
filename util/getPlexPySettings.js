@@ -13,9 +13,7 @@ module.exports = (guildId) =>
                 let details = regex.exec(url.value);
                 console.log(url);
                 console.log(apikey);
-                if (url == undefined || apikey == undefined) {
-                    reject("plexpy settings not set");
-                }
+                if (url.value == null || apikey.value == null) reject("plexpy settings not set");
                 let i = {};
                 i.protocol = details[1];
                 i.host = details[2];
