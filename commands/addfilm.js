@@ -29,7 +29,6 @@ exports.run = (client, msg, args, perms) => {
       .then((movieAdded) => {
         m.edit("Movie added sucessfully");
         let l = createMovieItem(movie);
-        console.log(movie);
         let e = createMovieItemModal(l);
         e.setAuthor("Movie added sucessfully");
         e.setFooter(`Called by ${msg.author.username}`, msg.author.avatarURL);        
