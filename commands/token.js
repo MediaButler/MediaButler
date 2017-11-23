@@ -19,9 +19,9 @@ exports.run = (bot, msg, args, perms = []) => {
         });
         if (settings.token !== null) d.token = settings.token;
         console.log("checked settings");
-        if (d.token == null) {
+        if (d.authToken == null) {
             console.log("no token");
-            if (!settings.pinToken || settings.pinToken == null) {
+            if (!settings.pinToken || settings.pinToken === null) {
                 console.log("no pin token");
                 // Setup plex pin for user
                 plexPinAuth.getNewPin()
