@@ -8,17 +8,17 @@ exports.run = (bot, msg, args, perms = []) => {
     let d;
     getSettings(msg.guild.id)
     .then((settings) => {
-        d = new plexApi({
-            options = {
-                identifier: '1f02119d-2819-4667-8902-2c962b2298d0',
-                product: 'MediaButler',
-                version: '0.2',
-                deviceName: 'MediaButlerOS',
-                platform: 'Node.js',            
-                hostname: settings.host,
-                authenticator: plexPinAuth,
-            }
-        });
+        let opts = {};
+        opts.options = {};
+        opts.hostname = settings.host;
+        opts.https = true;
+        opts.authToken = null;
+        opts.options.identifier = '1f02119d-2819-4667-8902-2c962b2298d0';
+        opts.options.product = 'MediaButler';
+        opts.options.version = '0.2';
+        opts.options.deviceName = 'MediaButlerOS';
+        opts.authenticator = plexPinAuth;
+        d = new plexApi(opts);
         if (settings.token !== null) d.token = settings.token;
         console.log("checked settings");
         if (d.authToken == null) {
