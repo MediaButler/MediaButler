@@ -44,9 +44,9 @@ exports.run = (bot, msg, args, perms = []) => {
                 return;
             }
             console.log(settings.pinToken);
-
+            console.log(settings.pinToken.id);
             // Verify pin and get token
-            plexPinAuth.checkPinForAuth(settings.pinToken, function callback(err, status) {
+            plexPinAuth.checkPinForAuth(settings.pinToken.id, function callback(err, status) {
                 if(err) {
                     msg.channel.send(`Unable to authenticate token due to ${status}`);
                 } else {
