@@ -38,6 +38,7 @@ exports.run = (bot, msg, args, perms = []) => {
                           return;
                         }
                         msg.channel.send(`Please go to https://plex.tv/pin and authenticate this code: ${pinObj.code}`);
+                        console.log(d);
                     });    
                     db.close();                
                 });
