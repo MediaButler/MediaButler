@@ -50,21 +50,20 @@ exports.run = (bot, msg, args, perms = []) => {
             // Verify pin and get token
             plexPinAuth.checkPinForAuth(settings.pinToken.id, function callback(err, status) {
                 if(err) {
+                    console.log(err);
                     msg.channel.send(`Unable to authenticate token due to ${status}`);
-                } else {
-                    console.log(status);
-                    console.log(d);
-                    let db = new sqlite3.Database('./settings.sqlite');    
-                    let query = `UPDATE guildSettings SET "value" = ? WHERE "guildId" = ? AND "setting" = ?`
-                    let queryData = [d.token, guildId, "plex.token"];
-                    db.run(query, queryData, function(err) {
-                        if (err) {
-                            message.channel.send("Unable to update: " + err.message);
-                          return;
-                        }
-                    });    
-                    db.close();    
+                    return;
                 }
+                let db = new sqlite3.Database('./settings.sqlite');    
+                let query = `UPDATE guildSettings SET "value" = ? WHERE "guildId" = ? AND "setting" = ?`
+                let queryData = [d.authenticator.token, guildId, "plex.token"];
+                db.run(query, queryData, function(err) {
+                    if (err) {
+                        message.channel.send("Unable to update: " + err.message);
+                        return;
+                    }
+                });
+                db.close();
             });
         }
     });
