@@ -1,4 +1,5 @@
 const plexApi = require('plex-api');
+const plexPinAuth = require('plex-api-pinauth')();
 const getSettings = require('../util/getPlexSettings');
 const escapeString = require('../util/escapeString');
 var sqlite3 = require('sqlite3').verbose();
@@ -17,7 +18,6 @@ exports.run = (bot, msg, args, perms = []) => {
             authenticator: plexPinAuth,
             token: null
         });
-        const plexPinAuth = require('plex-api-pinauth')(d);        
         if (settings.token !== null) d.token = settings.token;
         console.log("checked settings");
         if (d.authToken == null) {
