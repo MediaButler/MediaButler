@@ -9,14 +9,16 @@ exports.run = (bot, msg, args, perms = []) => {
     getSettings(msg.guild.id)
     .then((settings) => {
         d = new plexApi({
-            identifier: '1f02119d-2819-4667-8902-2c962b2298d0',
-            product: 'MediaButler',
-            version: '0.2',
-            deviceName: 'MediaButlerOS',
-            platform: 'Node.js',            
-            hostname: settings.host,
-            authenticator: plexPinAuth,
-            token: null
+            authToken = null,
+            options = {
+                identifier: '1f02119d-2819-4667-8902-2c962b2298d0',
+                product: 'MediaButler',
+                version: '0.2',
+                deviceName: 'MediaButlerOS',
+                platform: 'Node.js',            
+                hostname: settings.host,
+                authenticator: plexPinAuth,
+            }
         });
         if (settings.token !== null) d.token = settings.token;
         console.log("checked settings");
