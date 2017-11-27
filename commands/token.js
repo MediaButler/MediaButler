@@ -19,7 +19,7 @@ exports.run = (bot, msg, args, perms = []) => {
         opts.options.deviceName = 'MediaButlerBot';
         opts.authenticator = plexPinAuth;
         d = new plexApi(opts);
-        if (settings.token !== null) d.token = settings.token;
+        if (settings.token != null) d.authToken = settings.token;
         console.log("checked settings");
         if (d.authToken == null) {
             console.log("no token");
@@ -47,11 +47,12 @@ exports.run = (bot, msg, args, perms = []) => {
             }
             console.log(settings.pinToken);
             console.log(settings.pinToken.id);
+
             // Verify pin and get token
             plexPinAuth.checkPinForAuth(settings.pinToken.id, function callback(err, status) {
-                if(err && err != "") {
+                if(err) {
                     console.log(err);
-                    msg.channel.send(`Unable to authenticate token due to ${status}`);
+                    msg.channel.send(`Unable to authenticate token due to ${err}`);
                     return;
                 }
                 let db = new sqlite3.Database('./settings.sqlite');    
