@@ -13,7 +13,7 @@ exports.run = (bot, msg, args, perms = []) => {
         opts.hostname = settings.host;
         opts.https = true;
         opts.authToken = null;
-        opts.options.identifier = '1f02119d-2819-4667-8902-2c962b2298d0';
+        opts.options.identifier = settings.uuid;
         opts.options.product = 'MediaButler';
         opts.options.version = '0.2';
         opts.options.deviceName = 'MediaButlerBot';
