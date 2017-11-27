@@ -10,7 +10,7 @@ module.exports = (guildId) =>
             let url = settings.find(x => x.setting == "plex.url");
             let token = settings.find(x => x.setting == "plex.token");
             let pinToken = settings.find(x => x.setting == "plex.pintoken");
-            let uuid = settings.find(x => x.setting == "plex.uuidv4");
+            let uuid = settings.find(x => x.setting == "self.uuidv4");
             const regex = /^(http[s]?):\/?\/?([^:\/\s]+):?([0-9]{4})?((\/\w+)*\/)([\w\-\.]+[^#?\s]+)?$/g;
             if (uuid == undefined) reject("UUID not configured, please delete and re-invite this bot");
             let details = regex.exec(url.value);
