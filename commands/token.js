@@ -16,7 +16,7 @@ exports.run = (bot, msg, args, perms = []) => {
         opts.options.identifier = '1f02119d-2819-4667-8902-2c962b2298d0';
         opts.options.product = 'MediaButler';
         opts.options.version = '0.2';
-        opts.options.deviceName = 'MediaButlerOS';
+        opts.options.deviceName = 'MediaButlerBot';
         opts.authenticator = plexPinAuth;
         d = new plexApi(opts);
         if (settings.token !== null) d.token = settings.token;
@@ -49,7 +49,7 @@ exports.run = (bot, msg, args, perms = []) => {
             console.log(settings.pinToken.id);
             // Verify pin and get token
             plexPinAuth.checkPinForAuth(settings.pinToken.id, function callback(err, status) {
-                if(err) {
+                if(err && err != "") {
                     console.log(err);
                     msg.channel.send(`Unable to authenticate token due to ${status}`);
                     return;
@@ -73,10 +73,10 @@ exports.conf = {
     enabled: true, 
     guildOnly: false, 
     aliases: [],
-    permLevel: 4 
+    permLevel: 4  
   };
   exports.help = {
     name: "token",
-    description: "Handles Plex tokens",
+    description: "Handles Plex tokens. Not a real command.",
     usage: "token"
   };
