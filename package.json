@@ -22,8 +22,10 @@
     "node-tvdb": "^3.2.0",
     "nodebrainz": "^2.1.1",
     "plex-api": "^5.2.0",
+    "plex-api-pinauth": "^0.1.0",
     "request": "^2.83.0",
     "sonarr-api": "^0.2.0",
-    "sqlite3": "~3.1.13"
+    "sqlite3": "~3.1.13",
+    "uuid-v4": "^0.1.0"
   }
 }
