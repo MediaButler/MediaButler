@@ -20,17 +20,11 @@ exports.run = (bot, msg, args, perms = []) => {
         opts.authenticator = plexPinAuth;
         d = new plexApi(opts);
         if (settings.token != null) d.authToken = settings.token;
-        console.log("checked settings");
         if (d.authToken == null) {
-            console.log("no token");
             if (!settings.pinToken || settings.pinToken === null) {
-                console.log("no pin token");
-                // Setup plex pin for user
                 plexPinAuth.getNewPin()
                 .then((pinObj) => { 
-                    console.log(pinObj);
                     let db = new sqlite3.Database('./settings.sqlite');    
-                    console.log("set db");
                     let jsonObj = JSON.stringify(pinObj);
                     let query = `UPDATE guildSettings SET "value" = ? WHERE "guildId" = ? AND "setting" = "plex.pintoken"`;
                     db.run(query, [escapeString(jsonObj), msg.guild.id], function(err) {
@@ -39,16 +33,12 @@ exports.run = (bot, msg, args, perms = []) => {
                           return;
                         }
                         msg.channel.send(`Please go to https://plex.tv/pin and authenticate this code: ${pinObj.code}`);
-                        console.log(d);
                     });    
                     db.close();                
                 });
                 return;
             }
-            console.log(settings.pinToken);
-            console.log(settings.pinToken.id);
 
-            // Verify pin and get token
             plexPinAuth.checkPinForAuth(settings.pinToken.id, function callback(err, status) {
                 if(err) {
                     console.log(err);
@@ -58,12 +48,12 @@ exports.run = (bot, msg, args, perms = []) => {
                 let db = new sqlite3.Database('./settings.sqlite');    
                 let query = `UPDATE guildSettings SET "value" = ? WHERE "guildId" = ? AND "setting" = ?`
                 let queryData = [d.authenticator.token, msg.guild.id, "plex.token"];
-                console.log(queryData);
                 db.run(query, queryData, function(e) {
                     if (e) {
                         message.channel.send("Unable to update: " + e.message);
                         return;
                     }
+                    message.channel.send("Sucessfully received authentication token");                    
                 });
                 db.close();
             });
