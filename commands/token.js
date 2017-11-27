@@ -50,10 +50,10 @@ exports.run = (bot, msg, args, perms = []) => {
                 let queryData = [d.authenticator.token, msg.guild.id, "plex.token"];
                 db.run(query, queryData, function(e) {
                     if (e) {
-                        message.channel.send("Unable to update: " + e.message);
+                        msg.channel.send("Unable to update: " + e.message);
                         return;
                     }
-                    message.channel.send("Sucessfully received authentication token");                    
+                    msg.channel.send("Sucessfully received authentication token");                    
                 });
                 db.close();
             });
