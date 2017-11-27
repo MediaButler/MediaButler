@@ -1,6 +1,8 @@
 const sqlite3 = require('sqlite3').verbose();
+const uuid = require('uuid-v4');
 module.exports = (guild) => {
-    let db = new sqlite3.Database('./settings.sqlite');    
+    let db = new sqlite3.Database('./settings.sqlite');
+    let myUuid = uuid();
     db.serialize(() => {
         db.run(`INSERT INTO guildSettings(guildId, setting, value)
             VALUES(${guild.id}, "plexpy.url", NULL),
@@ -17,7 +19,8 @@ module.exports = (guild) => {
                 (${guild.id}, "lidarr.apikey", NULL),
                 (${guild.id}, "tmdb.apikey", NULL),
                 (${guild.id}, "tvdb.apikey", NULL),
-                (${guild.id}, "omdb.apikey", "5af02350"),                
+                (${guild.id}, "omdb.apikey", "5af02350"),    
+                (${guild.id}, "self.uuidv4", ${myUuid}),
                 (${guild.id}, "self.adminChannel", NULL),
                 (${guild.id}, "self.adminRole", NULL),
                 (${guild.id}, "self.modRole", NULL)
