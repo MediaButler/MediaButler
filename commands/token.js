@@ -58,6 +58,7 @@ exports.run = (bot, msg, args, perms = []) => {
                 let db = new sqlite3.Database('./settings.sqlite');    
                 let query = `UPDATE guildSettings SET "value" = ? WHERE "guildId" = ? AND "setting" = ?`
                 let queryData = [d.authenticator.token, msg.guild.id, "plex.token"];
+                console.log(queryData);
                 db.run(query, queryData, function(e) {
                     if (e) {
                         message.channel.send("Unable to update: " + e.message);
