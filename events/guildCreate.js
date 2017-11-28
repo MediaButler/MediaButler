@@ -20,7 +20,7 @@ module.exports = (guild) => {
                 (${guild.id}, "tmdb.apikey", NULL),
                 (${guild.id}, "tvdb.apikey", NULL),
                 (${guild.id}, "omdb.apikey", "5af02350"),    
-                (${guild.id}, "self.uuidv4", ${myUuid}),
+                (${guild.id}, "self.uuidv4", "${myUuid}"),
                 (${guild.id}, "self.adminChannel", NULL),
                 (${guild.id}, "self.adminRole", NULL),
                 (${guild.id}, "self.modRole", NULL)
