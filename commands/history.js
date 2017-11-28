@@ -1,6 +1,6 @@
-const getSettings = require('../util/getPlexPySettings');
-const createHistoryItemModal = require('../util/createHistoryItemModal');
-const getHistory = require('../util/getHistoryPlexPy');
+const getSettings = require('../util/plexpy/getPlexPySettings');
+const createHistoryItemModal = require('../util/plexpy/createHistoryItemModal');
+const getHistory = require('../util/plexpy/getHistoryPlexPy');
 const request = require('request');
 const Discord = require('discord.js');
 exports.run = (bot, msg, params = []) => {

@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
-const createTvShowItemModal = require('../util/createTvShowItemModal');
-const getTvShowInfo = require('../util/getTvShowInfoFromOmdb');
+const createTvShowItemModal = require('../util/sonarr/createTvShowModal');
+const getTvShowInfo = require('../util/omdb/getTvShow');
 exports.run = (bot, msg, args = []) => {
   getTvShowInfo(args)
   .then((tvShow) => {

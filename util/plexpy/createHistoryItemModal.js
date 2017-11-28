@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const timeConverter = require('./timeConverter')
+const timeConverter = require('../timeConverter')
 module.exports = (historyItem) =>
 {
     let i = new Discord.RichEmbed()

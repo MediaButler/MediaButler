@@ -1,8 +1,8 @@
-const getQualityProfile = require('../util/getQualityProfileIdFromRadarr');
-const getMovie = require('../util/getMovieFromRadarr');
-const addMovie = require('../util/addMovieToRadarr');
-const createMovieItem = require('../util/createMovieItemFromRadarr');
-const createMovieItemModal = require('../util/createMovieItemModal');
+const getQualityProfile = require('../util/radarr/getQualityProfileId');
+const getMovie = require('../util/radarr/getMovie');
+const addMovie = require('../util/radarr/addMovie');
+const createMovieItem = require('../util/radarr/createMovieModalRadarr');
+const createMovieItemModal = require('../util/radarr/createMovieModal');
 exports.run = (client, msg, args, perms) => {
   msg.channel.send("Starting...")
   .then((m) => {

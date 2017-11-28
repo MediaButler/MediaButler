@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
-const getUserId = require('../util/getUserIdFromUsernamePlexpy');
-const getUserStats = require('../util/getUserStatsFromPlexpy');
-const createUserStats = require('../util/createUserStatsModal');
+const getUserId = require('../util/plexpy/getUserId');
+const getUserStats = require('../util/plexpy/getUserStats');
+const createUserStats = require('../util/plexpy/createUserStatsModal');
 exports.run = (bot, msg, args, perms = []) => {
   if (!args[0]) {
     msg.channel.send("ERR: No username set");
