@@ -7,8 +7,12 @@ exports.run = (bot, msg, params = []) => {
 
   msg.channel.send("Starting...")
   .then((m) => {
-    msg.channel.stopTyping();
-    if (!params[0]) throw "No username specified";
+    msg.channel.startTyping();
+    if (!params[0]) {
+      m.edit(`ERR: No username specified`);
+      msg.channel.stopTyping();
+      return;
+    }
     let results = null;
     let userQuery = params[0];
     if (params[1]) results = params[1];
@@ -27,7 +31,7 @@ exports.run = (bot, msg, params = []) => {
       });
       msg.channel.stopTyping();
     }).catch((e) => { m.edit(`ERR: ${e}`); msg.channel.stopTyping(); });
-  }).catch((e) => { m.edit(`ERR: ${e}`); msg.channel.stopTyping(); });
+  });
 };
 exports.conf = {
   enabled: true, 

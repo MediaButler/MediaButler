@@ -1,3 +1,4 @@
+const Discord = require('discord.js');
 const getUserId = require('../util/getUserIdFromUsernamePlexpy');
 const getUserStats = require('../util/getUserStatsFromPlexpy');
 const createUserStats = require('../util/createUserStatsModal');
@@ -14,7 +15,7 @@ exports.run = (bot, msg, args, perms = []) => {
     .then(userId => {
       m.edit(`Got UserID ${userId}. Querying PlexPy for Statistics.`);
       getUserStats(msg.guild.id, userId)
-      .then(stats => {
+      .then((stats) => {
         m.edit("Received statistics. Building output...");
         let e = createUserStats(stats);
         e.setFooter(`Called by ${msg.author.username}`, msg.author.avatarURL);
