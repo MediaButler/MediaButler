@@ -10,7 +10,7 @@ module.exports = (guildId) =>
         getSettings(guildId)
         .then((settings) => {
             if (settings.token == null || settings.token == "") {
-                if (settings.pinToken == null || settings.pinToken == "") getPin(guildId).then((pinobj) => { console.log(pinobj); reject(pinobj); return; });
+                if (settings.pinToken == null || settings.pinToken == "") getPin(guildId).then((pinobj) => { reject(pinobj); return; });
                 else getAuthToken(guildId).then(() => { reject("updTokenSuccessful"); return; });
             }
             let opts = {};
