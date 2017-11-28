@@ -17,7 +17,7 @@ exports.run = (bot, msg, args = [], perms) => {
             if (args[1]) {
                 // Remove first arg out of it and create reason.
             }
-            getStreams()
+            getStreams(plexClient)
             .then((res) => { console.log(res); });
             killStream(plexClient, streamId, reason)
             .then(() => { 
