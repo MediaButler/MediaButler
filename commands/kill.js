@@ -8,7 +8,7 @@ exports.run = (bot, msg, args = [], perms) => {
         getPlexClient(msg.guild.id)
         .then((plexClient) => {
             let streamId = args[0];
-            let reason = "Killed by Server Administrator";
+            let reason = "Killed%20by%20Server%20Administrator";
             if (!args[0]) { 
                 m.edit("ERR: No stream id to kill provided.");
                 return;
