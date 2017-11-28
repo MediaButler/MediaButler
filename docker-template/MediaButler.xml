@@ -12,7 +12,7 @@
   <Repository>tronyx/docker-mediabutler</Repository>
   <BindTime>true</BindTime>
   <Network>bridge</Network>
-  <WebUI>https://discordapp.com/oauth2/authorize?&client_id=[TOKEN]&scope=bot&permissions=0/</WebUI>
+  <WebUI>https://discordapp.com/oauth2/authorize?&client_id=[IP]&scope=bot&permissions=0/</WebUI>
   <Privileged>false</Privileged>
   <Networking>
     <Mode>bridge</Mode>
