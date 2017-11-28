@@ -1,17 +1,27 @@
 const getPlexClient = require('../util/plex/getPlexClient');
+const killStream = require('../util/plex/killStream');
 const plexApi = require('plex-api');
 
-exports.run = (bot, msg, args, perms) => {
+exports.run = (bot, msg, args = [], perms) => {
     msg.channel.send("Starting...")
     .then((m) => {
         getPlexClient(msg.guild.id)
         .then((plexClient) => {
-            plexClient.query("/status/sessions")
-            .then((res) => {
-                console.log(res);
-            });
-            m.edit("We have a fully authenticated plex token. Thats the end of the command");
-            
+            let streamId = args[0];
+            let reason = "Killed by Server Administrator";
+            if (!args[0]) { 
+                m.edit("ERR: No stream id to kill provided.");
+                return;
+            }
+            if (args[1]) {
+                // Remove first arg out of it and create reason.
+            }
+            killStream(plexClient, streamId, reason)
+            .then(() => { 
+                m.edit("Sucessfully sent request to kill stream");                
+            }).catch((err) => {
+                m.edit("ERR: Unable to send request to PleX");
+            });            
         }).catch((err) => {
             if (err == "updTokenSuccessful") m.edit("Sucessfully processed plex token. Please run command again and we will work.");
             if (typeof(err) == "object") m.edit(`Please go to https://plex.tv/pin and authenticate this code: ${err.code}`);
@@ -25,9 +35,8 @@ exports.conf = {
     aliases: [],
     permLevel: 3
 };
-
 exports.help = {
     name: 'kill',
-    description: 'Kills stream playing from Plex. Gives optional reason',
+    description: 'Kills stream playing from Plex. Gives optional reason\nREQUIRES PLEX PASS',
     usage: 'kill <streamId> [reason]'
 };
