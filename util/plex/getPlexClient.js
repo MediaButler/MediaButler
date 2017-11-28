@@ -17,7 +17,8 @@ module.exports = (guildId) =>
                 let opts = {};
                 opts.options = {};
                 opts.hostname = settings.host;
-                opts.https = true;
+                opts.https = false;
+                if (settings.protocol == "https") opts.https = true;
                 opts.token = settings.token;
                 opts.options.identifier = settings.uuid;
                 opts.options.product = 'MediaButler';
