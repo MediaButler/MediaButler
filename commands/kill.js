@@ -16,12 +16,12 @@ exports.run = (bot, msg, args = [], perms) => {
             }
             if (args[1]) {
                 // Remove first arg out of it and create reason.
+                reason = args.splice(0, 1).join("%20");
+                console.log(reason);
             }
-
             getStreams(plexClient)
             .then((res) => { 
                 res.MediaContainer.Video.forEach((v) => {
-                    console.log(`${v.sessionKey} - ${v.Session.id}`); 
                     if (v.sessionKey == streamId) {
                         m.edit(`Killing stream ${v.Session.id}`);
                         killStream(plexClient, v.Session.id, reason).then(() => { m.edit("Sucessfully sent request to kill stream"); });
@@ -35,7 +35,6 @@ exports.run = (bot, msg, args = [], perms) => {
         });
     });
 };
-  
 exports.conf = {
     enabled: true,
     guildOnly: false,
