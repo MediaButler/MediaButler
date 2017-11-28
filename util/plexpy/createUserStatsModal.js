@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const durationFormat = require('./durationFormat');
+const durationFormat = require('../durationFormat');
 module.exports = (userStats) => 
 {
     let e = new Discord.RichEmbed()

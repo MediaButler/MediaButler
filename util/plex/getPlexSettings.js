@@ -1,4 +1,4 @@
-const getSettings = require('./getSettings');
+const getSettings = require('../getSettings');
 module.exports = (guildId) =>
 {
     const p = new Promise((resolve, reject) => 

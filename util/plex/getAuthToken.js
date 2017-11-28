@@ -1,7 +1,7 @@
 const plexApi = require('plex-api');
 const plexPinAuth = require('plex-api-pinauth')();
-const getSettings = require('../util/getPlexSettings');
-const escapeString = require('../util/escapeString');
+const getSettings = require('./getPlexSettings');
+const escapeString = require('../escapeString');
 var sqlite3 = require('sqlite3').verbose();
 module.exports = (guildId) =>
 {

@@ -1,8 +1,8 @@
-const getQualityProfile = require('../util/getQualityProfileIdFromSonarr');
-const getTvShow = require('../util/getTvShowFromSonarr');
-const addTvShow = require('../util/addTvShowToSonarr');
-const createTvShowItem = require('../util/createTvShowItemFromSonarr');
-const createTvShowItemModal = require('../util/createTvShowItemModal');
+const getQualityProfile = require('../util/sonarr/getQualityProfileId');
+const getTvShow = require('../util/sonarr/getTvShow');
+const addTvShow = require('../util/sonarr/addTvShow');
+const createTvShowItem = require('../util/sonarr/createTvShowModalSonarr');
+const createTvShowItemModal = require('../util/sonarr/createTvShowModal');
 exports.run = (client, msg, args, perms) => {
   msg.channel.send("Starting...")
   .then((m) => {

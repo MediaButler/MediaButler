@@ -1,6 +1,6 @@
 const plexApi = require('plex-api');
 const plexPinAuth = require('plex-api-pinauth')();
-const getSettings = require('../util/getPlexSettings');
+const getSettings = require('../util/plex/getPlexSettings');
 const escapeString = require('../util/escapeString');
 var sqlite3 = require('sqlite3').verbose();
 

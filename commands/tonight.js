@@ -1,5 +1,5 @@
-const getTonight = require('../util/getTonightFromSonarr');
-const createTonightItem = require('../util/createTonightItemModal');
+const getTonight = require('../util/sonarr/getTonight');
+const createTonightItem = require('../util/sonarr/createTonightModal');
 exports.run = (bot, msg, params = []) => {
   msg.channel.send("Starting...")
   .then((m) => {

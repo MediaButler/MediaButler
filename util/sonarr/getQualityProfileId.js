@@ -1,4 +1,4 @@
-const getQualityProfiles = require('./getQualityProfilesFromSonarr');
+const getQualityProfiles = require('./getQualityProfiles');
 module.exports = (guildId, quality) => {
     const p = new Promise((resolve, reject) => 
     {
