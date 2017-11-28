@@ -20,10 +20,10 @@ exports.run = (bot, msg, args = [], perms) => {
 
             getStreams(plexClient)
             .then((res) => { 
+                console.log("hello");
                 res.MediaContainer.Video.foreach((v) => {
                     console.log(v); 
                 });
-                console.log(res); 
             });
 
             killStream(plexClient, streamId, reason)
