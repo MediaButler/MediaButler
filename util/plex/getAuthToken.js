@@ -8,7 +8,7 @@ module.exports = (guildId) =>
     const p = new Promise((resolve, reject) => 
     {
         let d;
-        getSettings(msg.guild.id)
+        getSettings(guildId)
         .then((settings) => {
             let opts = {};
             opts.options = {};
