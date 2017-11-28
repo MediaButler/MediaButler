@@ -9,16 +9,14 @@ exports.run = (bot, msg, args = [], perms) => {
         getPlexClient(msg.guild.id)
         .then((plexClient) => {
             let streamId = args[0];
-            let reason = "Bot%20Test%20Sorry....%20Continue";
+            let reason = "Killed%20By%20Server%20Administrator";
             if (!args[0]) {
                 m.edit("ERR: No stream id to kill provided.");
                 return;
             }
             if (args[1]) {
-                // Remove first arg out of it and create reason.
                 args.splice(0, 1);
                 reason = args.join("%20");
-                console.log(reason);
             }
             getStreams(plexClient)
             .then((res) => { 
