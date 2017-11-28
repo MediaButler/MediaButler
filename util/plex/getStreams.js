@@ -1,10 +1,10 @@
 const plexApi = require('plex-api');
-module.exports = (plexClient, streamId, reason) =>
+module.exports = (plexClient) =>
 {
     const p = new Promise((resolve, reject) => 
     {
-        plexClient.perform(`/status/sessions/terminate?sessionKey=${streamId}&reason=${reason}`).then(function () {
-            resolve();
+        plexClient.query(`/status/sessions`).then(function (res) {
+            resolve(res);
         }, function (err) {
             console.log(err);
             reject(err);

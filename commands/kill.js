@@ -1,5 +1,6 @@
 const getPlexClient = require('../util/plex/getPlexClient');
 const killStream = require('../util/plex/killStream');
+const getStreams = require('../util/plex/getStreams');
 const plexApi = require('plex-api');
 
 exports.run = (bot, msg, args = [], perms) => {
@@ -16,6 +17,8 @@ exports.run = (bot, msg, args = [], perms) => {
             if (args[1]) {
                 // Remove first arg out of it and create reason.
             }
+            getStreams()
+            .then((res) => { console.log(res); });
             killStream(plexClient, streamId, reason)
             .then(() => { 
                 m.edit("Sucessfully sent request to kill stream");                
