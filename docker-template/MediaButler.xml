@@ -5,6 +5,7 @@
   <Category>Tools: Status:Beta</Category>
   <Name>mediabutler</Name>
   <Support>https://hub.docker.com/r/tronyx/docker-mediabutler/</Support>
+  <ExtraParams> --restart=on-failure</ExtraParams>
   <Description>Discord bot for use with PleX and several other apps that work with it.</Description>
   <Project>https://github.com/MediaButler/MediaButler</Project>
   <Overview>Discord bot for use with PleX and several other apps that work with it.</Overview>
