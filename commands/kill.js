@@ -21,6 +21,7 @@ exports.run = (bot, msg, args = [], perms) => {
                 m.edit("Sucessfully sent request to kill stream");                
             }).catch((err) => {
                 m.edit("ERR: Unable to send request to PleX");
+                return;
             });            
         }).catch((err) => {
             if (err == "updTokenSuccessful") m.edit("Sucessfully processed plex token. Please run command again and we will work.");
