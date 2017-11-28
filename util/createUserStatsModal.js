@@ -2,7 +2,6 @@ const Discord = require('discord.js');
 const durationFormat = require('./durationFormat');
 module.exports = (userStats) => 
 {
-    userStats = JSON.parse(userStats);
     let e = new Discord.RichEmbed()
     .setColor(7221572)
     .setTimestamp()
