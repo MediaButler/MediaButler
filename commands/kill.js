@@ -20,8 +20,8 @@ exports.run = (bot, msg, args = [], perms) => {
 
             getStreams(plexClient)
             .then((res) => { 
-                res.MediaContainer.Video.foreach((v) => {
-                    console.log(v); 
+                res.MediaContainer.Video.forEach((v) => {
+                    console.log(`${v.sessionKey} - ${v.Session.id}`); 
                 });
             });
 
