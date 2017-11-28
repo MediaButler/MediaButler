@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <TemplateURL>FILL THIS AFTER UPLOAD</TemplateURL>
+  <Beta>True</Beta>
+  <Category>Tools: Status:Beta</Category>
+  <Name>mediabutler</Name>
+  <Support>https://hub.docker.com/r/tronyx/docker-mediabutler/</Support>
+  <Description>Discord bot for use with PleX and several other apps that work with it.</Description>
+  <Project>https://github.com/MediaButler/MediaButler</Project>
+  <Overview>Discord bot for use with PleX and several other apps that work with it.</Overview>
+  <Registry>https://hub.docker.com/r/tronyx/docker-mediabutler/~/dockerfile/</Registry>
+  <Repository>tronyx/docker-mediabutler</Repository>
+  <BindTime>true</BindTime>
+  <Network>bridge</Network>
+  <Privileged>false</Privileged>
+  <Networking>
+    <Mode>bridge</Mode>
+    <Publish/>
+  </Networking>
+  <Environment>
+    <Variable>
+      <Value/>
+      <Name>TOKEN</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>PREFIX</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Name>PUID</Name>
+      <Value>99</Value>
+    </Variable>
+    <Variable>
+      <Name>PGID</Name>
+      <Value>100</Value>
+    </Variable>
+  </Environment>
+  <Config Name="Discord token" Target="TOKEN" Default="https://discordapp.com/developers/applications/me" Mode="" Description="Follow instructions from: https://github.com/MediaButler/MediaButler/wiki/Install:Discord" Type="Variable" Display="always" Required="true" Mask="false"/>
+  <Config Name="PREFIX" Target="PREFIX" Default="!media" Mode="" Description="This is what you want to prefix the commands for the bot, IE: !help, !remind, etc." Type="Variable" Display="always" Required="true" Mask="false"/>
+</Container>
