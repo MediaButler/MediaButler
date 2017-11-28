@@ -29,6 +29,7 @@ module.exports = (guildId) =>
                 let query = `UPDATE guildSettings SET "value" = ? WHERE "guildId" = ? AND "setting" = "plex.pintoken"`;
                 db.run(query, [escapeString(jsonObj), guildId], function(err) {
                     if (err) {
+                        console.log(err);
                         throw err;
                     }
                     resolve(pinObj);
