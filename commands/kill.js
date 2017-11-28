@@ -1,4 +1,4 @@
-const getSettings = require('../util/getPlexSettings');
+const getSettings = require('../util/plex/getPlexSettings');
 
 exports.run = (client, message, args, perms) => {
     message.channel.send("Hello, World!");
