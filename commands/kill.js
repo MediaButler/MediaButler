@@ -16,7 +16,8 @@ exports.run = (bot, msg, args = [], perms) => {
             }
             if (args[1]) {
                 // Remove first arg out of it and create reason.
-                reason = args.splice(0, 1).join("%20");
+                args.splice(0, 1);
+                reason = args.join("%20");
                 console.log(reason);
             }
             getStreams(plexClient)
