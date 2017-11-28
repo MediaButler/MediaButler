@@ -10,4 +10,5 @@ module.exports = (plexClient, streamId, reason) =>
             reject(err);
         });
     });
+    return p;
 };
