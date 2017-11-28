@@ -14,11 +14,12 @@ module.exports = (guildId) =>
                 else getAuthToken(guildId).then(() => { reject("updTokenSuccessful"); return; });
             }
             else {
+                console.log(settings.token);
                 let opts = {};
                 opts.options = {};
                 opts.hostname = settings.host;
                 opts.https = true;
-                opts.authToken = settings.token;
+                opts.token = settings.token;
                 opts.options.identifier = settings.uuid;
                 opts.options.product = 'MediaButler';
                 opts.options.version = '0.2';
