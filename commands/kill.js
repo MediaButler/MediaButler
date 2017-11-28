@@ -7,7 +7,7 @@ exports.run = (bot, msg, args, perms) => {
         .catch((err) => {
             console.log(err);
             console.log(typoeof(err));
-            if (typeof(err) == 'object') m.edit(`Please go to https://plex.tv/pin and authenticate this code: ${err.code}`);
+            if (typeof(JSON.parse(err) == 'object') m.edit(`Please go to https://plex.tv/pin and authenticate this code: ${JSON.parse(err.code)}`);
             if (err == "updTokenSuccessful") m.edit("Sucessfully processed plex token. Please run command again and we will work.");
         })
         .then((plexClient) => {
