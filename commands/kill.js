@@ -9,7 +9,7 @@ exports.run = (bot, msg, args = [], perms) => {
         getPlexClient(msg.guild.id)
         .then((plexClient) => {
             let streamId = args[0];
-            let reason = "Killed%20by%20Server%20Administrator";
+            let reason = "Bot%20Test%20Sorry....%20Continue";
             if (!args[0]) {
                 m.edit("ERR: No stream id to kill provided.");
                 return;
@@ -32,7 +32,7 @@ exports.run = (bot, msg, args = [], perms) => {
                 m.edit("ERR: Unable to send request to PleX");
                 return;
             });
-            
+
         }).catch((err) => {
             console.log(err);
             if (err == "updTokenSuccessful") m.edit("Sucessfully processed plex token. Please run command again and we will work.");
