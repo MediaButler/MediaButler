@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Container version="2">
-  <TemplateURL>FILL THIS AFTER UPLOAD</TemplateURL>
+  <TemplateURL>https://raw.githubusercontent.com/MediaButler/MediaButler/master/docker-template/MediaButler.xml</TemplateURL>
   <Beta>True</Beta>
   <Category>Tools: Status:Beta</Category>
   <Name>mediabutler</Name>
