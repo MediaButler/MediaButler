@@ -1,7 +1,17 @@
-const getSettings = require('../util/plex/getPlexSettings');
+const getPlexClient = require('../util/plex/getPlexClient');
 
-exports.run = (client, message, args, perms) => {
-    message.channel.send("Hello, World!");
+exports.run = (bot, msg, args, perms) => {
+    msg.channel.send("Starting...")
+    .then((m) => {
+        getPlexClient(msg.guild.id)
+        .then((plexClient) => {
+            m.edit("We have a fully authenticated plex token. Thats the end of the command");
+        })
+        .catch((err) => {
+            if (err === "updTokenSuccessful") m.edit("Sucessfully processed plex token. Please run command again and we will work.");
+            if (typeof(err) === 'object') m.edit(`Please go to https://plex.tv/pin and authenticate this code: ${err.code}`);
+        });
+    });
 };
   
 exports.conf = {
