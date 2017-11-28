@@ -1,5 +1,6 @@
 const chalk = require('chalk');
 const getSettings = require('../util/getSettings');
+const createGuild = require('../util/discordCreateGuild');
 module.exports = client => { // eslint-disable-line no-unused-vars
   console.log(chalk.bgGreen.black('I\'m Online'));
   client.user.setPresence({game: {name: "MediaButler v0.2", type: 0}});
@@ -9,7 +10,12 @@ module.exports = client => { // eslint-disable-line no-unused-vars
     .then((res) => {
       console.log(`Loaded configuration for ${g.id}`);
     }).catch((err) => {
-      // RUN GUILD CREATE SCRIPT
+      createGuild(g.id)
+      .then(() => {
+        console.log(`Sucessfully created configuration for ${g.id}`);
+      }).catch((err)=> {
+        console.log(`Unable to create configuration for ${g.id}:\n${err}`);
+      });
     });
   });
 };
