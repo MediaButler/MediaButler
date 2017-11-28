@@ -29,7 +29,7 @@ module.exports = (guildId) =>
                 }
                 let db = new sqlite3.Database('./settings.sqlite');    
                 let query = `UPDATE guildSettings SET "value" = ? WHERE "guildId" = ? AND "setting" = ?`
-                let queryData = [d.authenticator.token, msg.guild.id, "plex.token"];
+                let queryData = [d.authenticator.token, guildId, "plex.token"];
                 db.run(query, queryData, function(e) {
                     if (e) {
                         reject("Unable to update: " + e.message);
