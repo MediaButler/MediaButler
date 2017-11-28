@@ -41,4 +41,5 @@ module.exports = (guildId) =>
             });
         });
     });
+    return p;
 };

@@ -10,7 +10,7 @@ module.exports = (guildId) =>
         getSettings(guildId)
         .then((settings) => {
             if (settings.pinToken === null) getPin(guildId).then((pinobj) => reject(pinobj));
-            if (settings.token === null) getAuthToken(guildId).then(reject("updTokenSuccessful"));
+            if (settings.token === null) getAuthToken(guildId).then(() => reject("updTokenSuccessful"));
             let opts = {};
             opts.options = {};
             opts.hostname = settings.host;
