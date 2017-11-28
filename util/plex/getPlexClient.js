@@ -9,8 +9,10 @@ module.exports = (guildId) =>
     {
         getSettings(guildId)
         .then((settings) => {
-            if (settings.pinToken == null || settings.pinToken == "") getPin(guildId).then((pinobj) => reject(pinobj));
-            if (settings.token == null || settings.token == "") getAuthToken(guildId).then(() => reject("updTokenSuccessful"));
+            if (settings.token == null || settings.token == "") {
+                if (settings.pinToken == null || settings.pinToken == "") getPin(guildId).then((pinobj) => reject(pinobj));
+                else getAuthToken(guildId).then(() => reject("updTokenSuccessful"));
+            }
             let opts = {};
             opts.options = {};
             opts.hostname = settings.host;
