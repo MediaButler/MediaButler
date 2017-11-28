@@ -5,6 +5,7 @@ exports.run = (bot, msg, args, perms) => {
     .then((m) => {
         getPlexClient(msg.guild.id)
         .then((plexClient) => {
+            console.log(plexClient);
             m.edit("We have a fully authenticated plex token. Thats the end of the command");
         }).catch((err) => {
             console.log(err);
