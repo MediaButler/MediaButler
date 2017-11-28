@@ -28,7 +28,7 @@ module.exports = (guildId) =>
                     (${guildId}, "self.adminRole", NULL),
                     (${guildId}, "self.modRole", NULL)
             `, (err, rows) => { 
-                if (row === 0) reject("Unable to update database");
+                if (rows === 0) reject("Unable to update database");
                 resolve();
             });
         });
