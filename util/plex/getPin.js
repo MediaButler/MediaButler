@@ -21,8 +21,7 @@ module.exports = (guildId) =>
             opts.options.deviceName = 'MediaButlerBot';
             opts.authenticator = plexPinAuth;
             d = new plexApi(opts);
-            if (settings.pinToken != null) reject("Pin token already exists");
-            console.log("going to get pin");
+            if (settings.pinToken != null) throw "Pin token already exists";
             plexPinAuth.getNewPin()
             .then((pinObj) => { 
                 let db = new sqlite3.Database('./settings.sqlite');    
@@ -30,10 +29,8 @@ module.exports = (guildId) =>
                 let query = `UPDATE guildSettings SET "value" = ? WHERE "guildId" = ? AND "setting" = "plex.pintoken"`;
                 db.run(query, [escapeString(jsonObj), guildId], function(err) {
                     if (err) {
-                        console.log("fail on getpin");
-                        reject(`Unable to update: ${err.message}`);
+                        throw err;
                     }
-                    console.log("finished in gitpin");
                     resolve(pinObj);
                 });    
                 db.close();                
