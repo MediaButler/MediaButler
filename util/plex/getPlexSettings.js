@@ -16,7 +16,11 @@ module.exports = (guildId) =>
             let details = regex.exec(url.value);
             if (url.value == null) reject("Plex not configured");
             let i = {};
-            i.host = url.value;
+            i.protocol = details[1];
+            i.host = details[2];
+            i.port = 443;
+            if (i.protocol == "http") i.port = 80;
+            if (details[3] !== undefined) i.port = details[3];
             i.token = token.value;
             i.pinToken = null;
             i.uuid = uuid.value;

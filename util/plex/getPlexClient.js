@@ -26,6 +26,7 @@ module.exports = (guildId) =>
                 opts.options.deviceName = 'MediaButlerBot';
                 opts.authenticator = plexPinAuth;
                 d = new plexApi(opts);
+                console.log(d);
                 resolve(d);
             }
         }).catch((err) => { console.log(err); });
