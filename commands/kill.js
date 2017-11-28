@@ -22,17 +22,12 @@ exports.run = (bot, msg, args = [], perms) => {
             .then((res) => { 
                 res.MediaContainer.Video.forEach((v) => {
                     console.log(`${v.sessionKey} - ${v.Session.id}`); 
+                    if (v.sessionKey == streamId) {
+                        m.edit(`Killing stream ${v.Session.id}`);
+                        killStream(plexClient, v.Session.id, reason).then(() => { m.edit("Sucessfully sent request to kill stream"); });
+                    }
                 });
             });
-
-            killStream(plexClient, streamId, reason)
-            .then(() => { 
-                m.edit("Sucessfully sent request to kill stream");
-            }).catch((err) => {
-                m.edit("ERR: Unable to send request to PleX");
-                return;
-            });
-
         }).catch((err) => {
             console.log(err);
             if (err == "updTokenSuccessful") m.edit("Sucessfully processed plex token. Please run command again and we will work.");
