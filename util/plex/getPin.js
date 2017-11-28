@@ -8,7 +8,7 @@ module.exports = (guildId) =>
     const p = new Promise((resolve, reject) => 
     {
         let d;
-        getSettings(msg.guild.id)
+        getSettings(guildId)
         .then((settings) => {
             let opts = {};
             opts.options = {};
@@ -28,7 +28,7 @@ module.exports = (guildId) =>
                 let db = new sqlite3.Database('./settings.sqlite');    
                 let jsonObj = JSON.stringify(pinObj);
                 let query = `UPDATE guildSettings SET "value" = ? WHERE "guildId" = ? AND "setting" = "plex.pintoken"`;
-                db.run(query, [escapeString(jsonObj), msg.guild.id], function(err) {
+                db.run(query, [escapeString(jsonObj), guildId], function(err) {
                     if (err) {
                         console.log("fail on getpin");
                         reject(`Unable to update: ${err.message}`);
