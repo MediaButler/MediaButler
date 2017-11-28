@@ -20,7 +20,6 @@ exports.run = (bot, msg, args = [], perms) => {
 
             getStreams(plexClient)
             .then((res) => { 
-                console.log("hello");
                 res.MediaContainer.Video.foreach((v) => {
                     console.log(v); 
                 });
@@ -34,6 +33,7 @@ exports.run = (bot, msg, args = [], perms) => {
                 return;
             });
         }).catch((err) => {
+            console.log(err);
             if (err == "updTokenSuccessful") m.edit("Sucessfully processed plex token. Please run command again and we will work.");
             if (typeof(err) == "object") m.edit(`Please go to https://plex.tv/pin and authenticate this code: ${err.code}`);
         });

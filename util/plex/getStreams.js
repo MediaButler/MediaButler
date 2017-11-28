@@ -12,4 +12,5 @@ module.exports = (plexClient) =>
             reject(err);
         });
     });
+    return p;
 };
