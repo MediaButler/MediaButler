@@ -25,7 +25,7 @@ module.exports = (guildId) =>
             opts.authenticator = plexPinAuth;
             d = new plexApi(opts);
             resolve(d);
-        });
+        }).catch((err) => { console.log(err); });
     });
     return p;
 }
