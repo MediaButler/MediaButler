@@ -15,8 +15,10 @@ Still early dev, but active and welcomes any/all help
 * Pull user stats from PlexPy.
 * Pull user watched history from PlexPy.
 * Pull Plex now playing info from PlexPy.
-* Pull tonights shows info from Sonarr.
+* Pull tonight's shows info from Sonarr.
 * Add tv shows to Sonarr.
+* Add movies to Radarr.
+* Kill Plex streams.
 * Have MediaButler remind you what and when.
 * Show bot uptime.
 
