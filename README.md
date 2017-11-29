@@ -53,8 +53,6 @@ docker create \
 ### Info
 * To monitor the logs of the container in realtime `docker logs -f mediabutler`.
 
-* container version number
-
 ## Feature Requests
 
 Please use our FeatHub to request and vote on features to make it's way to the bot [here](http://feathub.com/MediaButler/MediaButler)
