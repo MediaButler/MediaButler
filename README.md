@@ -55,6 +55,13 @@ docker create \
 
 * container version number
 
+## Feature Requests
+
+Please use our FeatHub to request and vote on features to make it's way to the bot [here](http://feathub.com/MediaButler/MediaButler)
+
+[![Feature Requests](http://feathub.com/MediaButler/MediaButler?format=svg)](http://feathub.com/MediaButler/MediaButler)
+
+
 ## Support
 The best place to get support is on our Discord channel, which you can get to by clicking [Here](https://discord.gg/nH9t5sm)
 
