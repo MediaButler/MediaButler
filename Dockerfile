@@ -1,30 +1,32 @@
-FROM nodesource/node
+FROM alpine
 MAINTAINER christronyxyocum
 
 # Env variables for Discord token and command prefix
 ENV token=$TOKEN
 ENV prefix=$PREFIX
+ENV UID=991 GID=991
+
+COPY rootfs /
 
 # Install Node.js dependencies
-RUN apt-get update && \
-        apt-get -y install build-essential \
-        libssl-dev \
-        curl
+RUN apk add -U build-base \
+        libssl1.0 \
+        curl \
+        git \
+        nodejs-npm \
+        su-exec \
+        s6 \
+    && cd /tmp \
+    && curl -sL https://raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh -o install_nvm.sh \
+    && sh install_nvm.sh \
+    && mkdir -p /opt \
+    && cd /opt \
+    && git clone https://github.com/MediaButler/MediaButler.git \
+    && cd MediaButler \
+    && cp ./settings.example.json ./settings.json \
+    && npm install \
+    && chmod a+x /usr/local/bin/* /etc/s6.d/*/* \
+    && apk del build-base git \
+    && rm -rf /tmp/* /var/cache/apk/*
 
-# Install Node.js
-RUN curl -sL https://raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh -o install_nvm.sh
-RUN bash install_nvm.sh
-
-# Create dir, clone GitHub repo for MediaButler, prep and install app
-RUN mkdir -p /home/nodejs/app
-RUN git clone https://github.com/MediaButler/MediaButler.git /home/nodejs/app
-RUN ls -la /home/nodejs/app
-WORKDIR /home/nodejs/app
-RUN cp ./settings.example.json ./settings.json
-RUN npm install
-CMD ["npm","start"]
-
-# Add entrypoint script and make it executable
-COPY entrypoint.sh /home/nodejs/entrypoint.sh
-RUN chmod a+x /home/nodejs/entrypoint.sh
-CMD ["/home/nodejs/entrypoint.sh"]
+CMD ["run.sh"]
