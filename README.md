@@ -10,19 +10,7 @@ Still early dev, but active and welcomes any/all help
 * [NodeJS](https://nodejs.org/en/) - The server framework
 * [npm](https://www.npmjs.com/) - Package manager
 
-## Installation
-[Complete configuration tutorial](https://github.com/MediaButler/MediaButler/wiki/Install)
-
-    git clone https://github.com/MediaButler/MediaButler.git
-    cd MediaButler
-    cp settings.example.json settings.json
-    nano settings.json
-    npm install
-
-For an easier installation we provide a docker image located [here](https://hub.docker.com/r/mediabutler/mediabutler/)
-
 ## Features
-
 * Pull info for tv shows, films, anime, manga, books and music artists.
 * Pull user stats from PlexPy.
 * Pull user watched history from PlexPy.
@@ -32,8 +20,53 @@ For an easier installation we provide a docker image located [here](https://hub.
 * Have MediaButler remind you what and when.
 * Show bot uptime.
 
-## Support
+## Installation
+[Complete configuration tutorial](https://github.com/MediaButler/MediaButler/wiki/Install)
 
+    git clone https://github.com/MediaButler/MediaButler.git
+    cd MediaButler
+    cp settings.example.json settings.json
+    nano settings.json
+    npm install
+
+## Docker Installation
+The TOKEN utilized by the container is from the process of setting up the MediaButler app with your Discord Server. Instructions for doing this can be found [HERE](https://github.com/MediaButler/MediaButler/wiki/Install:Discord "HERE").
+
+### Usage
+```
+docker create \
+  --name=mediabutler \
+  --restart=on-failure \
+  -e TOKEN=<discord token> \
+  -e PREFIX=<command prefix> \
+  tronyx/docker-mediabutler
+```
+
+### Parameters
+* `--name` - The name of the container - Call it whatever you want.
+* `--restart=on-failure` Container restart mode - Docker attempts to restarts the container if the container returns a non-zero exit code. More info [HERE](https://docs.docker.com/engine/admin/start-containers-automatically/ "HERE") on container restart policies.
+* `-e TOKEN` - Your Discord token - This is needed for the bot to work with your Discord Server.
+* `-e PREFIX` The command prefix character - This is what you want to prefix the commands for the bot, IE: !help, ?help, +help, -help, >help, etc.
+
+### Info
+
+* To monitor the logs of the container in realtime `docker logs -f mediabutler`.
+
+* container version number
+
+`docker inspect -f '{{ index .Config.Labels "build_version" }}' mediabutler`
+
+* image version number
+
+`docker inspect -f '{{ index .Config.Labels "build_version" }}' tronyx/docker-mediabutler`
+
+### Versions
++ **28.11.17:** Updated entrypoint.sh to backup settings and then restore after git pull.
++ **27.11.17:** Added in node.js installation.
++ **25.11.17:** Added in TOKEN and PREFIX env vars.
++ **23.11.17:** Original.
+
+## Support
 The best place to get support is on our Discord channel, which you can get to by clicking [Here](https://discord.gg/nH9t5sm)
 
 
