@@ -25,6 +25,6 @@ RUN npm install
 CMD ["npm","start"]
 
 # Add entrypoint script and make it executable
-ADD entrypoint.sh /home/nodejs
+ADD /entrypoint.sh /home/nodejs
 RUN chmod a+x /home/nodejs/entrypoint.sh
 CMD ["/home/nodejs/entrypoint.sh"]
