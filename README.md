@@ -51,22 +51,9 @@ docker create \
 * `-e PREFIX` The command prefix character - This is what you want to prefix the commands for the bot, IE: !help, ?help, +help, -help, >help, etc.
 
 ### Info
-
 * To monitor the logs of the container in realtime `docker logs -f mediabutler`.
 
 * container version number
-
-`docker inspect -f '{{ index .Config.Labels "build_version" }}' mediabutler`
-
-* image version number
-
-`docker inspect -f '{{ index .Config.Labels "build_version" }}' tronyx/docker-mediabutler`
-
-### Versions
-+ **28.11.17:** Updated entrypoint.sh to backup settings and then restore after git pull.
-+ **27.11.17:** Added in node.js installation.
-+ **25.11.17:** Added in TOKEN and PREFIX env vars.
-+ **23.11.17:** Original.
 
 ## Support
 The best place to get support is on our Discord channel, which you can get to by clicking [Here](https://discord.gg/nH9t5sm)
