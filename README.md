@@ -41,7 +41,7 @@ docker create \
   --restart=on-failure \
   -e TOKEN=<discord token> \
   -e PREFIX=<command prefix> \
-  tronyx/docker-mediabutler
+  mediabutler/mediabutler
 ```
 
 ### Parameters
