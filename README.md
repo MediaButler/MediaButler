@@ -42,5 +42,8 @@ The best place to get support is on our Discord channel, which you can get to by
 * [Vertig0ne](https://github.com/Vertig0ne)
 * [Tailchakra](https://github.com/Tailchakra)
 
+## Trusted contributors
+* [Tronyx (Docker)](https://github.com/christronyxyocum)
+
 ## License
 This is free software under the GPL v2 open source license. Feel free to do with it what you wish, but any modification must be open sourced.
