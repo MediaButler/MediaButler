@@ -24,7 +24,7 @@ RUN cp ./settings.example.json ./settings.json
 RUN npm install
 CMD ["npm","start"]
 
-# Copy entrypoint script
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+# Add entrypoint script and make it executable
+ADD entrypoint.sh /home/nodejs/
+RUN ["chmod", "+x", "/home/nodejs/entrypoint.sh"]
 ENTRYPOINT ["./entrypoint.sh"]
