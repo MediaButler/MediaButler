@@ -37,12 +37,12 @@
     </Variable>
     <Variable>
       <Value>99</Value>
-      <Name>PUID</Name>
+      <Name>UID</Name>
       <Mode/>
     </Variable>
     <Variable>
       <Value>100</Value>
-      <Name>PGID</Name>
+      <Name>GID</Name>
       <Mode/>
     </Variable>
   </Environment>
