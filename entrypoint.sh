@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 \cp -f /home/nodejs/app/settings.sqlite /home/nodejs/app/settings.sqlite.keep
 git clone https://github.com/MediaButler/MediaButler.git /home/nodejs/temp &> /dev/null
 \cp -rf /home/nodejs/temp/* /home/nodejs/app/
