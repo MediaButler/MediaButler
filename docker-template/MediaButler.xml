@@ -3,14 +3,14 @@
   <TemplateURL>https://raw.githubusercontent.com/MediaButler/MediaButler/master/docker-template/MediaButler.xml</TemplateURL>
   <Beta>True</Beta>
   <Category>Tools: Status:Beta</Category>
-  <Name>mediabutler</Name>
-  <Support>https://hub.docker.com/r/tronyx/docker-mediabutler/</Support>
+  <Name>MediaButler</Name>
+  <Support>https://hub.docker.com/r/mediabutler/mediabutler/</Support>
   <ExtraParams> --restart=on-failure</ExtraParams>
   <Description>Discord bot for use with PleX and several other apps that work with it.</Description>
   <Project>https://github.com/MediaButler/MediaButler</Project>
   <Overview>Discord bot for use with PleX and several other apps that work with it.</Overview>
-  <Registry>https://hub.docker.com/r/tronyx/docker-mediabutler/~/dockerfile/</Registry>
-  <Repository>tronyx/docker-mediabutler</Repository>
+  <Registry>https://hub.docker.com/r/mediabutler/mediabutler/~/dockerfile/</Registry>
+  <Repository>mediabutler/mediabutler</Repository>
   <BindTime>true</BindTime>
   <Network>bridge</Network>
   <Privileged>false</Privileged>
@@ -31,11 +31,11 @@
     </Variable>
     <Variable>
       <Name>PUID</Name>
-      <Value>99</Value>
+      <Value>991</Value>
     </Variable>
     <Variable>
       <Name>PGID</Name>
-      <Value>100</Value>
+      <Value>991</Value>
     </Variable>
   </Environment>
   <Config Name="Discord token" Target="TOKEN" Default="https://discordapp.com/developers/applications/me" Mode="" Description="Follow instructions from: https://github.com/MediaButler/MediaButler/wiki/Install:Discord" Type="Variable" Display="always" Required="true" Mask="false"/>
