@@ -19,7 +19,7 @@ Still early dev, but active and welcomes any/all help
     nano settings.json
     npm install
 
-For an easier installation we has provide a docker image located [here](https://hub.docker.com/r/mediabutler/mediabutler/)
+For an easier installation we provide a docker image located [here](https://hub.docker.com/r/mediabutler/mediabutler/)
 
 ## Features
 
