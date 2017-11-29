@@ -1,5 +1,4 @@
 exports.run = (client, message, args, perms) => {
-  console.log(perms);
   message.channel.send('Ping?')
       .then(msg => {
         msg.edit(`I'm still working! (It took me ${msg.createdTimestamp - message.createdTimestamp}ms to respond)`);

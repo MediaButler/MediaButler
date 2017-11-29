@@ -1,0 +1,53 @@
+# docker-mediabutler
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>docker-mediabutler</Name>
+  <Repository>tronyx/docker-mediabutler</Repository>
+  <Registry>https://hub.docker.com/r/tronyx/docker-mediabutler/~/dockerfile/</Registry>
+  <Network>bridge</Network>
+  <Privileged>false</Privileged>
+  <Support>https://hub.docker.com/r/tronyx/docker-mediabutler/</Support>
+  <Overview>Docker image for the MediaButler GitHub project.&#xD;
+&#xD;
+[b]Converted By Community Applications[/b]</Overview>
+  <Category/>
+  <WebUI/>
+  <TemplateURL/>
+  <Icon>https://github.com/Squidly271/community.applications/raw/master/source/community.applications/usr/local/emhttp/plugins/community.applications/images/question.png</Icon>
+  <ExtraParams/>
+  <DateInstalled>1511827259</DateInstalled>
+  <Description>Docker image for the MediaButler GitHub project.&#xD;
+&#xD;
+[b]Converted By Community Applications[/b]</Description>
+  <Networking>
+    <Mode>bridge</Mode>
+    <Publish/>
+  </Networking>
+  <Data/>
+  <Environment>
+    <Variable>
+      <Value/>
+      <Name>TOKEN</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value/>
+      <Name>PREFIX</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value>99</Value>
+      <Name>PUID</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value>100</Value>
+      <Name>PGID</Name>
+      <Mode/>
+    </Variable>
+  </Environment>
+  <Config Name="Discord Token" Target="TOKEN" Default="" Mode="" Description="TOKEN for your Discord token - This is needed for the bot to work with your Discord Server." Type="Variable" Display="always" Required="false" Mask="false"/>
+  <Config Name="Discord Prefix" Target="PREFIX" Default="" Mode="" Description="PREFIX for command prefix - This is what you want to prefix the commands for the bot, IE: !help, !remind, etc." Type="Variable" Display="always" Required="false" Mask="false"/>
+  <Config Name="Key 1" Target="PUID" Default="" Mode="" Description="Container Variable: PUID" Type="Variable" Display="always" Required="false" Mask="false">99</Config>
+  <Config Name="Key 2" Target="PGID" Default="" Mode="" Description="Container Variable: PGID" Type="Variable" Display="always" Required="false" Mask="false">100</Config>
+</Container>

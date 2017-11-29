@@ -1,57 +1,51 @@
-const SonarrAPI = require('sonarr-api');
-const getSettings = require('../services/getSettings');
-
+const getQualityProfile = require('../util/radarr/getQualityProfileId');
+const getMovie = require('../util/radarr/getMovie');
+const addMovie = require('../util/radarr/addMovie');
+const createMovieItem = require('../util/radarr/createMovieModalRadarr');
+const createMovieItemModal = require('../util/radarr/createMovieModal');
 exports.run = (client, msg, args, perms) => {
-  getSettings(msg.guild.id)
-  .then((settings) => {
-    settings = JSON.parse(settings);
-    const host = settings.find(x => x.setting == "radarr.host").value;
-    const baseUrl = settings.find(x => x.setting == "radarr.baseurl").value;
-    const apiKey = settings.find(x => x.setting == "radarr.apikey").value;
-    const defaultProfileId = settings.find(x => x.setting == "radarr.defaultprofileid").value;
-    const defaultRootPath = settings.find(x => x.setting == "radarr.defaultrootpath").value;
-
-    if (host == null || baseUrl == null || apiKey == null)
-    {
-      msg.channel.send("Radarr settings not configured");
-      return;
-    }
-
-    const radarr = new SonarrAPI({ hostname: host.split(":")[0], apiKey: apiKey, port: host.split(":")[1], urlBase: baseUrl });
-    
-    let profileId = defaultProfileId;
-    let rootPath = defaultRootPath;
-
-    if (!args[0]) {
-      msg.channel.send("No variables found. run `.help addtv`");
-      return;
-    }
-
+  msg.channel.send("Starting...")
+  .then((m) => {
+    msg.channel.startTyping();
+    let rp = null;
+    let pid = null;
     if (args[1]) {
-      sonarr.get("profile").then((result) => {
-        let profile = result.find(q => q.name === args[1]);
-        profileId = profile.id;
-        if (profileId === undefined) {
-          msg.channel.send("Profile not found.");
-        }
+      m.edit("Detected Quality Profile override. Querying Radarr for profileId");
+      getQualityProfile(msg.guild.id, args[1])
+      .then((profileId) => {
+        pid = profileId;
+        m.edit("Received profileId. Continuing");
       });
     }
-
     if (args[2]) {
-      rootPath = args[2];
+      m.edit("Detected rootPath override");
+      rp = args[2];
     }
+    m.edit("Querying Radarr for Movie information");
+    getMovie(msg.guild.id, args[0])
+    .then((movie) => {
+      m.edit("Received Movie infromation. Adding to Radarr.");
+      addMovie(msg.guild.id, movie, pid, rp)
+      .then((movieAdded) => {
+        m.edit("Movie added sucessfully");
+        let l = createMovieItem(movie);
+        let e = createMovieItemModal(l);
+        e.setAuthor("Movie added sucessfully");
+        e.setFooter(`Called by ${msg.author.username}`, msg.author.avatarURL);        
+        m.edit({ embed: e });
+        msg.channel.stopTyping();
+      }).catch((e) => { m.edit(`ERR: ${e}`); msg.channel.stopTyping(); return; });
+    }).catch((e) => { m.edit(`ERR: ${e}`); msg.channel.stopTyping(); return; });
   });
 };
-
 exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: [],
   permLevel: 3
 };
-
 exports.help = {
   name: 'addfilm',
   description: 'Adds a Movie directly to Radarr',
-  usage: 'addfilm <tmdbId> [qualityProfile] [rootPath]'
+  usage: 'addtv <imdbId> [qualityProfile] [rootPath]'
 };
