@@ -5,8 +5,8 @@ module.exports = (searchTerms) =>
     {
         let url = `https://kitsu.io/api/edge/manga?filter%5Btext%5D=${searchTerms.join(" ")}`;
         request(url, function (e, r, b) {
-            if (!e && r.statusCode === 200) resolve(JSON.parse(b));
-            else reject(e);
+          if (!e && r.statusCode === 200) resolve(JSON.parse(b));
+          else reject(e);
         });
     });
     return p;
