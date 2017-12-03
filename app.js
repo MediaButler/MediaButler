@@ -51,10 +51,8 @@ client.elevation = (message) => {
   getSettings(message.guild.id)
   .then((set) => {
     set = JSON.parse(set);
-    const modRole = message.guild.roles.find('name', set.find(x => x.setting == "self.modRole").value);
-    const adminRole = message.guild.roles.find('name', set.find(x => x.setting == "self.adminRole").value);
-    if (modRole && message.member.roles.has(modRole.id)) permlvl = 2;
-    if (adminRole && message.member.roles.has(adminRole.id)) permlvl = 3;
+    if (message.channel.permissionsFor(message.member).hasPermission("MANAGE_MESSAGES")) permlvl = 2;
+    if (message.member.hasPermission("ADMINISTRATOR")) permlvl = 3;
     if (message.author.id === message.guild.ownerid) permlvl = 4;
     return permlvl;
   });
