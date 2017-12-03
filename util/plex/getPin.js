@@ -3,6 +3,8 @@ const plexPinAuth = require('plex-api-pinauth')();
 const getSettings = require('./getPlexSettings');
 const escapeString = require('../escapeString');
 var sqlite3 = require('sqlite3').verbose();
+const coreSettings = require(`${process.cwd()}/settings.json`);
+
 module.exports = (guildId) =>
 {
     const p = new Promise((resolve, reject) => 
@@ -24,7 +26,7 @@ module.exports = (guildId) =>
             if (settings.pinToken != null) reject("Pin token already exists");
             plexPinAuth.getNewPin()
             .then((pinObj) => { 
-                let db = new sqlite3.Database('./settings.sqlite');    
+                let db = new sqlite3.Database(`${process.cwd()}${coreSettings["path"]}/settings.sqlite`);    
                 let jsonObj = JSON.stringify(pinObj);
                 let query = `UPDATE guildSettings SET "value" = ? WHERE "guildId" = ? AND "setting" = "plex.pintoken"`;
                 db.run(query, [escapeString(jsonObj), guildId], (err) => {

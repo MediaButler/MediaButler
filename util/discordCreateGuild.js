@@ -1,10 +1,12 @@
 const sqlite3 = require('sqlite3').verbose();
 const uuid = require('uuid-v4');
+const coreSettings = require(`${process.cwd()}/settings.json`);
+
 module.exports = (guildId) => 
 {
     const p = new Promise((resolve, reject) => 
     {
-        let db = new sqlite3.Database('./settings.sqlite');
+        let db = new sqlite3.Database(`${process.cwd()}${coreSettings["path"]}/settings.sqlite`);    
         let myUuid = uuid();
         db.serialize(() => {
             db.run(`INSERT INTO guildSettings(guildId, setting, value)
