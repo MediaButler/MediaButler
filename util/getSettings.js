@@ -3,7 +3,7 @@ const coreSettings = require(`${process.cwd()}/settings.json`);
 
 module.exports = (guildId) =>
 {
-    let db = new sqlite3.Database(`${process.cwd()}${coreSettings["path"]}/settings.sqlite`);    
+    let db = new sqlite3.Database(`${coreSettings["path"]}/settings.sqlite`);    
     const p = new Promise((resolve, reject) => 
     {
         let sql = `SELECT setting,value FROM guildSettings WHERE guildId = ${guildId}`;

@@ -27,7 +27,7 @@ module.exports = (guildId) =>
                     console.log(err);
                     reject(`Unable to authenticate token due to ${err}`);
                 }
-                let db = new sqlite3.Database(`${process.cwd()}${coreSettings["path"]}/settings.sqlite`);    
+                let db = new sqlite3.Database(`${coreSettings["path"]}/settings.sqlite`);    
                 let query = `UPDATE guildSettings SET "value" = ? WHERE "guildId" = ? AND "setting" = ?`
                 let queryData = [d.authenticator.token, guildId, "plex.token"];
                 db.run(query, queryData, function(e) {

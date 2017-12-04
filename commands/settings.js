@@ -3,7 +3,7 @@ const gs = require('../util/getSettings');
 const coreSettings = require(`${process.cwd()}/settings.json`);
 
 exports.run = (client, message, params = [], perms) => {
-    let db = new sqlite3.Database(`${process.cwd()}${coreSettings["path"]}/settings.sqlite`);    
+    let db = new sqlite3.Database(`${coreSettings["path"]}/settings.sqlite`);    
     if (params[0] === undefined)
     {
         let guildId = message.guild.id;

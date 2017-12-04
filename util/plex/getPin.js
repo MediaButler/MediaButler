@@ -26,7 +26,7 @@ module.exports = (guildId) =>
             if (settings.pinToken != null) reject("Pin token already exists");
             plexPinAuth.getNewPin()
             .then((pinObj) => { 
-                let db = new sqlite3.Database(`${process.cwd()}${coreSettings["path"]}/settings.sqlite`);    
+                let db = new sqlite3.Database(`${coreSettings["path"]}/settings.sqlite`);    
                 let jsonObj = JSON.stringify(pinObj);
                 let query = `UPDATE guildSettings SET "value" = ? WHERE "guildId" = ? AND "setting" = "plex.pintoken"`;
                 db.run(query, [escapeString(jsonObj), guildId], (err) => {
