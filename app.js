@@ -52,5 +52,4 @@ client.elevation = (message) => {
   if (message.author.id === message.guild.ownerid) permlvl = 4;
   return permlvl;
 };
-
 client.login(settings.token);
