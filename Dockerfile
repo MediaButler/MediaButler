@@ -3,9 +3,9 @@ MAINTAINER christronyxyocum
 # Major thanks to starbix for rewriting this with Alpine
 
 # Env variables for Discord token, command prefix, config path, UID, & GID
-ENV TOKEN
-ENV PREFIX
-ENV CONFIG_PATH
+ENV TOKEN="$TOKEN_HERE"
+ENV PREFIX="$PREFIX_HERE"
+ENV CONFIG_PATH="$PATH_HERE"
 ENV UID=991
 ENV GID=991
 
