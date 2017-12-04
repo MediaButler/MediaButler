@@ -41,7 +41,7 @@ docker create \
   --restart=on-failure \
   -e TOKEN=<discord token> \
   -e PREFIX=<command prefix> \
-  -e PATH=<app data path> \
+  -e CONFIG_PATH=<app data path> \
   mediabutler/mediabutler
 ```
 
@@ -50,7 +50,7 @@ docker create \
 * `--restart=on-failure` Container restart mode - Docker attempts to restarts the container if the container returns a non-zero exit code. More info [HERE](https://docs.docker.com/engine/admin/start-containers-automatically/ "HERE") on container restart policies.
 * `-e TOKEN` - Your Discord token - This is needed for the bot to work with your Discord Server.
 * `-e PREFIX` The command prefix character - This is what you want to prefix the commands for the bot, IE: !help, ?help, +help, -help, >help, etc.
-* `-e PATH` - App data path for persistently storing the settings, IE: `/config`.
+* `-e CONFIG_PATH` - App data path for persistently storing the settings, IE: `/config`.
 
 ### Info
 * To monitor the logs of the container in realtime `docker logs -f mediabutler`.
