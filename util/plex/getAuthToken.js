@@ -1,7 +1,6 @@
 const plexApi = require('plex-api');
 const plexPinAuth = require('plex-api-pinauth')();
 const getSettings = require('./getPlexSettings');
-const escapeString = require('../escapeString');
 var sqlite3 = require('sqlite3').verbose();
 const coreSettings = require(`${process.cwd()}/settings.json`);
 module.exports = (guildId) =>
