@@ -38,6 +38,7 @@ RUN apk add -U build-base \
     && apk del build-base git \
     && rm -rf /tmp/* /var/cache/apk/*
 
+#Add config path volume
 VOLUME /config
 
 # Execute run.sh script
