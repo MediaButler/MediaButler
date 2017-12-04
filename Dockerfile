@@ -3,8 +3,8 @@ MAINTAINER christronyxyocum
 # Major thanks to starbix for rewriting this with Alpine
 
 # Env variables for Discord token, command prefix, UID, & GID
-ENV token=$TOKEN
-ENV prefix=$PREFIX
+ENV TOKEN
+ENV PREFIX
 ENV UID=991 GID=991
 
 # Copy files
