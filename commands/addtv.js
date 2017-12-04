@@ -3,7 +3,7 @@ const getTvShow = require('../util/sonarr/getTvShow');
 const addTvShow = require('../util/sonarr/addTvShow');
 const createTvShowItem = require('../util/sonarr/createTvShowModalSonarr');
 const createTvShowItemModal = require('../util/sonarr/createTvShowModal');
-exports.run = (client, msg, args, perms) => {
+exports.run = (client, msg, args) => {
   msg.channel.send("Starting...")
   .then((m) => {
     msg.channel.startTyping();
@@ -26,7 +26,7 @@ exports.run = (client, msg, args, perms) => {
     .then((tvShow) => {
       m.edit("Received TV Show infromation. Adding to Sonarr.");
       addTvShow(msg.guild.id, tvShow, pid, rp)
-      .then((tvShowAdded) => {
+      .then(() => {
         m.edit("Show added sucessfully");
         let l = createTvShowItem(tvShow);
         let e = createTvShowItemModal(l);

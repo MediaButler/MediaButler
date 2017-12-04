@@ -3,7 +3,7 @@ const getMovie = require('../util/radarr/getMovie');
 const addMovie = require('../util/radarr/addMovie');
 const createMovieItem = require('../util/radarr/createMovieModalRadarr');
 const createMovieItemModal = require('../util/radarr/createMovieModal');
-exports.run = (client, msg, args, perms) => {
+exports.run = (client, msg, args) => {
   msg.channel.send("Starting...")
   .then((m) => {
     msg.channel.startTyping();
@@ -26,7 +26,7 @@ exports.run = (client, msg, args, perms) => {
     .then((movie) => {
       m.edit("Received Movie infromation. Adding to Radarr.");
       addMovie(msg.guild.id, movie, pid, rp)
-      .then((movieAdded) => {
+      .then(() => {
         m.edit("Movie added sucessfully");
         let l = createMovieItem(movie);
         let e = createMovieItemModal(l);
