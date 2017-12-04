@@ -3,39 +3,39 @@ const gs = require('../util/getSettings');
 const coreSettings = require(`${process.cwd()}/settings.json`);
 
 exports.run = (client, message, params = [], perms) => {
-    let db = new sqlite3.Database(`${coreSettings["path"]}/settings.sqlite`);    
-    if (params[0] === undefined)
-    {
-        let guildId = message.guild.id;
-        gs(guildId)
-        .then((res) => { console.log(res); });
-        return;
-    }
+  const db = new sqlite3.Database(`${coreSettings['path']}/settings.sqlite`);    
+  if (params[0] === undefined)
+  {
+    const guildId = message.guild.id;
+    gs(guildId)
+      .then((res) => { console.log(res); });
+    return;
+  }
 
-    let setting = params[0];
-    let value = params[1];
-    let guildId = message.guild.id;
-    let query = `UPDATE guildSettings SET "value" = ? WHERE "guildId" = ? AND "setting" = ?`
-    let queryData = [value, guildId, setting];
-    db.run(query, queryData, function(err) {
-        if (err) {
-            message.channel.send("Unable to update: " + err.message);
-          return;
-        }
-        message.channel.send("Sucessfully Updated");
-    });
-    db.close();
+  const setting = params[0];
+  const value = params[1];
+  const guildId = message.guild.id;
+  const query = 'UPDATE guildSettings SET "value" = ? WHERE "guildId" = ? AND "setting" = ?';
+  const queryData = [value, guildId, setting];
+  db.run(query, queryData, function(err) {
+    if (err) {
+      message.channel.send('Unable to update: ' + err.message);
+      return;
+    }
+    message.channel.send('Sucessfully Updated');
+  });
+  db.close();
 };
 
 exports.conf = {
-    enabled: true,
-    guildOnly: false,
-    aliases: ['set', 'settings', 'setconfig'],
-    permLevel: 4
+  enabled: true,
+  guildOnly: false,
+  aliases: ['set', 'settings', 'setconfig'],
+  permLevel: 4
 };
 
 exports.help = {
-    name: 'settings',
-    description: 'Allows you to read/set a configuration.',
-    usage: 'set <config> <value>'
+  name: 'settings',
+  description: 'Allows you to read/set a configuration.',
+  usage: 'set <config> <value>'
 };

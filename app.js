@@ -47,8 +47,8 @@ client.reload = (command) => {
 
 client.elevation = (message) => {
   let permlvl = 0;
-  if (message.member.hasPermission("MANAGE_MESSAGES")) permlvl = 2;
-  if (message.member.hasPermission("ADMINISTRATOR")) permlvl = 3;
+  if (message.member.hasPermission('MANAGE_MESSAGES')) permlvl = 2;
+  if (message.member.hasPermission('ADMINISTRATOR')) permlvl = 3;
   if (message.author.id == message.guild.ownerID) permlvl = 4;
   return permlvl;
 };
