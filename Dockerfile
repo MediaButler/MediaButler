@@ -2,10 +2,12 @@ FROM alpine
 MAINTAINER christronyxyocum
 # Major thanks to starbix for rewriting this with Alpine
 
-# Env variables for Discord token, command prefix, UID, & GID
-ENV token=$TOKEN
-ENV prefix=$PREFIX
-ENV UID=991 GID=991
+# Env variables for Discord token, command prefix, config path, UID, & GID
+ENV TOKEN="$TOKEN_HERE"
+ENV PREFIX="$PREFIX_HERE"
+ENV CONFIG_PATH="$PATH_HERE"
+ENV UID=991
+ENV GID=991
 
 # Copy files
 COPY rootfs /
@@ -36,6 +38,9 @@ RUN apk add -U build-base \
     # Ceanup
     && apk del build-base git \
     && rm -rf /tmp/* /var/cache/apk/*
+
+#Add config path volume
+VOLUME /config
 
 # Execute run.sh script
 CMD ["run.sh"]
