@@ -1,7 +1,7 @@
 #!/bin/sh
 
 echo "Moving settings file if it doesn't exist..."
-if [! -f ${CONFIG_PATH}/settings.sqlite ]; then
+if [ ! -f ${CONFIG_PATH}/settings.sqlite ]; then
   mv /opt/MediaButler/settings.sqlite $CONFIG_PATH
 else
   :
