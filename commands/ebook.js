@@ -1,83 +1,83 @@
 const books = require('google-books-search');
 
 exports.run = (bot, msg, args = []) => {
-  let max = 4462;
-  let query = args.join(" ");
+  const max = 4462;
+  const query = args.join(' ');
 
   books.search(query, (error, res) => {
     if (res === undefined) {
-      msg.channel.send("No results in the Goodreads database. Check the book name.")
+      msg.channel.send('No results in the Goodreads database. Check the book name.');
     }
     else {
 
-      let thumbnail = res[0].thumbnail === undefined ? "http://via.placeholder.com/200x300" : res[0].thumbnail;
-      let overview = res[0].description === null ? "No description" : res[0].description;
-      let trimmedOverview = overview.substring(0, 200);
+      const thumbnail = res[0].thumbnail === undefined ? 'http://via.placeholder.com/200x300' : res[0].thumbnail;
+      const overview = res[0].description === null ? 'No description' : res[0].description;
+      const trimmedOverview = overview.substring(0, 200);
 
       msg.channel.send({
-        "embed": {
-          "title": res[0].title,
-          "description": `${trimmedOverview}... ${res[0].link}`,
-          "color": 13619085,
-          "timestamp": new Date(),
-          "footer": {
-            "icon_url": msg.author.avatarURL,
-            "text": `Called by ${msg.author.username}`
+        'embed': {
+          'title': res[0].title,
+          'description': `${trimmedOverview}... ${res[0].link}`,
+          'color': 13619085,
+          'timestamp': new Date(),
+          'footer': {
+            'icon_url': msg.author.avatarURL,
+            'text': `Called by ${msg.author.username}`
           },
-          "thumbnail": {
-            "url": thumbnail
+          'thumbnail': {
+            'url': thumbnail
           },
-          "author": {
-            "name": "Book Information",
-            "url": res[0].link,
-            "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
+          'author': {
+            'name': 'Book Information',
+            'url': res[0].link,
+            'icon_url': 'https://cdn.discordapp.com/embed/avatars/0.png'
           },
-          "fields": [
+          'fields': [
             {
-              "name": "Release date",
-              "value": res[0].publishedDate,
-              "inline": true
+              'name': 'Release date',
+              'value': res[0].publishedDate,
+              'inline': true
             },
             {
-              "name": "Author",
-              "value": res[0].authors[0],
-              "inline": true
+              'name': 'Author',
+              'value': res[0].authors[0],
+              'inline': true
             },
             {
-              "name": "Publisher",
-              "value": res[0].publisher,
-              "inline": true
+              'name': 'Publisher',
+              'value': res[0].publisher,
+              'inline': true
             },
             {
-              "name": "Rating",
-              "value": `${res[0].averageRating}/5`,
-              "inline": true
+              'name': 'Rating',
+              'value': `${res[0].averageRating}/5`,
+              'inline': true
             },
             {
-              "name": "Category",
-              "value": res[0].categories[0],
-              "inline": true
+              'name': 'Category',
+              'value': res[0].categories[0],
+              'inline': true
             },
             {
-              "name": "Page count",
-              "value": res[0].pageCount,
-              "inline": true
+              'name': 'Page count',
+              'value': res[0].pageCount,
+              'inline': true
             },
             {
-              "name": "Googlebooks ID",
-              "value": res[0].id,
-              "inline": true
+              'name': 'Googlebooks ID',
+              'value': res[0].id,
+              'inline': true
             },
             {
-              "name": "ISBN13",
-              "value": res[0].industryIdentifiers[0].identifier,
-              "inline": true
+              'name': 'ISBN13',
+              'value': res[0].industryIdentifiers[0].identifier,
+              'inline': true
             }
           ]
         }
-      })
+      });
     }
-  })
+  });
 };
 
 exports.conf = {
@@ -87,7 +87,7 @@ exports.conf = {
   permLevel: 0 // Permissions Required, higher is more power
 };
 exports.help = {
-  name: "ebook",
-  description: "Pulls info for a book",
-  usage: "ebook <book name>"
+  name: 'ebook',
+  description: 'Pulls info for a book',
+  usage: 'ebook <book name>'
 };

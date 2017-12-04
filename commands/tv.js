@@ -3,11 +3,11 @@ const createTvShowItemModal = require('../util/sonarr/createTvShowModal');
 const getTvShowInfo = require('../util/omdb/getTvShow');
 exports.run = (bot, msg, args = []) => {
   getTvShowInfo(args)
-  .then((tvShow) => {
-    let e = createTvShowItemModal(tvShow);
-    e.setFooter(`Called by ${msg.author.username}`, msg.author.avatarURL);
-    msg.channel.send({ "embed": e });
-  });
+    .then((tvShow) => {
+      const e = createTvShowItemModal(tvShow);
+      e.setFooter(`Called by ${msg.author.username}`, msg.author.avatarURL);
+      msg.channel.send({ 'embed': e });
+    });
 };
 exports.conf = {
   enabled: true, 
@@ -16,7 +16,7 @@ exports.conf = {
   permLevel: 0 
 };
 exports.help = {
-  name: "tv",
-  description: "Pulls info for series or anime.",
-  usage: "tv <show>"
+  name: 'tv',
+  description: 'Pulls info for series or anime.',
+  usage: 'tv <show>'
 };

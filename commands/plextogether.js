@@ -3,14 +3,14 @@ const createInvite = require('../util/plextogether/createInvite');
 const createPTLinkModal = require('../util/plextogether/createPTLinkModal');
 exports.run = (bot, msg, args = []) => {
   createInvite(msg.guild.id)
-  .then((resultData) => {
-    let e = createPTLinkModal(resultData);
-    e.setFooter(`Called by ${msg.author.username}`, msg.author.avatarURL);
-    msg.channel.send({ "embed": e });
-  })
-  .catch((e) => {
-    console.log('Error creating PlexTogether Link:', e)
-  })
+    .then((resultData) => {
+      const e = createPTLinkModal(resultData);
+      e.setFooter(`Called by ${msg.author.username}`, msg.author.avatarURL);
+      msg.channel.send({ 'embed': e });
+    })
+    .catch((e) => {
+      console.log('Error creating PlexTogether Link:', e);
+    });
 };
 exports.conf = {
   enabled: true, 
@@ -19,7 +19,7 @@ exports.conf = {
   permLevel: 0 
 };
 exports.help = {
-  name: "plextogether",
-  description: "Creates an invite link for PlexTogether",
-  usage: "plextogether"
+  name: 'plextogether',
+  description: 'Creates an invite link for PlexTogether',
+  usage: 'plextogether'
 };

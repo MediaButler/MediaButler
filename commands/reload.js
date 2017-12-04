@@ -11,30 +11,30 @@ exports.run = (client, msg, args) => {
       if (err) msg.channel.send(err);
       msg.channel.send(`Reloading a total of ${files.length} commands.`);
       files.forEach(f => {
-        let props = require(`./${f}`);
+        const props = require(`./${f}`);
         msg.channel.send(`Loading Command: ${props.help.name}.`)
-            .then(m => {
-              client.reload(props.help.name)
-                  .then(() => {
-                    m.edit(`Successfully reloaded: ${props.help.name}`);
-                  })
-                  .catch(e => {
-                    m.edit(`Command reload failed: ${props.help.name}\n\`\`\`${e.stack}\`\`\``);
-                  });
-            });
-      })
-    }) //return msg.channel.send(`I cannot find the command: ${args[0]}`);
-  } else {
-    msg.channel.send(`Reloading: ${command}`)
-        .then(m => {
-          client.reload(command)
+          .then(m => {
+            client.reload(props.help.name)
               .then(() => {
-                m.edit(`Successfully reloaded: ${command}`);
+                m.edit(`Successfully reloaded: ${props.help.name}`);
               })
               .catch(e => {
-                m.edit(`Command reload failed: ${command}\n\`\`\`${e.stack}\`\`\``);
+                m.edit(`Command reload failed: ${props.help.name}\n\`\`\`${e.stack}\`\`\``);
               });
-        });
+          });
+      });
+    }); //return msg.channel.send(`I cannot find the command: ${args[0]}`);
+  } else {
+    msg.channel.send(`Reloading: ${command}`)
+      .then(m => {
+        client.reload(command)
+          .then(() => {
+            m.edit(`Successfully reloaded: ${command}`);
+          })
+          .catch(e => {
+            m.edit(`Command reload failed: ${command}\n\`\`\`${e.stack}\`\`\``);
+          });
+      });
   }
 };
 
