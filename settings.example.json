@@ -1,5 +1,6 @@
 {
         "path": "",
         "prefix": "PREFIX_HERE",
-        "token": "TOKEN_HERE"
+        "token": "TOKEN_HERE",
+        "path": "PATH_HERE"
 }
