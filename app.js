@@ -1,7 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const settings = require('./settings.json');
-const chalk = require('chalk');
 const fs = require('fs');
 const moment = require('moment');
 require('./util/eventLoader')(client);
@@ -48,14 +47,9 @@ client.reload = (command) => {
 
 client.elevation = (message) => {
   let permlvl = 0;
-  getSettings(message.guild.id)
-  .then((set) => {
-    set = JSON.parse(set);
-    if (message.channel.permissionsFor(message.member).hasPermission("MANAGE_MESSAGES")) permlvl = 2;
-    if (message.member.hasPermission("ADMINISTRATOR")) permlvl = 3;
-    if (message.author.id === message.guild.ownerid) permlvl = 4;
-    return permlvl;
-  });
+  if (message.channel.permissionsFor(message.member).hasPermission("MANAGE_MESSAGES")) permlvl = 2;
+  if (message.member.hasPermission("ADMINISTRATOR")) permlvl = 3;
+  if (message.author.id === message.guild.ownerid) permlvl = 4;
+  return permlvl;
 };
-
 client.login(settings.token);

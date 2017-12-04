@@ -7,9 +7,9 @@ module.exports = client => { // eslint-disable-line no-unused-vars
   
   client.guilds.forEach((g) => {
     getSettings(g.id)
-    .then((res) => {
+    .then(() => {
       console.log(`Loaded configuration for ${g.id}`);
-    }).catch((err) => {
+    }).catch(() => {
       createGuild(g.id)
       .then(() => {
         console.log(`Sucessfully created configuration for ${g.id}`);
