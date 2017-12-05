@@ -5,4 +5,8 @@ before_script:
  - cp settings.example.json settings.json
  - sed -i 's/TOKEN_HERE/'"Mzg3NDE5Njc0MjM0NTg1MDg4.DQeMUg._RMWMSOreOd_uLHjN6xeI0iq5Ao"'/g' settings.json
  - sed -i 's/PREFIX_HERE/'"!"'/g' settings.json
+<<<<<<< HEAD
  - sed -i 's/PATH_HERE/'"./"'/g' settings.json
+=======
+ - sed -i 's#PATH_HERE#'"./"'/g' settings.json
+>>>>>>> parent of 0dc9608... path sed still has issues
