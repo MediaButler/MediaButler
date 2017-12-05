@@ -2,13 +2,27 @@ const Discord = require('discord.js');
 const createComicItemModal = require('../util/comic/createComicModal');
 const getComicInfo = require('../util/comic/getComicApi');
 exports.run = (bot, msg, args = []) => {
-  getComicInfo(args)
-    .then((comicInfo) => {
-      const e = createComicItemModal(comicInfo);
-      e.setFooter(`Called by ${msg.author.username}`, msg.author.avatarURL);
-      msg.channel.send({ 'embed': e });
-    });
+  switch (args[0]) {
+    case 'search' || 'Search':
+      const query = args.slice(1);
+      getComicInfo(query.join('%20'))
+        .then((comicInfo) => {
+          console.log(query.join('%20'));
+          const e = createComicItemModal(comicInfo);
+          e.setFooter(`Called by ${msg.author.username}`, msg.author.avatarURL);
+          msg.channel.send({ 'embed': e });
+        });
+      break;
+
+    case 'add' || 'Add':
+      msg.channel.send('Add command not yet available');
+      break;
+
+    default:
+      msg.channel.send('No command specified. Try using \'comic search <volumename>\'');
+  }
 };
+
 exports.conf = {
   enabled: true,
   guildOnly: false,
