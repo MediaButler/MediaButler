@@ -9,7 +9,19 @@ module.exports = (guildId) =>
     const sql = `SELECT setting,value FROM guildSettings WHERE guildId = ${guildId}`;
     db.all(sql, function(err, rows) {
       if (err) reject(err);
-      if (rows.length === 0) reject('no results found');
+      if (rows.length === 0) { 
+        const createGuild = require('./discordCreateGuild');
+        createGuild(guildId)
+          .then(() => {
+            db.all(sql, function(err, rows) {
+              if (err) reject(err);
+              resolve(JSON.stringify(rows));
+              db.close();              
+            }
+          });
+        reject('no results found');
+      }
+
       resolve(JSON.stringify(rows));
       db.close();
     });
