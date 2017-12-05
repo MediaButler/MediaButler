@@ -16,12 +16,10 @@ module.exports = (guildId) =>
             db.all(sql, function(err, rows) {
               if (err) reject(err);
               resolve(JSON.stringify(rows));
-              db.close();              
-            }
+            });
           });
         reject('no results found');
       }
-
       resolve(JSON.stringify(rows));
       db.close();
     });
