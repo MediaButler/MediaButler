@@ -4,9 +4,8 @@ const settings = require('./settings.json');
 const fs = require('fs');
 const moment = require('moment');
 require('./util/eventLoader')(client);
-const getSettings = require('./util/getSettings');
 
-const log = message => {
+const log = (message) => {
   console.log(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${message}`);
 };
 
