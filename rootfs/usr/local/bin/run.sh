@@ -1,7 +1,14 @@
 #!/bin/sh
 
+echo "Moving settings file if it doesn't exist..."
+if [ ! -f ${CONFIG_PATH}/settings.sqlite ]; then
+  mv /opt/MediaButler/settings.sqlite $CONFIG_PATH
+else
+  :
+fi
+
 echo "Updating permissions..."
-for dir in /opt/MediaButler /etc/s6.d; do
+for dir in /opt/MediaButler /etc/s6.d /config; do
   if $(find $dir ! -user $UID -o ! -group $GID|egrep '.' -q); then
     echo "Updating permissions in $dir..."
     chown -R $UID:$GID $dir
