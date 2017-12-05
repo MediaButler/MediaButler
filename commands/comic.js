@@ -5,12 +5,15 @@ exports.run = (bot, msg, args = []) => {
   switch (args[0]) {
     case 'search' || 'Search':
       const query = args.slice(1);
-      getComicInfo(query.join('%20'))
-        .then((comicInfo) => {
-          console.log(query.join('%20'));
-          const e = createComicItemModal(comicInfo);
-          e.setFooter(`Called by ${msg.author.username}`, msg.author.avatarURL);
-          msg.channel.send({ 'embed': e });
+      msg.channel.send(`Looking up ${query.join(' ')} for you!`)
+        .then((m) => {
+          getComicInfo(query.join(' '))
+            .then((comicInfo) => {
+              console.log(query.join(' '));
+              const e = createComicItemModal(comicInfo);
+              e.setFooter(`Called by ${msg.author.username}`, msg.author.avatarURL);
+              m.edit({ 'embed': e });
+            });
         });
       break;
 
