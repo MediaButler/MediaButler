@@ -29,9 +29,10 @@
       <Name>PREFIX</Name>
       <Mode/>
     </Variable>
-	<Variable>
+    <Variable>
+      <Value/>
       <Name>CONFIG_PATH</Name>
-      <Value>/opt/MediaButler</Value>
+      <Mode/>
     </Variable>
     <Variable>
       <Name>UID</Name>
