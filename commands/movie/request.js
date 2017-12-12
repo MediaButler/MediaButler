@@ -3,6 +3,8 @@ exports.run = (bot, msg, args = []) => {
 };
 exports.help = {
   name: 'request',
+  description: 'Requests a movie on Ombi',
+  usage: 'movie request <imdbId>'
 };
 exports.conf = {
   enabled: true,

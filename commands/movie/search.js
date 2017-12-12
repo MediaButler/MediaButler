@@ -10,6 +10,8 @@ exports.run = (bot, msg, args = []) => {
 };
 exports.help = {
   name: 'search',
+  description: 'Searches for a film',
+  usage: 'movie <filmName>'
 };
 exports.conf = {
   enabled: true,

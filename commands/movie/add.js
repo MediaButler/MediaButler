@@ -42,6 +42,8 @@ exports.run = (bot, msg, args = []) => {
 };
 exports.help = {
   name: 'add',
+  description: 'Adds movie to Movie Engine',
+  usage: 'movie add <imdbId> [qualityProfile] [rootPath]'
 };
 exports.conf = {
   enabled: true,

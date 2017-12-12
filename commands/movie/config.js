@@ -1,6 +1,6 @@
 exports.run = (bot, msg, args = []) => {
   const [source, url, apikey, defprofile, defroot] = args;
-  if (!source || !url || !apikey || !defprofile || !defroot) { this.helpMessage(msg); return; }
+  if (!source || !url || !apikey || !defprofile || !defroot) { msg.channel.send('ERR: Not all configuration provided'); return; }
   switch (source) {
     case 'radarr':
       msg.channel.send('Configuring Radarr')
@@ -27,11 +27,10 @@ exports.run = (bot, msg, args = []) => {
       break;
   }
 };
-exports.helpMessage = (msg) => {
-  msg.channel.send('this is help for config');
-};
 exports.help = {
   name: 'config',
+  description: 'Configures Movie Engine to use',
+  usage: 'movie config <engine> <url> <apikey> <defaultProfileId> <defaultRootPath>'
 };
 exports.conf = {
   enabled: true,
