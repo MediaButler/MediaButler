@@ -13,12 +13,12 @@ module.exports = (guildId) =>
         const createGuild = require('./discordCreateGuild');
         createGuild(guildId)
           .then(() => {
+            console.log('created guild');
             db.all(sql, function(err, rows) {
               if (err) reject(err);
               resolve(JSON.stringify(rows));
             });
           });
-        reject('no results found');
       }
       resolve(JSON.stringify(rows));
       db.close();
