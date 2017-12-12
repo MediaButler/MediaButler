@@ -30,6 +30,11 @@
       <Mode/>
     </Variable>
     <Variable>
+      <Value>/config</Value>
+      <Name>CONFIG_PATH</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
       <Name>UID</Name>
       <Value>991</Value>
     </Variable>
@@ -37,9 +42,19 @@
       <Name>GID</Name>
       <Value>991</Value>
     </Variable>
+    <Data>
+    <Volume>
+      <HostDir>/mnt/user/appdata/MediaButler/</HostDir>
+      <ContainerDir>/config</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+  </Data>
   </Environment>
   <Config Name="Discord token" Target="TOKEN" Default="https://discordapp.com/developers/applications/me" Mode="" Description="Follow instructions from: https://github.com/MediaButler/MediaButler/wiki/Install:Discord" Type="Variable" Display="always" Required="true" Mask="false"/>
   <Config Name="PREFIX" Target="PREFIX" Default="!" Mode="" Description="This is what you want to prefix the commands for the bot, IE: !help, !remind, etc." Type="Variable" Display="always" Required="true" Mask="false"/>
+  <Config Name="CONFIG_PATH" Target="CONFIG_PATH" Default="/opt/MediaButler" Mode="" Description="This is your config path, by default it's /opt/MediaButler" Type="Variable" Display="always" Required="true" Mask="false"/>
   <Config Name="User ID" Target="UID" Default="" Mode="" Description="Container Variable: UID" Type="Variable" Display="always" Required="false" Mask="false">991</Config>
   <Config Name="Group ID" Target="GID" Default="" Mode="" Description="Container Variable: GID" Type="Variable" Display="always" Required="false" Mask="false">991</Config>
-  </Container>
+  <Config Name="/config" Target="/config" Default="" Mode="rw" Description="Container Path: /config" Type="Path" Display="always" Required="false" Mask="false">/mnt/user/appdata/MediaButler/</Config>
+  <Config Name="DB to /config" Target="CONFIG_PATH" Default="" Mode="" Description="Container Variable: CONFIG_PATH" Type="Variable" Display="advanced-hide" Required="false" Mask="false">/config</Config>
+</Container>
