@@ -9,8 +9,8 @@ exports.run = (bot, msg, args = []) => {
           setConfig(msg.guild.id, url, apikey, defprofile, defroot)
             .then(() => {
               m.edit('Configuration Sucessfully Updated. Testing...');
-              const getShow = require('../../util/sonarr/getShow');
-              getShow(msg.guild.id, 'tt0078748')
+              const getShow = require('../../util/sonarr/getTvShow');
+              getShow(msg.guild.id, '257655')
                 .then(() => {
                   m.edit('Configuration sucessful. Sonarr is now configured');
                 });
