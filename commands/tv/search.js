@@ -1,6 +1,5 @@
-const Discord = require('discord.js');
-const createTvShowItemModal = require('../util/sonarr/createTvShowModal');
-const getTvShowInfo = require('../util/omdb/getTvShow');
+const createTvShowItemModal = require('../../util/sonarr/createTvShowModal');
+const getTvShowInfo = require('../../util/omdb/getTvShow');
 exports.run = (bot, msg, args = []) => {
   getTvShowInfo(args)
     .then((tvShow) => {
@@ -16,7 +15,7 @@ exports.conf = {
   permLevel: 0 
 };
 exports.help = {
-  name: 'tv',
+  name: 'search',
   description: 'Pulls info for series or anime.',
   usage: 'tv <show>'
 };
