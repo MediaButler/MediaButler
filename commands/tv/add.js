@@ -1,25 +1,27 @@
-const getQualityProfile = require('../util/sonarr/getQualityProfileId');
-const getTvShow = require('../util/sonarr/getTvShow');
-const addTvShow = require('../util/sonarr/addTvShow');
-const createTvShowItem = require('../util/sonarr/createTvShowModalSonarr');
-const createTvShowItemModal = require('../util/sonarr/createTvShowModal');
 exports.run = (client, msg, args) => {
+  const getQualityProfile = require('../../util/sonarr/getQualityProfileId');
+  const getTvShow = require('../../util/sonarr/getTvShow');
+  const addTvShow = require('../../util/sonarr/addTvShow');
+  const createTvShowItem = require('../../util/sonarr/createTvShowModalSonarr');
+  const createTvShowItemModal = require('../../util/sonarr/createTvShowModal');
+  const [tvdbId, qualityProfile, rootPath] = args;
+  if (!tvdbId) { msg.channel.send('ERR: No tvdbId found.'); return; }
   msg.channel.send('Starting...')
     .then((m) => {
       msg.channel.startTyping();
       let rp = null;
       let pid = null;
-      if (args[1]) {
+      if (qualityProfile) {
         m.edit('Detected Quality Profile override. Querying Sonarr for profileId');
-        getQualityProfile(msg.guild.id, args[1])
+        getQualityProfile(msg.guild.id, qualityProfile)
           .then((profileId) => {
             pid = profileId;
             m.edit('Received profileId. Continuing');
           });
       }
-      if (args[2]) {
+      if (rootPath) {
         m.edit('Detected rootPath override');
-        rp = args[2];
+        rp = rootPath;
       }
       m.edit('Querying Sonarr for TV Show information');
       getTvShow(msg.guild.id, args[0])
@@ -45,7 +47,7 @@ exports.conf = {
   permLevel: 3
 };
 exports.help = {
-  name: 'addtv',
+  name: 'add',
   description: 'Adds a TV Show directly to Sonarr',
-  usage: 'addtv <tvdbId> [qualityProfile] [rootPath]'
+  usage: 'tv add <tvdbId> [qualityProfile] [rootPath]'
 };
