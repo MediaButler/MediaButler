@@ -5,6 +5,7 @@ exports.run = (bot, msg, args = []) => {
   const createMovieItem = require('../../util/radarr/createMovieModalRadarr');
   const createMovieItemModal = require('../../util/radarr/createMovieModal');
   const [imdbId, qualityProfile, rootPath] = args;
+  if (!imdbId) { msg.channel.send('ERR: No imdbId found.'); return; }
   msg.channel.send('Starting...')
     .then((m) => {
       msg.channel.startTyping();
