@@ -1,8 +1,8 @@
 exports.run = (bot, msg, args = []) => {
-  msg.channel.send(`this is search, searching for '${args.join(' ')}'`);
+  msg.channel.send('Sorry. Request functionality is not built in... yet');
 };
 exports.help = {
-  name: 'search',
+  name: 'request',
 };
 exports.conf = {
   enabled: true,

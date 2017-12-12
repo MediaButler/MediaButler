@@ -1,15 +1,16 @@
-const getQualityProfile = require('../util/radarr/getQualityProfileId');
-const getMovie = require('../util/radarr/getMovie');
-const addMovie = require('../util/radarr/addMovie');
-const createMovieItem = require('../util/radarr/createMovieModalRadarr');
-const createMovieItemModal = require('../util/radarr/createMovieModal');
-exports.run = (client, msg, args) => {
+exports.run = (bot, msg, args = []) => {
+  const getQualityProfile = require('../../util/radarr/getQualityProfileId');
+  const getMovie = require('../../util/radarr/getMovie');
+  const addMovie = require('../../util/radarr/addMovie');
+  const createMovieItem = require('../../util/radarr/createMovieModalRadarr');
+  const createMovieItemModal = require('../../util/radarr/createMovieModal');
+  const [imdbId, qualityProfile, rootPath] = args;
   msg.channel.send('Starting...')
     .then((m) => {
       msg.channel.startTyping();
       let rp = null;
       let pid = null;
-      if (args[1]) {
+      if (qualityProfile) {
         m.edit('Detected Quality Profile override. Querying Radarr for profileId');
         getQualityProfile(msg.guild.id, args[1])
           .then((profileId) => {
@@ -17,12 +18,12 @@ exports.run = (client, msg, args) => {
             m.edit('Received profileId. Continuing');
           });
       }
-      if (args[2]) {
+      if (rootPath) {
         m.edit('Detected rootPath override');
-        rp = args[2];
+        rp = rootPath;
       }
       m.edit('Querying Radarr for Movie information');
-      getMovie(msg.guild.id, args[0])
+      getMovie(msg.guild.id, imdbId)
         .then((movie) => {
           m.edit('Received Movie infromation. Adding to Radarr.');
           addMovie(msg.guild.id, movie, pid, rp)
@@ -38,14 +39,12 @@ exports.run = (client, msg, args) => {
         }).catch((e) => { m.edit(`ERR: ${e}`); msg.channel.stopTyping(); return; });
     });
 };
+exports.help = {
+  name: 'add',
+};
 exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: [],
   permLevel: 3
-};
-exports.help = {
-  name: 'addfilm',
-  description: 'Adds a Movie directly to Radarr',
-  usage: 'addtv <imdbId> [qualityProfile] [rootPath]'
 };
