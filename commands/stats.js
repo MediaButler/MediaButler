@@ -1,4 +1,3 @@
-const Discord = require('discord.js');
 const getUserId = require('../util/plexpy/getUserId');
 const getUserStats = require('../util/plexpy/getUserStats');
 const createUserStats = require('../util/plexpy/createUserStatsModal');
