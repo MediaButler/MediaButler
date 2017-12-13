@@ -7,6 +7,7 @@ module.exports = (guildId) =>
 {
   const p = new Promise((resolve, reject) => 
   {
+    let d;
     getSettings(guildId)
       .then((settings) => {
         if (settings.token == null || settings.token == '') {
@@ -26,7 +27,6 @@ module.exports = (guildId) =>
           opts.options.deviceName = 'MediaButlerBot';
           opts.authenticator = plexPinAuth;
           d = new plexApi(opts);
-          console.log(d);
           resolve(d);
         }
       }).catch((err) => { console.log(err); });
