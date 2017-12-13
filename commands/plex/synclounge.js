@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
-const createInvite = require('../util/plextogether/createInvite');
-const createPTLinkModal = require('../util/plextogether/createPTLinkModal');
+const createInvite = require('../../util/synclounge/createInvite');
+const createPTLinkModal = require('../../util/synclounge/createPTLinkModal');
 exports.run = (bot, msg, args = []) => {
   createInvite(msg.guild.id)
     .then((resultData) => {
@@ -9,7 +9,7 @@ exports.run = (bot, msg, args = []) => {
       msg.channel.send({ 'embed': e });
     })
     .catch((e) => {
-      console.log('Error creating PlexTogether Link:', e);
+      console.log('Error creating SyncLounge Link:', e);
     });
 };
 exports.conf = {
@@ -19,7 +19,7 @@ exports.conf = {
   permLevel: 0 
 };
 exports.help = {
-  name: 'plextogether',
-  description: 'Creates an invite link for PlexTogether',
-  usage: 'plextogether'
+  name: 'synclounge',
+  description: 'Creates an invite link for SyncLounge',
+  usage: 'plex synclounge'
 };

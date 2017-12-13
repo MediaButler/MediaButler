@@ -6,7 +6,7 @@ module.exports = (guildId) => {
     getSettings(guildId)
       .then((settings) =>
       {
-        if (!settings.webappurl.value || !settings.serverurl.value) return reject('PlexTogether not configured');
+        if (!settings.webappurl.value || !settings.serverurl.value) return reject('SyncLounge not configured');
         const webappurl = settings.webappurl.value;
         const serverurl = settings.serverurl.value;
         axios.post(webappurl + '/invite', {

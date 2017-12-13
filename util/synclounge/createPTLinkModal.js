@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 module.exports = (linkResult) =>
 {
   const e = new Discord.RichEmbed()
-    .setTitle('PlexTogether room')
+    .setTitle('SyncLounge Room')
     .setColor(13619085)
     .setTimestamp()
     .addField('Invite Link', linkResult.url, true)

@@ -7,9 +7,9 @@ module.exports = (guildId) =>
       .then((settings) =>
       {
         settings = JSON.parse(settings);
-        const webappurl = settings.find(x => x.setting == 'plextogether.webappurl');
-        const serverurl = settings.find(x => x.setting == 'plextogether.serverurl');               
-        if (!webappurl || !serverurl) reject('PlexTogether not configured');                      
+        const webappurl = settings.find(x => x.setting == 'synclounge.webappurl');
+        const serverurl = settings.find(x => x.setting == 'synclounge.serverurl');               
+        if (!webappurl || !serverurl) reject('SyncLounge not configured');                      
         const i = { webappurl, serverurl };            
         resolve(i);
       }).catch((e) => { reject(e); });
