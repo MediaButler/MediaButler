@@ -1,7 +1,6 @@
-const getPlexClient = require('../util/plex/getPlexClient');
-const killStream = require('../util/plex/killStream');
-const getStreams = require('../util/plex/getStreams');
-const plexApi = require('plex-api');
+const getPlexClient = require('../../util/plex/getPlexClient');
+const killStream = require('../../util/plex/killStream');
+const getStreams = require('../../util/plex/getStreams');
 
 exports.run = (bot, msg, args = [], perms) => {
   msg.channel.send('Starting...')
@@ -42,6 +41,6 @@ exports.conf = {
 };
 exports.help = {
   name: 'kill',
-  description: 'Kills stream playing from Plex. Gives optional reason\nREQUIRES PLEX PASS',
-  usage: 'kill <streamId> [reason]'
+  description: 'Kills stream playing from Plex. Gives optional reason. REQUIRES PLEX PASS',
+  usage: 'plex kill <streamId> [reason]'
 };

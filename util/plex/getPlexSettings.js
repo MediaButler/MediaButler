@@ -14,6 +14,7 @@ module.exports = (guildId) =>
         const regex = /^(http[s]?):\/?\/?([^:\/\s]+):?([0-9]{5})?((\/\w+)*\/)([\w\-\.]+[^#?\s]+)?$/g;
         if (uuid == undefined) reject('UUID not configured, please delete and re-invite this bot');
         const details = regex.exec(url.value);
+        console.log(details);
         if (url.value == null) reject('Plex not configured');
         const i = {};
         i.protocol = details[1];
