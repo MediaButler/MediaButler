@@ -9,7 +9,7 @@ exports.run = (bot, msg, args, perms = []) => {
   msg.channel.send('Starting...')
     .then(m => {
       msg.channel.startTyping();
-      m.edit('Querying PlexPy for UserID');
+      m.edit('Querying Tautulli for UserID');
       getUserId(msg.guild.id, args[0])
         .then(userId => {
           m.edit(`Got UserID ${userId}. Querying PlexPy for Statistics.`);
