@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 exports.run = (bot, msg, params = []) => {
   msg.channel.send('Starting...')
     .then((m) => {
-      m.edit('Querying PlexPy for current activity.');
+      m.edit('Querying Tautulli for current activity.');
       getNowPlaying(msg.guild.id)
         .then((nowPlaying) => {
           m.edit(`There are currently ${nowPlaying.data.stream_count} streams.`);
