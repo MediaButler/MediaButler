@@ -1,16 +1,22 @@
-const Discord = require('discord.js');
 const createInvite = require('../../util/synclounge/createInvite');
 const createPTLinkModal = require('../../util/synclounge/createPTLinkModal');
 exports.run = (bot, msg, args = []) => {
-  createInvite(msg.guild.id)
-    .then((resultData) => {
-      const e = createPTLinkModal(resultData);
-      e.setFooter(`Called by ${msg.author.username}`, msg.author.avatarURL);
-      msg.channel.send({ 'embed': e });
-    })
-    .catch((e) => {
-      console.log('Error creating SyncLounge Link:', e);
-    });
+  if (!msg.channel.SyncLounge) {
+    createInvite(msg.guild.id)
+      .then((resultData) => {
+        msg.channel.SyncLounge = resultData;
+        const e = createPTLinkModal(resultData);
+        e.setFooter(`Called by ${msg.author.username}`, msg.author.avatarURL);
+        msg.channel.send({ 'embed': e });
+      })
+      .catch((e) => {
+        console.log('Error creating SyncLounge Link:', e);
+      });
+    return;
+  }
+  const e = createPTLinkModal(msg.channel.SyncLounge);
+  e.setFooter(`Called by ${msg.author.username}`, msg.author.avatarURL);
+  msg.channel.send({ 'embed': e });
 };
 exports.conf = {
   enabled: true, 

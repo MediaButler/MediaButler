@@ -1,6 +1,6 @@
-const getUserId = require('../util/plexpy/getUserId');
-const getUserStats = require('../util/plexpy/getUserStats');
-const createUserStats = require('../util/plexpy/createUserStatsModal');
+const getUserId = require('../util/tautulli/getUserId');
+const getUserStats = require('../util/tautulli/getUserStats');
+const createUserStats = require('../util/tautulli/createUserStatsModal');
 exports.run = (bot, msg, args, perms = []) => {
   if (!args[0]) {
     msg.channel.send('ERR: No username set');
@@ -9,10 +9,10 @@ exports.run = (bot, msg, args, perms = []) => {
   msg.channel.send('Starting...')
     .then(m => {
       msg.channel.startTyping();
-      m.edit('Querying PlexPy for UserID');
+      m.edit('Querying Tautulli for UserID');
       getUserId(msg.guild.id, args[0])
         .then(userId => {
-          m.edit(`Got UserID ${userId}. Querying PlexPy for Statistics.`);
+          m.edit(`Got UserID ${userId}. Querying Tautulli for Statistics.`);
           getUserStats(msg.guild.id, userId)
             .then((stats) => {
               m.edit('Received statistics. Building output...');

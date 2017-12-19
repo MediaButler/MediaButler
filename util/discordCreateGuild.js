@@ -10,8 +10,8 @@ module.exports = (guildId) =>
     const myUuid = uuid();
     db.serialize(() => {
       db.run(`INSERT INTO guildSettings(guildId, setting, value)
-                VALUES(${guildId}, "plexpy.url", NULL),
-                    (${guildId}, "plexpy.apikey", NULL),
+                VALUES(${guildId}, "tautulli.url", NULL),
+                    (${guildId}, "tautulli.apikey", NULL),
                     (${guildId}, "sonarr.url", NULL),
                     (${guildId}, "sonarr.apikey", NULL),
                     (${guildId}, "sonarr.defaultprofileid", NULL),

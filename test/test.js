@@ -1,10 +1,10 @@
 var assert = require('assert');
 
-describe('PlexPy Tests', function() {
-  describe('Can get NowPlaying from PlexPy', function() {
+describe('Tautulli Tests', function() {
+  describe('Can get NowPlaying from Tautulli', function() {
     it('Gets data from API', function() {
       const guildId = 0;
-      const getNowPlaying = require('../util/plexpy/getNowPlaying');
+      const getNowPlaying = require('../util/tautulli/getNowPlaying');
       getNowPlaying(guildId, true)
         .then((res) => {
           assert.equal(true, (res != undefined));

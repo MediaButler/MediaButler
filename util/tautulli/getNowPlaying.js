@@ -1,5 +1,5 @@
 const request = require('request');
-const getSettings = require('./getPlexPySettings');
+const getSettings = require('./getTautulliSettings');
 module.exports = (guildId, mock = false) => 
 {
   const p = new Promise((resolve, reject) => 

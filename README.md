@@ -12,9 +12,9 @@ Still early dev, but active and welcomes any/all help
 
 ## Features
 * Pull info for tv shows, films, anime, manga, books and music artists.
-* Pull user stats from PlexPy.
-* Pull user watched history from PlexPy.
-* Pull Plex now playing info from PlexPy.
+* Pull user stats from Tautulli.
+* Pull user watched history from Tautulli.
+* Pull Plex now playing info from Tautulli.
 * Pull tonight's shows info from Sonarr.
 * Add tv shows to Sonarr.
 * Add movies to Radarr.

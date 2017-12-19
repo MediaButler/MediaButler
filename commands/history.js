@@ -1,7 +1,5 @@
-const getSettings = require('../util/plexpy/getPlexPySettings');
-const createHistoryItemModal = require('../util/plexpy/createHistoryItemModal');
-const getHistory = require('../util/plexpy/getHistory');
-const request = require('request');
+const createHistoryItemModal = require('../util/tautulli/createHistoryItemModal');
+const getHistory = require('../util/tautulli/getHistory');
 const Discord = require('discord.js');
 exports.run = (bot, msg, params = []) => {
 
@@ -16,7 +14,7 @@ exports.run = (bot, msg, params = []) => {
       let results = null;
       const userQuery = params[0];
       if (params[1]) results = params[1];
-      m.edit('Querying PlexPy for information');
+      m.edit('Querying Tautulli for information');
       getHistory(msg.guild.id, userQuery, results)
         .then((history) => {
           const embed = new Discord.RichEmbed()
