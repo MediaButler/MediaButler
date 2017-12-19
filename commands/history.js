@@ -1,7 +1,5 @@
-const getSettings = require('../util/plexpy/getPlexPySettings');
-const createHistoryItemModal = require('../util/plexpy/createHistoryItemModal');
-const getHistory = require('../util/plexpy/getHistory');
-const request = require('request');
+const createHistoryItemModal = require('../util/tautulli/createHistoryItemModal');
+const getHistory = require('../util/tautulli/getHistory');
 const Discord = require('discord.js');
 exports.run = (bot, msg, params = []) => {
 

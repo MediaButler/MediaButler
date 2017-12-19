@@ -1,6 +1,6 @@
-const getUserId = require('../util/plexpy/getUserId');
-const getUserStats = require('../util/plexpy/getUserStats');
-const createUserStats = require('../util/plexpy/createUserStatsModal');
+const getUserId = require('../util/tautulli/getUserId');
+const getUserStats = require('../util/tautulli/getUserStats');
+const createUserStats = require('../util/tautulli/createUserStatsModal');
 exports.run = (bot, msg, args, perms = []) => {
   if (!args[0]) {
     msg.channel.send('ERR: No username set');

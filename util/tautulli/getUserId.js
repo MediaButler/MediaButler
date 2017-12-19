@@ -1,4 +1,4 @@
-const getSettings = require('./getPlexPySettings');
+const getSettings = require('./getTautulliSettings');
 const request = require('request');
 module.exports = (guildId, username) => 
 {

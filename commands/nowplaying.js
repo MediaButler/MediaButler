@@ -1,5 +1,5 @@
-const createNowPlayingModal = require('../util/plexpy/createNowPlayingItemModal');
-const getNowPlaying = require('../util/plexpy/getNowPlaying');
+const createNowPlayingModal = require('../util/tautulli/createNowPlayingItemModal');
+const getNowPlaying = require('../util/tautulli/getNowPlaying');
 const Discord = require('discord.js');
 exports.run = (bot, msg, params = []) => {
   msg.channel.send('Starting...')
