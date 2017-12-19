@@ -1,12 +1,11 @@
-const getSettings = require('./getRadarrSettings');
+const getApi = require('./getApi');
 const SonarrAPI = require('sonarr-api');
-module.exports = (guildId, imdbId) => {
+module.exports = (guild, imdbId) => {
   const p = new Promise((resolve, reject) => 
   {
-    getSettings(guildId)
-      .then((settings) =>
+    getApi(guild)
+      .then((radarr) =>
       {
-        const radarr = new SonarrAPI({ hostname: settings.host, apiKey: settings.apikey, port: settings.port, urlBase: `/${settings.path}` });
         radarr.get('movies/lookup', { 'term': `imdb:${imdbId}` })
           .then((result) => {
             if (result.length === 0) reject('No results found');

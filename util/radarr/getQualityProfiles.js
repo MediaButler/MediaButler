@@ -1,12 +1,11 @@
-const getSettings = require('./getRadarrSettings');
+const getApi = require('./getRadarrSettings');
 const SonarrAPI = require('sonarr-api');
-module.exports = (guildId) => {
+module.exports = (guild) => {
   const p = new Promise((resolve, reject) =>
   {
-    getSettings(guildId)
-      .then((settings) =>
+    getApi(guild)
+      .then((radarr) =>
       {
-        const radarr = new SonarrAPI({ hostname: settings.host, apiKey: settings.apikey, port: settings.port, urlBase: `/${settings.path}` });
         radarr.get('profile')
           .then((result) => {
             resolve(result);

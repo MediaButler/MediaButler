@@ -1,14 +1,16 @@
-const getSettings = require('./getSonarrSettings');
-const SonarrAPI = require('sonarr-api');
-module.exports = (guildId, tvShow, profileId = null, rootPath = null) => {
+const getApi = require('./getApi');
+const getProfileId = require('./getQualityProfileId');
+module.exports = (guild, tvShow, profileId = null, rootPath = null) => {
   const p = new Promise((resolve, reject) => 
   {
-    getSettings(guildId)
-      .then((settings) =>
-      {
-        if (profileId === null) profileId = settings.profileId;
-        if (rootPath === null) rootPath = settings.rootPath;
-        const sonarr = new SonarrAPI({ hostname: settings.host, apiKey: settings.apikey, port: settings.port, urlBase: `/${settings.path}` });
+
+    if (!profileId) getProfileId(guild.settings.sonarr.defaultProfile)
+      .then((res) => {
+        profileId = res;
+      });
+
+    getApi(guild)
+      .then((sonarr) => {
         const data = {
           'tvdbId': tvShow.tvdbId,
           'title': tvShow.title,

@@ -2,7 +2,7 @@ const createInvite = require('../../util/synclounge/createInvite');
 const createPTLinkModal = require('../../util/synclounge/createPTLinkModal');
 exports.run = (bot, msg, args = []) => {
   if (!msg.channel.SyncLounge) {
-    createInvite(msg.guild.id)
+    createInvite(msg.guild)
       .then((resultData) => {
         msg.channel.SyncLounge = resultData;
         const e = createPTLinkModal(resultData);

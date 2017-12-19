@@ -10,10 +10,10 @@ exports.run = (bot, msg, args, perms = []) => {
     .then(m => {
       msg.channel.startTyping();
       m.edit('Querying Tautulli for UserID');
-      getUserId(msg.guild.id, args[0])
+      getUserId(msg.guild, args[0])
         .then(userId => {
           m.edit(`Got UserID ${userId}. Querying Tautulli for Statistics.`);
-          getUserStats(msg.guild.id, userId)
+          getUserStats(msg.guild, userId)
             .then((stats) => {
               m.edit('Received statistics. Building output...');
               const e = createUserStats(stats);

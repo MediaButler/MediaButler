@@ -1,3 +1,4 @@
+const saveDb = require('../../util/db/saveDb');
 exports.run = (bot, msg, args = []) => {
   const [source, url, apikey, defprofile, defroot] = args;
   if (!source || !url || !apikey || !defprofile || !defroot) { msg.channel.send('ERR: Not all configuration provided'); return; }
@@ -5,16 +6,17 @@ exports.run = (bot, msg, args = []) => {
     case 'radarr':
       msg.channel.send('Configuring Radarr')
         .then((m) => {
-          const setConfig = require('../../util/radarr/setConfig');
-          setConfig(msg.guild.id, url, apikey, defprofile, defroot)
+          msg.guild.settings.radarr.url = url;
+          msg.guild.settings.radarr.apikey = apikey;
+          msg.guild.settings.radarr.defaultprofile = defprofile;
+          msg.guild.settings.radarr.defaultrootpath = defroot;
+          saveDb(bot);
+          m.edit('Configuration Sucessfully Updated. Testing...');
+          const getMovie = require('../../util/radarr/getMovie');
+          getMovie(msg.guild, 'tt0078748')
             .then(() => {
-              m.edit('Configuration Sucessfully Updated. Testing...');
-              const getMovie = require('../../util/radarr/getMovie');
-              getMovie(msg.guild.id, 'tt0078748')
-                .then(() => {
-                  m.edit('Configuration sucessful. Radarr is now configured');
-                });
-            });
+              m.edit('Configuration sucessful. Radarr is now configured');
+            }).catch((err) => { m.edit(`ERR: ${err}`); });
         });
       break;
 

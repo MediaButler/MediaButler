@@ -5,7 +5,7 @@ exports.run = (bot, msg, args = []) => {
     .then((m) => {
       msg.channel.startTyping();
       m.edit('Querying Tonight from Sonarr');
-      getTonight(msg.guild.id)
+      getTonight(msg.guild)
         .then((tonight) => { 
           m.edit('Airing tonight:');
           tonight.forEach(t => {
