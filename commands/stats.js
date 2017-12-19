@@ -12,7 +12,7 @@ exports.run = (bot, msg, args, perms = []) => {
       m.edit('Querying Tautulli for UserID');
       getUserId(msg.guild.id, args[0])
         .then(userId => {
-          m.edit(`Got UserID ${userId}. Querying PlexPy for Statistics.`);
+          m.edit(`Got UserID ${userId}. Querying Tautulli for Statistics.`);
           getUserStats(msg.guild.id, userId)
             .then((stats) => {
               m.edit('Received statistics. Building output...');
