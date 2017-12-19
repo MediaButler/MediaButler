@@ -14,7 +14,7 @@ exports.run = (bot, msg, args = []) => {
       });
     return;
   }
-  const e = createPTLinkModal(resultData);
+  const e = createPTLinkModal(msg.channel.SyncLounge);
   e.setFooter(`Called by ${msg.author.username}`, msg.author.avatarURL);
   msg.channel.send({ 'embed': e });
 };
