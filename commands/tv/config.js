@@ -8,16 +8,16 @@ exports.run = (bot, msg, args = []) => {
         .then((m) => {
           msg.guild.settings.sonarr.url = url;
           msg.guild.settings.sonarr.apikey = apikey;
-          msg.guild.settings.sonarr.defaultprofile = defprofile;
-          msg.guild.settings.sonarr.defaultrootpath = defroot;
+          msg.guild.settings.sonarr.defaultProfile = defprofile;
+          msg.guild.settings.sonarr.defaultRootPath = defroot;
           saveDb(bot);
           m.edit('Configuration Sucessfully Updated. Testing...');
           const getShow = require('../../util/sonarr/getTvShow');
           getShow(msg.guild, '257655')
             .then(() => {
               m.edit('Configuration sucessful. Sonarr is now configured');
-            });
-        });
+            }).catch((err) => { m.edit(`ERR: ${err}`); console.log(err); });
+        }).catch((err) => { console.log(err); });
       break;
   
     case 'sickrage':
