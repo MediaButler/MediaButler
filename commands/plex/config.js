@@ -9,7 +9,7 @@ exports.run = (bot, msg, args = []) => {
   if (args != '') plexurl = args;
   if (plexurl == []) { msg.channel.send('ERR: No Plex URL defined'); return; }
   setPlexUrl(msg.guild, plexurl[0]).then(() => {
-    getApi(msg.guild, false)
+    getApi(msg.guild)
       .then((d) => {
         if (d.authToken == undefined && msg.guild.settings.plex.pinToken == undefined) { 
           getPin(msg.guild)
@@ -24,12 +24,21 @@ exports.run = (bot, msg, args = []) => {
           getAuthToken(msg.guild)
             .then((token) => {
               msg.guild.settings.plex.token = token;
-              msg.channel.send('Sucessfully processed plex token. Please run command again and we will work.');
-              saveDb(bot);
+              saveDb(bot);              
+              msg.channel.send('Sucessfully processed Plex token. Testing...')
+                .then((m) => {
+                  const getStreams = require('../../util/plex/getStreams');
+                  getApi(msg.guild)
+                    .then((plexClient) => {
+                      getStreams(plexClient)
+                        .then((res) => {
+                          m.edit('Sucessfully configured Plex.');
+                        });
+                    });
+                });
             });
           return;
         }
-        msg.channel.send('Plex sucessfully configured');
       });
   });
 };
