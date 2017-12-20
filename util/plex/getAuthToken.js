@@ -12,8 +12,6 @@ module.exports = (guild) =>
             console.log(err);
             reject(`Unable to authenticate token due to ${err}`);
           }
-          console.log(status);
-          console.log(d);
           settings.pinToken = null;
           settings.token = d.authenticator.token;
           resolve(d.authenticator.token);
