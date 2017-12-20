@@ -26,7 +26,7 @@ module.exports = (guild) => {
     if (settings.token) opts.token = settings.token;
     opts.options.identifier = guild.settings.uuidv4;
     opts.options.product = 'MediaButler';
-    opts.options.version = '0.3';
+    opts.options.version = '0.4';
     opts.options.deviceName = 'MediaButlerBot';
     opts.authenticator = plexPinAuth;
     const d = new plexApi(opts);
