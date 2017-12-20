@@ -7,9 +7,9 @@ module.exports = (guild) =>
     getApi(guild)
       .then((d) => {
         if (settings.pinToken != null) reject('Pin token already exists');
-        plexPinAuth.getNewPin()
+        d.authenticator.getNewPin()
           .then((pinObj) => { 
-            guild.settings.pinToken = pinObj;
+            guild.settings.plex.pinToken = pinObj;
             resolve(pinObj);           
           });
       });
