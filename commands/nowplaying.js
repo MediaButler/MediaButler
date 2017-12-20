@@ -5,7 +5,7 @@ exports.run = (bot, msg, params = []) => {
   msg.channel.send('Starting...')
     .then((m) => {
       m.edit('Querying Tautulli for current activity.');
-      getNowPlaying(msg.guild.id)
+      getNowPlaying(msg.guild)
         .then((nowPlaying) => {
           m.edit(`There are currently ${nowPlaying.data.stream_count} streams.`);
           nowPlaying.data.sessions.forEach(s => { 

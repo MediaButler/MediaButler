@@ -1,4 +1,3 @@
-const plexApi = require('plex-api');
 module.exports = (plexClient) =>
 {
   const p = new Promise((resolve, reject) => 

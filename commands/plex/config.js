@@ -1,19 +1,14 @@
-const getPlexClient = require('../../util/plex/getPlexClient');
-const getSettnigs = require('../../util/plex/getPlexSettings');
+const getApi = require('../../util/plex/getApi');
 const setPlexUrl = require('../../util/plex/setPlexUrl');
 
 exports.run = (bot, msg, args = []) => {
   let plexurl;
-  getSettnigs(msg.guild.id)
-    .then((settings) => {
-      if (settings.plexurl != '') plexurl = settings.plexurl;
-    });
+  if (msg.guild.settings.plex.url) plexurl = msg.guild.settings.plex.url ;
   if (args != '') plexurl = args;
   if (plexurl == '') { msg.channel.send('ERR: No Plex URL defined'); return; }
-  console.log(`trying to set url to ${plexurl}`);
-  setPlexUrl(msg.guild.id, args[0]).then(() => {
+  setPlexUrl(msg.guild, plexurl).then(() => {
     plexurl = args; 
-    getPlexClient(msg.guild.id)
+    getApi(msg.guild)
       .then(() => {
         msg.channel.send('Plex sucessfully configured');
       }).catch((err) => {

@@ -1,11 +1,11 @@
-const getPlexClient = require('../../util/plex/getPlexClient');
+const getApi = require('../../util/plex/getApi');
 const killStream = require('../../util/plex/killStream');
 const getStreams = require('../../util/plex/getStreams');
 
 exports.run = (bot, msg, args = [], perms) => {
   msg.channel.send('Starting...')
     .then((m) => {
-      getPlexClient(msg.guild.id)
+      getApi(msg.guild)
         .then((plexClient) => {
           const streamId = args[0];
           let reason = 'Killed%20By%20Server%20Administrator';

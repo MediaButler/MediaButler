@@ -1,27 +1,21 @@
-const getSettings = require('./getPlexTogetherSettings');
 const axios = require('axios');
-module.exports = (guildId) => {
+module.exports = (guild) => {
   const p = new Promise((resolve, reject) => 
   {
-    getSettings(guildId)
-      .then((settings) =>
-      {
-        if (!settings.webappurl.value || !settings.serverurl.value) return reject('SyncLounge not configured');
-        const webappurl = settings.webappurl.value;
-        const serverurl = settings.serverurl.value;
-        axios.post(webappurl + '/invite', {
-          ptroom: (0|Math.random()*9e6).toString(36) + (0|Math.random()*9e6).toString(36),
-          ptpassword: (0|Math.random()*9e6).toString(36),
-          ptserver: serverurl,
-          owner: 'MediaButler'
-        })
-          .then((response) => {
-            resolve(response.data);
-          })
-          .catch((error) => {
-            reject(error);
-          });
-      }).catch((e) => { reject(e); });
+    const settings = guild.settings.synclounge;
+    if (!settings.webappurl || !settings.serverurl) return reject('SyncLounge not configured');
+    axios.post(settings.webappurl + '/invite', {
+      ptroom: (0|Math.random()*9e6).toString(36) + (0|Math.random()*9e6).toString(36),
+      ptpassword: (0|Math.random()*9e6).toString(36),
+      ptserver: settings.serverurl,
+      owner: 'MediaButler'
+    })
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
   });
   return p;
 };

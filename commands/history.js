@@ -15,7 +15,7 @@ exports.run = (bot, msg, params = []) => {
       const userQuery = params[0];
       if (params[1]) results = params[1];
       m.edit('Querying Tautulli for information');
-      getHistory(msg.guild.id, userQuery, results)
+      getHistory(msg.guild, userQuery, results)
         .then((history) => {
           const embed = new Discord.RichEmbed()
             .setAuthor(`Stats for ${params[0]}`).setColor(11360941).setTimestamp()

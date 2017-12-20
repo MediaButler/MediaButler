@@ -13,7 +13,7 @@ exports.run = (client, msg, args) => {
       let pid = null;
       if (qualityProfile) {
         m.edit('Detected Quality Profile override. Querying Sonarr for profileId');
-        getQualityProfile(msg.guild.id, qualityProfile)
+        getQualityProfile(msg.guild, qualityProfile)
           .then((profileId) => {
             pid = profileId;
             m.edit('Received profileId. Continuing');
@@ -24,10 +24,10 @@ exports.run = (client, msg, args) => {
         rp = rootPath;
       }
       m.edit('Querying Sonarr for TV Show information');
-      getTvShow(msg.guild.id, args[0])
+      getTvShow(msg.guild, args[0])
         .then((tvShow) => {
           m.edit('Received TV Show infromation. Adding to Sonarr.');
-          addTvShow(msg.guild.id, tvShow, pid, rp)
+          addTvShow(msg.guild, tvShow, pid, rp)
             .then(() => {
               m.edit('Show added sucessfully');
               const l = createTvShowItem(tvShow);

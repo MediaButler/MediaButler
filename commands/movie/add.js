@@ -13,7 +13,7 @@ exports.run = (bot, msg, args = []) => {
       let pid = null;
       if (qualityProfile) {
         m.edit('Detected Quality Profile override. Querying Radarr for profileId');
-        getQualityProfile(msg.guild.id, args[1])
+        getQualityProfile(msg.guild, args[1])
           .then((profileId) => {
             pid = profileId;
             m.edit('Received profileId. Continuing');
@@ -24,10 +24,10 @@ exports.run = (bot, msg, args = []) => {
         rp = rootPath;
       }
       m.edit('Querying Radarr for Movie information');
-      getMovie(msg.guild.id, imdbId)
+      getMovie(msg.guild, imdbId)
         .then((movie) => {
           m.edit('Received Movie infromation. Adding to Radarr.');
-          addMovie(msg.guild.id, movie, pid, rp)
+          addMovie(msg.guild, movie, pid, rp)
             .then(() => {
               m.edit('Movie added sucessfully');
               const l = createMovieItem(movie);

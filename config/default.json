@@ -1,0 +1,35 @@
+{
+    "prefix": "!",
+    "uuidv4": "",
+    "omdb_apikey": "5af02350",
+    "tautulli": {
+        "url": "",
+        "apikey": ""
+    },
+    "sonarr": {
+        "url": "",
+        "apikey": "",
+        "defaultProfile": "",
+        "defaultRootPath": ""
+    },
+    "radarr": {
+        "url": "",
+        "apikey": "",
+        "defaultProfile": "",
+        "defaultRootPath": ""        
+    },
+    "lidarr": {
+        "url": "",
+        "apiley": "",
+        "defaultProfile": "",
+        "defaultRootPath": ""
+    },
+    "synclounge": {
+        "serverurl": "",
+        "appurl": ""
+    },
+    "plex": {
+        "url": "",
+        "token": ""
+    }
+}

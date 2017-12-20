@@ -1,3 +1,4 @@
+const saveDb = require('../../util/db/saveDb');
 exports.run = (bot, msg, args = []) => {
   const [source, url, apikey, defprofile, defroot] = args;
   if (!source || !url || !apikey || !defprofile || !defroot) { msg.channel.send('ERR: Not all configuration provided'); return; }
@@ -5,17 +6,18 @@ exports.run = (bot, msg, args = []) => {
     case 'sonarr':
       msg.channel.send('Configuring Sonarr')
         .then((m) => {
-          const setConfig = require('../../util/sonarr/setConfig');
-          setConfig(msg.guild.id, url, apikey, defprofile, defroot)
+          msg.guild.settings.sonarr.url = url;
+          msg.guild.settings.sonarr.apikey = apikey;
+          msg.guild.settings.sonarr.defaultProfile = defprofile;
+          msg.guild.settings.sonarr.defaultRootPath = defroot;
+          saveDb(bot);
+          m.edit('Configuration Sucessfully Updated. Testing...');
+          const getShow = require('../../util/sonarr/getTvShow');
+          getShow(msg.guild, '257655')
             .then(() => {
-              m.edit('Configuration Sucessfully Updated. Testing...');
-              const getShow = require('../../util/sonarr/getTvShow');
-              getShow(msg.guild.id, '257655')
-                .then(() => {
-                  m.edit('Configuration sucessful. Sonarr is now configured');
-                });
-            });
-        });
+              m.edit('Configuration sucessful. Sonarr is now configured');
+            }).catch((err) => { m.edit(`ERR: ${err}`); console.log(err); });
+        }).catch((err) => { console.log(err); });
       break;
   
     case 'sickrage':
