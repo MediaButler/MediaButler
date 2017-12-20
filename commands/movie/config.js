@@ -8,8 +8,8 @@ exports.run = (bot, msg, args = []) => {
         .then((m) => {
           msg.guild.settings.radarr.url = url;
           msg.guild.settings.radarr.apikey = apikey;
-          msg.guild.settings.radarr.defaultprofile = defprofile;
-          msg.guild.settings.radarr.defaultrootpath = defroot;
+          msg.guild.settings.radarr.defaultProfile = defprofile;
+          msg.guild.settings.radarr.defaultRootPath = defroot;
           saveDb(bot);
           m.edit('Configuration Sucessfully Updated. Testing...');
           const getMovie = require('../../util/radarr/getMovie');

@@ -4,11 +4,9 @@ module.exports = (guild, tvdbId) => {
   {
     getApi(guild)
       .then((sonarr) => {
-        console.log('gotapi');
         sonarr.get('series/lookup', { 'term': `tvdb: ${tvdbId}` })
           .then((result) => {
             if (result.length === 0) reject('No results found');
-            console.log(result);
             resolve(result[0]);
           }).catch((err) => { reject(err); });
       }).catch((err) => { reject(err); });
