@@ -11,10 +11,19 @@
   "license": "Whatever",
   "dependencies": {
     "axios": "^0.17.1",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-register": "^6.26.0",
     "chalk": "^1.1.3",
     "discogs": "^0.4.4",
     "disconnect": "^1.2.1",
     "discord.js": "^11.1.0",
+    "express": "^4.16.2",
     "gin-downloader": "^1.1.0",
     "google-books-search": "^0.3.1",
     "moment": "^2.18.1",
@@ -24,9 +33,12 @@
     "nodebrainz": "^2.1.1",
     "plex-api": "^5.2.0",
     "plex-api-pinauth": "^0.1.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
     "request": "^2.83.0",
     "sonarr-api": "^0.2.0",
-    "uuid-v4": "^0.1.0"
+    "uuid-v4": "^0.1.0",
+    "webpack": "^3.10.0"
   },
   "devDependencies": {
     "eslint": "^4.12.1",
