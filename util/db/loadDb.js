@@ -6,7 +6,8 @@ module.exports = (client) =>  {
       if (err) {
         fs.readFile(`${coreSettings['path']}/default.json`, (err, data) => {
           guild.settings = JSON.parse(data);
-          console.log(`Loaded default settings for ${guild.id}`);          
+          console.log(`Loaded default settings for ${guild.id}`);
+          return;      
         });
       }
       guild.settings = JSON.parse(data);
