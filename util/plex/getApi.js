@@ -24,7 +24,7 @@ module.exports = (guild) => {
     opts.https = false;
     if (details[1] == 'https') opts.https = true;
     if (settings.token) opts.token = settings.token;
-    opts.options.identifier = guild.settings.uuid;
+    opts.options.identifier = guild.settings.uuidv4;
     opts.options.product = 'MediaButler';
     opts.options.version = '0.3';
     opts.options.deviceName = 'MediaButlerBot';
