@@ -3,6 +3,7 @@ const client = new Discord.Client();
 const settings = require('./settings.json');
 const fs = require('fs');
 const moment = require('moment');
+const webserver = require('./www/server');
 require('./util/eventLoader')(client);
 
 const log = (message) => {
@@ -54,3 +55,6 @@ client.elevation = (message) => {
 };
 
 client.login(settings.token);
+process.env.WEBPACK_PORT = 2486;
+process.env.BASE_URL = 'http://localhost:2486/';
+client.webapp = webserver();
