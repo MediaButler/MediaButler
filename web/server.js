@@ -33,7 +33,7 @@ module.exports = () => {
   });
 
   /* eslint-disable no-console */
-  app.listen(process.env.WEBPACK_PORT, 'localhost', function (err) {
+  app.listen(process.env.WEBPACK_PORT, function (err) {
     if (err) {
       console.log(err);
       return;
