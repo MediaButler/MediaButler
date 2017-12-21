@@ -20,7 +20,6 @@ import { NotFound } from '../page/not-found';
 
 export const AppRouter = (
   <Router history={browserHistory}>
-    {redirect}
     <Route path='/login' component={Login} />
     <Route component={AppLayout}>
       <Route path='/' component={Welcome} />

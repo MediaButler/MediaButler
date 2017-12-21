@@ -57,4 +57,5 @@ client.elevation = (message) => {
 client.login(settings.token);
 process.env.WEBPACK_PORT = 2486;
 process.env.BASE_URL = 'http://localhost:2486/';
+process.env.NODE_ENV = 'development';
 client.webapp = webserver();

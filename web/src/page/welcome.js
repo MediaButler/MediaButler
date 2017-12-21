@@ -6,7 +6,7 @@ export class Welcome extends React.Component {
 
   render() {
     return (
-      <Page title={process.env.APP_NAME}>
+      <Page title={"MediaButler"}>
         <Row>
           <Col padding={5}>
             <Panel>

@@ -101,7 +101,7 @@ export class PageTop extends React.Component {
 
   state = {
     isMenuOpen: false,
-    appName: process.env.APP_NAME,
+    appName: 'MediaButler',
   }
 
   componentWillMount() {

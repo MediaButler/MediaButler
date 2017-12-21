@@ -7,3 +7,4 @@ apiauth.json
 settings.sqlite
 config/*
 !config/default.json
+web/dist/*

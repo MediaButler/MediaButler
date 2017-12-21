@@ -5,6 +5,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+process.env.NODE_ENV = 'dev';
 module.exports = {
   devtool: 'source-map',
   entry: [
@@ -18,7 +19,7 @@ module.exports = {
     publicPath: process.env.BASE_URL, // needs to be root
   },
   resolve: {
-    extensions: [ '.js' ],
+    extensions: [ '', '.js' ],
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -39,7 +40,7 @@ module.exports = {
       allChunks: true,
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
+    //new webpack.NoEmitOnErrorsPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       mangle: false,
       compressor: {
@@ -54,13 +55,13 @@ module.exports = {
         exclude: [ /node_modules/, /__tests__/ ],
         loader: 'babel-loader',
       },
-      { test: /\.json$/, loader: 'json-loader' },
-      { test: /\.(png|gif|jpg)$/, loader: 'url-loader?limit=8192' },
-      { test: /\.woff2(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader?limit=10000&minetype=application/font-woff2' },
-      { test: /\.woff(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader?limit=10000&minetype=application/font-woff' },
-      { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader' },
-      { test: /\.css$/, loader: ExtractTextPlugin.extract('css-loader?sourceMap') },
-      { test: /\.scss$/, loader: ExtractTextPlugin.extract('css-loader?sourceMap!sass-loader?sourceMap!postcss-loader') },
+      { test: /\.json$/, exclude: [ /node_modules/, /__tests__/ ], loader: 'json' },
+      { test: /\.(png|gif|jpg)$/, loader: 'url?limit=8192' },
+      { test: /\.woff2(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url?limit=10000&minetype=application/font-woff2' },
+      { test: /\.woff(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url?limit=10000&minetype=application/font-woff' },
+      { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file' },
+      { test: /\.css$/, loader: ExtractTextPlugin.extract('css?sourceMap') },
+      { test: /\.scss$/, loader: ExtractTextPlugin.extract('css?sourceMap!sass?sourceMap!postcssr') },
     ],
   },
 };
