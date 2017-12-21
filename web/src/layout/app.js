@@ -77,7 +77,6 @@ class AppLayout extends React.Component {
   }
 
   render() {
-    console.log('app.render');
     // @todo main - menu-collapsed
     return (
       <div>
@@ -113,4 +112,3 @@ class AppLayout extends React.Component {
 }
 
 export default withRouter(AppLayout);
-

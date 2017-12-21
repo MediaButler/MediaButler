@@ -1,12 +1,13 @@
 import React from 'react';
 import { Page, Panel } from 'react-blur-admin';
 import { Row, Col } from 'react-flex-proto';
+import { GMap } from '../layout/components/gmap';
 
 export class Welcome extends React.Component {
 
   render() {
     return (
-      <Page title={"MediaButler"}>
+      <Page title={process.env.APP_NAME}>
         <Row>
           <Col padding={5}>
             <Panel>
@@ -49,8 +50,14 @@ export class Welcome extends React.Component {
             </Panel>
           </Col>
         </Row>
+        <Row>
+          <Col padding={5}>
+            <Panel title='Google Map Component'>
+              <GMap/>
+            </Panel>
+          </Col>
+        </Row>
       </Page>
     );
   }
 }
-
