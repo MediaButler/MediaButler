@@ -35,11 +35,11 @@ RUN apk add -U build-base \
     && npm install \
     # Set permissions
     && chmod a+x /usr/local/bin/* /etc/s6.d/*/* \
-    # Ceanup
+    # Cleanup
     && apk del build-base git \
     && rm -rf /tmp/* /var/cache/apk/*
 
-#Add config path volume
+# Add config path volume
 VOLUME /config
 
 # Execute run.sh script
