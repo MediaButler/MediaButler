@@ -3,7 +3,7 @@ const client = new Discord.Client();
 const settings = require('./settings.json');
 const fs = require('fs');
 const moment = require('moment');
-const webserver = require('./www/server');
+const webserver = require('./web/server');
 require('./util/eventLoader')(client);
 
 const log = (message) => {
