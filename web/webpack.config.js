@@ -5,9 +5,9 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-process.env.NODE_ENV = 'dev';
+process.env.NODE_ENV = 'development';
 module.exports = {
-  devtool: 'source-map',
+  devtool: 'cheap-module-source-map',
   entry: [
     'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
     path.join(__dirname, 'src', 'init', 'main.js'),
@@ -37,16 +37,16 @@ module.exports = {
       },
     }),
     new ExtractTextPlugin('[name]-[hash].css', {
-      allChunks: true,
+      allChunks: false,
     }),
     new webpack.HotModuleReplacementPlugin(),
     //new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      mangle: false,
-      compressor: {
-        warnings: false,
-      },
-    }),
+    // new webpack.optimize.UglifyJsPlugin({
+    //   mangle: false,
+    //   compressor: {
+    //     warnings: false,
+    //   },
+    // }),
   ],
   module: {
     loaders: [
@@ -61,7 +61,7 @@ module.exports = {
       { test: /\.woff(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url?limit=10000&minetype=application/font-woff' },
       { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file' },
       { test: /\.css$/, loader: ExtractTextPlugin.extract('css?sourceMap') },
-      { test: /\.scss$/, loader: ExtractTextPlugin.extract('css?sourceMap!sass?sourceMap!postcssr') },
+      { test: /\.scss$/, loader: ExtractTextPlugin.extract('css?sourceMap!sass?sourceMap!postcss') },
     ],
   },
 };

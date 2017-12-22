@@ -3,7 +3,7 @@
 import { render } from 'react-dom';
 
 import { AppRouter } from './router';
-console.log('imported router');
+
 import 'react-flex-proto/styles/flex.css';
 import 'react-blur-admin/dist/assets/styles/react-blur-admin.min.css';
 

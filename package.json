@@ -19,6 +19,7 @@
     "discord.js": "^11.1.0",
     "gin-downloader": "^1.1.0",
     "google-books-search": "^0.3.1",
+    "invariant": "^2.2.2",
     "lodash": "^4.7.0",
     "moment": "^2.18.1",
     "moviedb": "^0.2.10",
