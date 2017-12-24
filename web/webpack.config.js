@@ -9,7 +9,6 @@ process.env.NODE_ENV = 'development';
 module.exports = {
   devtool: 'cheap-module-source-map',
   entry: [
-    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
     path.join(__dirname, 'src', 'init', 'main.js'),
   ],
   output: {
@@ -32,7 +31,7 @@ module.exports = {
       APP_VERSION: JSON.stringify('0.4'),
       'process.env': {
         APP_NAME: JSON.stringify('MediaButler'),
-        NODE_ENV: JSON.stringify('production'),
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
         BASE_URL: JSON.stringify(process.env.BASE_URL),
       },
     }),

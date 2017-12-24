@@ -101,7 +101,7 @@ export class PageTop extends React.Component {
 
   state = {
     isMenuOpen: false,
-    appName: 'MediaButler',
+    appName: process.env.APP_NAME,
   }
 
   componentWillMount() {
@@ -177,16 +177,8 @@ export class PageTop extends React.Component {
         </div>
         <Row>
           <Col padding='5px 2px'>
-            <MessagesAlertContainer mailCount={this.state.messages.length} markAllAsReadOnClick={noop} allMessagesOnClick={noop} settingsOnClick={noop} >
-              {this.renderMessages()}
-            </MessagesAlertContainer>
-            <NotificationsAlert
-              notificationCount={this.state.notifications.length}
-              markAllAsReadOnClick={noop}
-              allNotificationsOnClick={noop}
-              settingsOnClick={noop} >
-                {this.renderNotifications()}
-            </NotificationsAlert>
+
+
           </Col>
         </Row>
       </div>
