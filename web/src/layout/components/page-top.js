@@ -4,6 +4,7 @@ import moment from 'moment';
 import { noop } from 'lodash';
 import Person from 'react-blur-admin/dist/assets/img/person.svg';
 
+
 import {SearchBar} from './search-bar';
 
 // Lib
@@ -177,7 +178,6 @@ export class PageTop extends React.Component {
         </div>
         <Row>
           <Col padding='5px 2px'>
-
 
           </Col>
         </Row>

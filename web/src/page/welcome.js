@@ -1,7 +1,6 @@
 import React from 'react';
 import { Page, Panel } from 'react-blur-admin';
 import { Row, Col } from 'react-flex-proto';
-import { GMap } from '../layout/components/gmap';
 
 export class Welcome extends React.Component {
 
@@ -53,7 +52,6 @@ export class Welcome extends React.Component {
         <Row>
           <Col padding={5}>
             <Panel title='Google Map Component'>
-              <GMap/>
             </Panel>
           </Col>
         </Row>
