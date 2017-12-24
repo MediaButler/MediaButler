@@ -36,7 +36,7 @@ export class TableDemo extends React.Component {
 
   render() {
     return (
-      <Page actionBar={this.renderBreadcrumbs()} title='Table Types'>
+      <Page title='Table Types'>
         <Panel title='Table with Hover Effect'>
           <h5>When mousing over table rows will respond</h5>
           <Table>

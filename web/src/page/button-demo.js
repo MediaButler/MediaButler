@@ -19,7 +19,7 @@ export class ButtonDemo extends React.Component {
 
   render() {
     return (
-      <Page actionBar={this.renderBreadcrumbs()} title='Buttons'>
+      <Page title='Buttons'>
         <Row>
           <Col>
             <Panel title='Large Buttons'>

@@ -17,7 +17,7 @@ export class TabsDemo extends React.Component {
 
   render() {
     return (
-      <Page actionBar={this.renderBreadcrumbs()} title='Tabs Demo'>
+      <Page title='Tabs Demo'>
         <Tabs
           align='top'
           startTab={2} >

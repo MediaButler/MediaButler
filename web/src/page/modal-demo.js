@@ -148,7 +148,7 @@ export class ModalDemo extends React.Component {
 
   render() {
     return (
-      <Page actionBar={this.renderBreadcrumbs()} title='Modals'>
+      <Page title='Modals'>
         <Modal type='success' title='Woot' isOpen={this.state.successModal} onClose={e => this.onCloseModal('successModal')}>
           You did a thing!
         </Modal>

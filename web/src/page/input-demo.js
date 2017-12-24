@@ -48,7 +48,7 @@ export class InputDemo extends React.Component {
 
   render() {
     return (
-      <Page actionBar={this.renderBreadcrumbs()} title='Inputs'>
+      <Page title='Inputs'>
         <Row>
           <Col>
             <Panel title='Text Inputs'>

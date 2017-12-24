@@ -51,7 +51,7 @@ export class ProgressBars extends React.Component {
 
   render() {
     return (
-      <Page actionBar={this.renderBreadcrumbs()} title='Progress Bars ♥'>
+      <Page title='Progress Bars ♥'>
         <Panel title='Basic'>
           <ProgressBar type='success' percentage={this.state.percentage[0]}/>
           <ProgressBar type='warning' percentage={this.state.percentage[1]}/>
