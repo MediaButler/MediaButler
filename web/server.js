@@ -4,11 +4,11 @@
 const _ = require('lodash');
 const path = require('path');
 const express = require('express');
+const app = express();
 const webpack = require('webpack');
 const config = require('./webpack.config');
 
 module.exports = () => {
-  const app = express();
   const compiler = webpack(config);
   const devMiddleware = require('webpack-dev-middleware')(compiler, {
     noInfo: true,
