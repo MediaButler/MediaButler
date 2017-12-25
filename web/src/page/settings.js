@@ -41,35 +41,177 @@ export class SettingsPage extends React.Component {
                                     value={this.state.plexPassword} />
                             </Row>
                             <Row align='right'>
-                                <Button type='info' size='lg' name="Save" />
+                                <Button type='info' size='lg' title="Save" />
                             </Row>
                         </Panel>
                     </Tab>
                     <Tab title=''></Tab>
                     <Tab title='Sonarr'>
-                        <h2>The Tab Component</h2>
-                        <p>Takes one prop <code>title</code>, which is a <code>String</code></p>
-                        <p>Then takes children elements</p>
-                        <p>It should sit inside of the <code>Tabs</code> Component</p>
+                        <Panel title='Sonarr Settings'>
+                            <Row Padding={5}>
+                                <Input
+                                    label='Sonarr URL'
+                                    placeholder='http://127.0.0.1:8686/sonarr'
+                                    onChange={e => this.onTextChange('sonarrUrl', e)}
+                                    value={this.state.settings.sonarr.url} />
+                            </Row>
+                            <Row>
+                                <Input
+                                    label='API Key'
+                                    placeholder='9e13a7a0169f4bf1891292c14ee756b'
+                                    onChange={e => this.onTextChange('sonarrApikey', e)}
+                                    value={this.state.settings.sonarr.apikey} />
+
+                            </Row>
+                            <Row>
+                                <Input
+                                    label='Default Profile'
+                                    placeholder='HDTV-720p'
+                                    onChange={e => this.onTextChange('sonarrDefaultProfile', e)}
+                                    value={this.state.settings.sonarr.defaultProfile} />
+
+                                <Input
+                                    label='Default Root Path'
+                                    placeholder='/mnt/media/TV'
+                                    onChange={e => this.onTextChange('sonarrDefaultRoot', e)}
+                                    value={this.state.settings.sonarr.defaultRootPath} />
+
+                            </Row>
+                            <Row align='right'>
+                                <Button type='info' size='lg' title="Save" />
+                            </Row>
+                        </Panel>
                     </Tab>
                     <Tab title='Radarr'>
-                        <h2>The Tab Component</h2>
-                        <p>Takes one prop <code>title</code>, which is a <code>String</code></p>
-                        <p>Then takes children elements</p>
-                        <p>It should sit inside of the <code>Tabs</code> Component</p>
+                        <Panel title='Radarr Settings'>
+                            <Row Padding={5}>
+                                <Input
+                                    label='Sonarr URL'
+                                    placeholder='http://127.0.0.1:7878/radarr'
+                                    onChange={e => this.onTextChange('radarrUrl', e)}
+                                    value={this.state.settings.radarr.url} />
+                            </Row>
+                            <Row>
+                                <Input
+                                    label='API Key'
+                                    placeholder='29ad92751c8a4debba7f61e9fb098775'
+                                    onChange={e => this.onTextChange('radarrApikey', e)}
+                                    value={this.state.settings.radarr.apikey} />
+
+                            </Row>
+                            <Row>
+                                <Input
+                                    label='Default Profile'
+                                    placeholder='Bluray-1080p'
+                                    onChange={e => this.onTextChange('radarrDefaultProfile', e)}
+                                    value={this.state.settings.radarr.defaultProfile} />
+
+                                <Input
+                                    label='Default Root Path'
+                                    placeholder='/mnt/media/FILM'
+                                    onChange={e => this.onTextChange('radarrDefaultRoot', e)}
+                                    value={this.state.settings.radarr.defaultRootPath} />
+
+                            </Row>
+                            <Row align='right'>
+                                <Button type='info' size='lg' title="Save" />
+                            </Row>
+                        </Panel>
                     </Tab>
                     <Tab title='Lidarr'>
-                        <h2>The Tab Component</h2>
-                        <p>Takes one prop <code>title</code>, which is a <code>String</code></p>
-                        <p>Then takes children elements</p>
-                        <p>It should sit inside of the <code>Tabs</code> Component</p>
+                        <Panel title='Lidarr Settings'>
+                            <Row Padding={5}>
+                                <Input
+                                    label='Lidarr URL'
+                                    placeholder='http://127.0.0.1:7878/lidarr'
+                                    onChange={e => this.onTextChange('lidarrUrl', e)}
+                                    value={this.state.settings.lidarr.url} />
+                            </Row>
+                            <Row>
+                                <Input
+                                    label='API Key'
+                                    placeholder='29ad92751c8a4debba7f61e9fb098775'
+                                    onChange={e => this.onTextChange('lidarrApikey', e)}
+                                    value={this.state.settings.lidarr.apikey} />
+
+                            </Row>
+                            <Row>
+                                <Input
+                                    label='Default Profile'
+                                    placeholder='Lossless'
+                                    onChange={e => this.onTextChange('lidarrDefaultProfile', e)}
+                                    value={this.state.settings.lidarr.defaultProfile} />
+
+                                <Input
+                                    label='Default Root Path'
+                                    placeholder='/mnt/media/MUSiC'
+                                    onChange={e => this.onTextChange('lidarrDefaultRoot', e)}
+                                    value={this.state.settings.lidarr.defaultRootPath} />
+
+                            </Row>
+                            <Row align='right'>
+                                <Button type='info' size='lg' title="Save" />
+                            </Row>
+                        </Panel>
                     </Tab>
                     <Tab title=''></Tab>
                     <Tab title='Tautulli'>
-                        <h2>The Tab Component</h2>
-                        <p>Takes one prop <code>title</code>, which is a <code>String</code></p>
-                        <p>Then takes children elements</p>
-                        <p>It should sit inside of the <code>Tabs</code> Component</p>
+                        <Panel title='Tautulli Settings'>
+                            <Row>
+                                <Input
+                                    label='Tautulli URL'
+                                    placeholder='http://127.0.0.1:8181/tautulli'
+                                    onChange={e => this.onTextChange('tautulliUrl', e)}
+                                    value={this.state.settings.tautulli.url} />
+
+                                <Input
+                                    label='API Key'
+                                    placeholder='f1249c9ecba548d01aee6a32734364d7'
+                                    onChange={e => this.onTextChange('tautulliApikey', e)}
+                                    value={this.state.settings.tautulli.apikey} />
+
+                            </Row>
+                            <Row align='right'>
+                                <Button type='info' size='lg' title="Save" />
+                            </Row>
+                        </Panel>
+                    </Tab>
+                    <Tab title='SyncLounge'>
+                        <Panel title='SyncLounge Settings'>
+                            <Row>
+                                <Input
+                                    label='Server URL'
+                                    placeholder='https://eu1.synclounge.tv'
+                                    onChange={e => this.onTextChange('syncloungeServerUrl', e)}
+                                    value={this.state.settings.synclounge.serverurl} />
+
+                                <Input
+                                    label='App URL'
+                                    placeholder='https://app.synclounge.tv/ptweb'
+                                    onChange={e => this.onTextChange('syncloungeAppUrl', e)}
+                                    value={this.state.settings.synclounge.appurl} />
+
+                            </Row>
+                            <Row align='right'>
+                                <Button type='info' size='lg' title="Save" />
+                            </Row>
+                        </Panel>
+                    </Tab>
+                    <Tab title=''></Tab>
+                    <Tab title='Bot'>
+                        <Panel title='Internal Bot Settings'>
+                            <Row>
+                                <Input
+                                    label='Server Prefix'
+                                    placeholder='!'
+                                    onChange={e => this.onTextChange('serverPrefix', e)}
+                                    value={this.state.settings.prefix} />
+
+                            </Row>
+                            <Row align='right'>
+                                <Button type='info' size='lg' title="Save" />
+                            </Row>
+                        </Panel>
                     </Tab>
                 </Tabs>
             </Page>
