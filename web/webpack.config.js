@@ -54,7 +54,7 @@ module.exports = {
         exclude: [ /node_modules/, /__tests__/ ],
         loader: 'babel-loader',
       },
-      { test: /\.json$/, exclude: [ /node_modules/, /__tests__/ ], loader: 'json' },
+      { test: /\.json$/, loader: 'json-loader' },
       { test: /\.(png|gif|jpg)$/, loader: 'url?limit=8192' },
       { test: /\.woff2(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url?limit=10000&minetype=application/font-woff2' },
       { test: /\.woff(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url?limit=10000&minetype=application/font-woff' },

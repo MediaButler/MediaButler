@@ -20,8 +20,9 @@ class AppLayout extends React.Component {
   state = {
     idToken: null, // Token indicating user is logged in
     user: null, // Full user for that logged in user, if exists
-  }
+  };
 
+  
   componentWillMount() {
     if (process.env.AUTH0_PUB_KEY) {
       this.lock = new Auth0Lock(process.env.AUTH0_PUB_KEY, process.env.AUTH0_DOMAIN);
@@ -93,12 +94,9 @@ class AppLayout extends React.Component {
           <footer className="al-footer clearfix">
             <div className="al-footer-right">Created with <i className="ion-heart"></i></div>
             <div className="al-footer-main clearfix">
-              <div className="al-copy">React Webpack Skeleton</div>
+              <div className="al-copy">MediaButler</div>
               <ul className="al-share clearfix">
-                <li><i className="socicon socicon-facebook"></i></li>
-                <li><i className="socicon socicon-twitter"></i></li>
-                <li><i className="socicon socicon-google"></i></li>
-                <li><i className="socicon socicon-github"></i></li>
+                <li><a href="https://github.com/MediaButler/MediaButler"><i className="socicon socicon-github"></i></a></li>
               </ul>
             </div>
           </footer>

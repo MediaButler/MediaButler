@@ -17,6 +17,7 @@ import { NotificationsDemo } from '../page/notifications-demo';
 /* End Demos */
 
 import { NotFound } from '../page/not-found';
+import { SettingsPage } from '../page/settings';
 
 export const AppRouter = (
   <Router history={browserHistory}>
@@ -30,6 +31,7 @@ export const AppRouter = (
       <Route path='/table-demo' component={TableDemo} />
       <Route path='/tabs-demo' component={TabsDemo} />
       <Route path='/input-demo' component={InputDemo} />
+      <Route path='/settings' component={SettingsPage} />
       <Route path='/notifications-demo' component={NotificationsDemo} />
       <Route path="*" component={NotFound}/>
     </Route>
