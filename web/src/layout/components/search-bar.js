@@ -1,6 +1,7 @@
 import Autosuggest from 'react-autosuggest';
 import React from 'react';
 import { Row, Col } from 'react-flex-proto';
+import { Select } from 'react-blur-admin';
 
 const suggestionExamples = [
   {
@@ -42,6 +43,7 @@ export class SearchBar extends React.Component {
     this.state = {
       value: '',
       suggestions: this.getSuggestions(''),
+      selectTwo: null,
     };
 
     this.onChange = this.onChange.bind(this);
@@ -56,9 +58,9 @@ export class SearchBar extends React.Component {
   }
 
   onSuggestionsUpdateRequested({ value }) {
-    this.setState({loading: true, suggestions: [{type: 'loading'}]});
+    this.setState({ loading: true, suggestions: [{ type: 'loading' }] });
 
-    setTimeout(function() {
+    setTimeout(function () {
       this.setState({
         suggestions: this.getSuggestions(value),
         loading: false,
@@ -74,7 +76,7 @@ export class SearchBar extends React.Component {
       lang.text.toLowerCase().slice(0, inputLength) === inputValue
     );
 
-    return suggestions.length ? suggestions : [{type: 'no-results'}];
+    return suggestions.length ? suggestions : [{ type: 'no-results' }];
   }
 
   getSuggestionValue(suggestion) { // when suggestion selected, this function tells
@@ -113,15 +115,20 @@ export class SearchBar extends React.Component {
 
     return (
       <Row>
-        <Col grow={false} padding={0}>
-          <i className='ion-ios-search-strong'></i>
-        </Col>
         <Col padding={0}>
-          <Autosuggest suggestions={suggestions}
-            onSuggestionsUpdateRequested={this.onSuggestionsUpdateRequested}
-            getSuggestionValue={this.getSuggestionValue}
-            renderSuggestion={this.renderSuggestion}
-            inputProps={inputProps} />
+          <Select
+            placeholder='Select Server'
+            isSearchable={true}
+            options={[
+              { value: 1, label: 'One' },
+              { value: 2, label: 'Two' },
+              { value: 3, label: 'Three' },
+              { value: 4, label: 'Four' },
+              { value: 5, label: 'Five' },
+              { value: 6, label: 'Six' },
+            ]}
+            onChange={value => this.this.onTextChange('discordServer', e)}
+            value={this.state.discordServer} />
         </Col>
       </Row>
     );

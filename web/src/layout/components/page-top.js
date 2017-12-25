@@ -5,12 +5,12 @@ import { noop } from 'lodash';
 import Person from 'react-blur-admin/dist/assets/img/person.svg';
 
 
-import {SearchBar} from './search-bar';
+import { SearchBar } from './search-bar';
 
 // Lib
 import eventBus from '../../lib/event-bus';
-import {MessagesAlert, MessagesAlertContainer, NotificationsAlert, NotificationAlert} from 'react-blur-admin';
-import {Row, Col} from 'react-flex-proto';
+import { MessagesAlert, MessagesAlertContainer, NotificationsAlert, NotificationAlert, EditableSelect} from 'react-blur-admin';
+import { Row, Col } from 'react-flex-proto';
 
 export class PageTop extends React.Component {
 
@@ -110,7 +110,7 @@ export class PageTop extends React.Component {
   }
 
   onToggleMenu() {
-    this.setState({ isMenuOpen: ! this.state.isMenuOpen });
+    this.setState({ isMenuOpen: !this.state.isMenuOpen });
   }
 
   onLogout() {
@@ -144,7 +144,7 @@ export class PageTop extends React.Component {
     let message = _.assign({}, this.state.messages);
     return _.map(message, (messages, index) => {
       return (
-        <MessagesAlert {...messages} key={index}/>
+        <MessagesAlert {...messages} key={index} />
       );
     });
   }
@@ -153,7 +153,7 @@ export class PageTop extends React.Component {
     let notifications = _.assign({}, this.state.notifications);
     return _.map(notifications, (notification, index) => {
       return (
-        <NotificationAlert {...notification} key={index}/>
+        <NotificationAlert {...notification} key={index} />
       );
     });
   }
@@ -163,7 +163,7 @@ export class PageTop extends React.Component {
       <div className="user-profile clearfix">
         <div className={`al-user-profile dropdown ${this.state.isMenuOpen ? 'open' : ''}`}>
           <a className="profile-toggle-link dropdown-toggle" onClick={this.onToggleMenu.bind(this)}>
-            <img src={this.props.user && this.props.user.picture ? this.props.user.picture : Person}/>
+            <img src={this.props.user && this.props.user.picture ? this.props.user.picture : Person} />
           </a>
           <ul className="top-dropdown-menu profile-dropdown dropdown-menu">
             <li><i className="dropdown-arr"></i></li>
