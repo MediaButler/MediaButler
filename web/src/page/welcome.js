@@ -1,7 +1,6 @@
 import React from 'react';
 import { Page, Panel, Table, TableHead, TableBody, TableRow, } from 'react-blur-admin';
 import { Row, Col } from 'react-flex-proto';
-import { Client } from 'discord.js';
 
 export class Welcome extends React.Component {
 
