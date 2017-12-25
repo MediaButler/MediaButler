@@ -7,6 +7,11 @@ exports.run = (bot, msg, args = []) => {
       m.edit('Querying Tonight from Sonarr');
       getTonight(msg.guild)
         .then((tonight) => { 
+          if (tonight.length == 0) { 
+            m.edit('Nothing is airing tonight :frowning:');
+            msg.channel.stopTyping();
+            return;
+          }
           m.edit('Airing tonight:');
           tonight.forEach(t => {
             const e = createTonightItem(t);
