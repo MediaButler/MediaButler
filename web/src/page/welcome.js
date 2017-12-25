@@ -1,6 +1,7 @@
 import React from 'react';
-import { Page, Panel } from 'react-blur-admin';
+import { Page, Panel, Table, TableHead, TableBody, TableRow, } from 'react-blur-admin';
 import { Row, Col } from 'react-flex-proto';
+import { Client } from 'discord.js';
 
 export class Welcome extends React.Component {
 
@@ -8,18 +9,36 @@ export class Welcome extends React.Component {
     return (
       <Page title='MediaButler'>
         <Row>
-          <Col padding={5}>
-            <Panel>
-              This is a paragraph. This is a paragraph. This is a paragraph. This is a paragraph.
+          <Col padding={5} basis='40%'>
+            <Panel title='News'>
+              <Table>
+                <TableBody>
+                  <TableRow>
+                    <td>News Item One</td>
+                  </TableRow>
+                  <TableRow>
+                    <td>News Item Two</td>
+                  </TableRow>
+                  <TableRow>
+                    <td>News Item Three</td>
+                  </TableRow>
+                  <TableRow>
+                    <td>News Item Four</td>
+                  </TableRow>
+                  <TableRow>
+                    <td>News Item Five</td>
+                  </TableRow>
+                </TableBody>
+              </Table>
             </Panel>
           </Col>
           <Col padding={5}>
-            <Panel title='This is a title'>
+            <Panel title='Discord Statistics'>
               This is a paragraph
             </Panel>
           </Col>
           <Col padding={5}>
-            <Panel title='Red Paragraph'>
+            <Panel title='Bot Statistics'>
               <div className='red-text'>
                 This is a red paragraph
               </div>
@@ -46,12 +65,6 @@ export class Welcome extends React.Component {
               <div className='blue-text'>
                 This is a paragraph
               </div>
-            </Panel>
-          </Col>
-        </Row>
-        <Row>
-          <Col padding={5}>
-            <Panel title='Google Map Component'>
             </Panel>
           </Col>
         </Row>
