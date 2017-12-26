@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
+client.mbVersion = '0.4';
 const settings = require('./settings.json');
 const fs = require('fs');
 const moment = require('moment');
