@@ -11,7 +11,7 @@ exports.run = (bot, msg, args = []) => {
 exports.conf = {
   enabled: true, 
   guildOnly: false, 
-  aliases: ['pt'],
+  aliases: [],
   permLevel: 0 
 };
 exports.help = {
