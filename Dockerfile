@@ -14,29 +14,29 @@ COPY rootfs /
 
 # Install some required packages
 RUN apk add -U build-base \
-        libssl1.0 \
-        curl \
-        git \
-        nodejs-npm \
-        su-exec \
-        s6 \
-        python \
-        nodejs \
-        nodejs-npm \
-    # Create dir and clone MediaButler
-    && mkdir -p /opt \
-    && cd /opt \
-    && git clone https://github.com/MediaButler/MediaButler.git \
-    # Copy settings example to settings
-    && cd MediaButler \
-    && cp ./settings.example.json ./settings.json \
-    # Install
-    && npm install \
-    # Set permissions
-    && chmod a+x /usr/local/bin/* /etc/s6.d/*/* \
-    # Cleanup
-    && apk del build-base git \
-    && rm -rf /tmp/* /var/cache/apk/*
+				libssl1.0 \
+				curl \
+				git \
+				nodejs-npm \
+				su-exec \
+				s6 \
+				python \
+				nodejs \
+				nodejs-npm \
+		# Create dir and clone MediaButler
+		&& mkdir -p /opt \
+		&& cd /opt \
+		&& git clone https://github.com/MediaButler/MediaButler.git \
+		# Copy settings example to settings
+		&& cd MediaButler \
+		&& cp ./settings.example.json ./settings.json \
+		# Install
+		&& npm install \
+		# Set permissions
+		&& chmod a+x /usr/local/bin/* /etc/s6.d/*/* \
+		# Cleanup
+		&& apk del build-base \
+		&& rm -rf /tmp/* /var/cache/apk/*
 
 # Add config path volume
 VOLUME /config
