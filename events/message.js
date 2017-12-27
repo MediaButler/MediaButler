@@ -1,9 +1,8 @@
-const settings = require('../settings.json');
 module.exports = message => {
   const client = message.client;
   if (message.author.bot) return;
   if (!message.content.startsWith(message.guild.settings.prefix)) return;
-  const command = message.content.split(' ')[0].slice(settings.prefix.length);
+  const command = message.content.split(' ')[0].slice(message.guild.settings.prefix.length);
   const params = message.content.split(' ').slice(1);
   const perms = client.elevation(message);
   let cmd;
