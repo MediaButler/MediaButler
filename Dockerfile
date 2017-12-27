@@ -20,10 +20,9 @@ RUN apk add -U build-base \
         nodejs-npm \
         su-exec \
         s6 \
-    # Install Node.js
-    && cd /tmp \
-    && curl -sL https://raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh -o install_nvm.sh \
-    && sh install_nvm.sh \
+        python \
+        nodejs \
+        nodejs-npm \
     # Create dir and clone MediaButler
     && mkdir -p /opt \
     && cd /opt \
