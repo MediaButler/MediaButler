@@ -4,21 +4,20 @@ exports.run = (bot, msg, args = []) => {
   const addMovie = require('../../util/radarr/addMovie');
   const createMovieItem = require('../../util/radarr/createMovieModalRadarr');
   const createMovieItemModal = require('../../util/radarr/createMovieModal');
-  const [imdbId, qualityProfile, rootPath] = args;
+  let [imdbId, qualityProfile, rootPath] = args;
   if (!imdbId) { msg.channel.send('ERR: No imdbId found.'); return; }
   msg.channel.send('Starting...')
     .then((m) => {
       msg.channel.startTyping();
-      let rp = null;
+      let rp = msg.guild.settings.radarr.defaultRootPath;
       let pid = null;
-      if (qualityProfile) {
-        m.edit('Detected Quality Profile override. Querying Radarr for profileId');
-        getQualityProfile(msg.guild, args[1])
-          .then((profileId) => {
-            pid = profileId;
-            m.edit('Received profileId. Continuing');
-          });
-      }
+      if (!qualityProfile) qualityProfile = msg.guild.settings.radarr.defaultProfile;
+      m.edit(`Receiving profileId for ${qualityProfile}`);
+      getQualityProfile(msg.guild, qualityProfile)
+        .then((profileId) => {
+          pid = profileId;
+          m.edit('Received profileId. Continuing');
+        });
       if (rootPath) {
         m.edit('Detected rootPath override');
         rp = rootPath;
