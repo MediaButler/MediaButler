@@ -1,5 +1,5 @@
-const createHistoryItemModal = require('../util/discord/createHistoryItemModal');
-const getHistory = require('../util/tautulli/getHistory');
+const createHistoryItemModal = require('../../util/discord/createHistoryItemModal');
+const getHistory = require('../../util/tautulli/getHistory');
 const Discord = require('discord.js');
 exports.run = (bot, msg, params = []) => {
 
@@ -39,6 +39,6 @@ exports.conf = {
 };
 exports.help = {
   name: 'history',
-  description: 'Pulls the <user>\'s last [limit] history items',
+  description: 'Pulls the <user>s last [limit] history items',
   usage: 'history <user> [limit]'
 };

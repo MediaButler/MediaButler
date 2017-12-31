@@ -1,5 +1,5 @@
-const createNowPlayingModal = require('../util/discord/createNowPlayingItemModal');
-const getNowPlaying = require('../util/tautulli/getNowPlaying');
+const createNowPlayingModal = require('../../util/discord/createNowPlayingItemModal');
+const getNowPlaying = require('../../util/tautulli/getNowPlaying');
 const Discord = require('discord.js');
 exports.run = (bot, msg, params = []) => {
   msg.channel.send('Starting...')
@@ -25,6 +25,6 @@ exports.conf = {
 };
 exports.help = {
   name: 'nowplaying',
-  description: 'Pulls what\'s currently being played on the server',
-  usage: 'nowplaying'
+  description: 'Pulls whats currently being played on the server',
+  usage: 'stats nowplaying'
 };

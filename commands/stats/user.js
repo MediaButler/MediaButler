@@ -1,6 +1,6 @@
-const getUserId = require('../util/tautulli/getUserId');
-const getUserStats = require('../util/tautulli/getUserStats');
-const createUserStats = require('../util/discord/createUserStatsModal');
+const getUserId = require('../../util/tautulli/getUserId');
+const getUserStats = require('../../util/tautulli/getUserStats');
+const createUserStats = require('../../util/discord/createUserStatsModal');
 exports.run = (bot, msg, args, perms = []) => {
   if (!args[0]) {
     msg.channel.send('ERR: No username set');
@@ -31,7 +31,7 @@ exports.conf = {
   permLevel: 0 // Permissions Required, higher is more power
 };
 exports.help = {
-  name: 'stats',
+  name: 'user',
   description: 'Gets watched stats about <user>',
-  usage: 'stats <user>'
+  usage: 'stats user <user>'
 };
