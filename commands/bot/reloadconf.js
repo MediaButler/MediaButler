@@ -7,10 +7,10 @@ exports.conf = {
   enabled: true, 
   guildOnly: false, 
   aliases: [],
-  permLevel: 0 
+  permLevel: 4
 };
 exports.help = {
-  name: 'reload',
+  name: 'reloadconf',
   description: 'Reloads bot configuration files.',
-  usage: 'bot reload'
+  usage: 'bot reloadconf'
 };
