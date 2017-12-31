@@ -28,7 +28,7 @@ fs.readdir('./commands/', (err, files) => {
 });
 
 client.reload = (command) => {
-  return new Promise((resolve, reject) => {
+  const p = new Promise((resolve, reject) => {
     try {
       delete require.cache[require.resolve(`./commands/${command}`)];
       const cmd = require(`./commands/${command}`);
@@ -45,6 +45,7 @@ client.reload = (command) => {
       reject(e);
     }
   });
+  return p;
 };
 
 client.elevation = (message) => {
