@@ -37,3 +37,6 @@ exports.start = (bot) => {
     });
   });
 };
+exports.stop = (bot) => {
+  bot.plexCommands = null;
+};
