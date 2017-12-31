@@ -3,7 +3,7 @@ exports.run = (bot, msg, args = []) => {
   const getMovie = require('../../util/radarr/getMovie');
   const addMovie = require('../../util/radarr/addMovie');
   const createMovieItem = require('../../util/radarr/createMovieModalRadarr');
-  const createMovieItemModal = require('../../util/radarr/createMovieModal');
+  const createMovieItemModal = require('../../util/discord/createMovieModal');
   let [imdbId, qualityProfile, rootPath] = args;
   if (!imdbId) { msg.channel.send('ERR: No imdbId found.'); return; }
   msg.channel.send('Starting...')

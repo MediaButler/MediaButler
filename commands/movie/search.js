@@ -1,4 +1,4 @@
-const createMovieItemModal = require('../../util/radarr/createMovieModal');
+const createMovieItemModal = require('../../util/discord/createMovieModal');
 const getMovieInfo = require('../../util/omdb/getMovie');
 exports.run = (bot, msg, args = []) => {
   getMovieInfo(args)

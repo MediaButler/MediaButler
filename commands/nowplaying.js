@@ -1,4 +1,4 @@
-const createNowPlayingModal = require('../util/tautulli/createNowPlayingItemModal');
+const createNowPlayingModal = require('../util/discord/createNowPlayingItemModal');
 const getNowPlaying = require('../util/tautulli/getNowPlaying');
 const Discord = require('discord.js');
 exports.run = (bot, msg, params = []) => {

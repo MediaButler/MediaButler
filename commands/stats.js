@@ -1,6 +1,6 @@
 const getUserId = require('../util/tautulli/getUserId');
 const getUserStats = require('../util/tautulli/getUserStats');
-const createUserStats = require('../util/tautulli/createUserStatsModal');
+const createUserStats = require('../util/discord/createUserStatsModal');
 exports.run = (bot, msg, args, perms = []) => {
   if (!args[0]) {
     msg.channel.send('ERR: No username set');

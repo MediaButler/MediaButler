@@ -1,4 +1,4 @@
-const createHistoryItemModal = require('../util/tautulli/createHistoryItemModal');
+const createHistoryItemModal = require('../util/discord/createHistoryItemModal');
 const getHistory = require('../util/tautulli/getHistory');
 const Discord = require('discord.js');
 exports.run = (bot, msg, params = []) => {

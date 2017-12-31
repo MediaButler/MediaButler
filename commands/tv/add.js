@@ -3,7 +3,7 @@ exports.run = (client, msg, args) => {
   const getTvShow = require('../../util/sonarr/getTvShow');
   const addTvShow = require('../../util/sonarr/addTvShow');
   const createTvShowItem = require('../../util/sonarr/createTvShowModalSonarr');
-  const createTvShowItemModal = require('../../util/sonarr/createTvShowModal');
+  const createTvShowItemModal = require('../../util/discord/createTvShowModal');
   const [tvdbId, qualityProfile, rootPath] = args;
   if (!tvdbId) { msg.channel.send('ERR: No tvdbId found.'); return; }
   msg.channel.send('Starting...')
