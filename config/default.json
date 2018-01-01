@@ -1,5 +1,6 @@
 {
     "prefix": "!",
+    "type": "private",
     "uuidv4": "",
     "omdb_apikey": "5af02350",
     "thetvdb": {
