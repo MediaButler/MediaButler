@@ -2,6 +2,7 @@
     "prefix": "!",
     "type": "private",
     "uuidv4": "",
+    "logchannel": "",
     "omdb_apikey": "5af02350",
     "thetvdb": {
         "url": "",
