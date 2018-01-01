@@ -1,5 +1,5 @@
 FROM alpine
-MAINTAINER christronyxyocum
+LABEL maintainer="christronyxyocum"
 # Major thanks to starbix for rewriting this with Alpine
 
 # Env variables for Discord token, command prefix, config path, UID, & GID
@@ -40,6 +40,8 @@ RUN apk add -U build-base \
 
 # Add config path volume
 VOLUME /config
+
+EXPOSE 2486
 
 # Execute run.sh script
 CMD ["run.sh"]
