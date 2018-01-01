@@ -1,11 +1,9 @@
 const getUserId = require('../../util/tautulli/getUserId');
 const getUserStats = require('../../util/tautulli/getUserStats');
 const createUserStats = require('../../util/discord/createUserStatsModal');
-exports.run = (bot, msg, args, perms = []) => {
-  if (!args[0]) {
-    msg.channel.send('ERR: No username set');
-    return;
-  }
+exports.run = (bot, msg, args) => {
+  if (!args[0]) return msg.channel.send('ERR: No username set');
+
   msg.channel.send('Starting...')
     .then(m => {
       msg.channel.startTyping();
