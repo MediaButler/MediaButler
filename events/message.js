@@ -1,3 +1,4 @@
+const Discord = require('discord.js');
 module.exports = message => {
   const client = message.client;
   if (message.author.bot) return;
@@ -14,5 +15,15 @@ module.exports = message => {
   if (cmd) {
     if (perms < cmd.conf.permLevel) return;
     cmd.run(client, message, params, perms);
+    if (message.guild.settings.logchannel) {
+      const embed = new Discord.RichEmbed()
+        .setColor(7221572)
+        .setTimestamp()
+        .setAuthor(message.author.username)
+        .setTitle('Command Called')
+        .addField('Command', command, false)
+        .addField('Arguments', message.content, false);
+      message.guild.channels.find('name', message.guild.settings.logchannel).send({embed});
+    }
   }
 };
