@@ -1,5 +1,5 @@
 const createInvite = require('../../util/synclounge/createInvite');
-const createPTLinkModal = require('../../util/synclounge/createPTLinkModal');
+const createPTLinkModal = require('../../util/discord/createSyncLoungeLinkModal');
 exports.run = (bot, msg, args = []) => {
   if (!msg.channel.SyncLounge) {
     createInvite(msg.guild)

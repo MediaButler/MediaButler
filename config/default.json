@@ -1,7 +1,12 @@
 {
     "prefix": "!",
+    "type": "private",
     "uuidv4": "",
     "omdb_apikey": "5af02350",
+    "thetvdb": {
+        "url": "",
+        "apikey": "88D2ED25A2539ECE"
+    },
     "tautulli": {
         "url": "",
         "apikey": ""

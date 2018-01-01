@@ -17,6 +17,7 @@ module.exports = (tvShowItem) =>
     .addField('Genre', g, true)
     .addField('Runtime', tvShowItem.Runtime, true)
     .addField('Rating', `${r}${v}`, true)
-    .addField('IMDb ID', tvShowItem.imdbID, true);
+    .addField('IMDb ID', tvShowItem.imdbID, true)
+    .addField('TVDb ID', tvShowItem.tvdbID, true);
   return e;
 };
