@@ -9,8 +9,14 @@ exports.run = (client, msg, args) => {
   msg.channel.send('Starting...')
     .then((m) => {
       msg.channel.startTyping();
-      let rp = null;
+      let rp = msg.guild.settings.sonarr.defaultRootPath;
       let pid = null;
+
+      getQualityProfile(msg.guild, msg.guild.settings.sonarr.defaultProfile)
+        .then((profileId) => {
+          pid = profileId;
+        });
+
       if (qualityProfile) {
         m.edit('Detected Quality Profile override. Querying Sonarr for profileId');
         getQualityProfile(msg.guild, qualityProfile)
@@ -18,7 +24,8 @@ exports.run = (client, msg, args) => {
             pid = profileId;
             m.edit('Received profileId. Continuing');
           });
-      }
+      } 
+
       if (rootPath) {
         m.edit('Detected rootPath override');
         rp = rootPath;
@@ -27,6 +34,7 @@ exports.run = (client, msg, args) => {
       getTvShow(msg.guild, args[0])
         .then((tvShow) => {
           m.edit('Received TV Show infromation. Adding to Sonarr.');
+          console.log(`addTvShow(${msg.guild}, ${tvShow}, ${pid}, ${rp})`);
           addTvShow(msg.guild, tvShow, pid, rp)
             .then(() => {
               m.edit('Show added sucessfully');
