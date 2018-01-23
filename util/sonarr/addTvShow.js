@@ -22,11 +22,12 @@ module.exports = (guild, tvShow, profileId = null, rootPath = null) => {
           'seasonFolder': true,
           'rootFolderPath': rootPath
         };
+        console.log(data);
         sonarr.post('series', data)
           .then((result) => {
             if (result.title == undefined || result.title == null) reject('Could not add');
             resolve(result);
-          });
+          }).catch((e) => { reject(e); });
       }).catch((e) => { reject(e); });
   });
   return p;
