@@ -49,6 +49,7 @@
       <Mode>rw</Mode>
     </Volume>
   </Data>
+    <Icon>https://raw.githubusercontent.com/MediaButler/MediaButler/master/mb.png</Icon>
   </Environment>
   <Config Name="Discord token" Target="TOKEN" Default="https://discordapp.com/developers/applications/me" Mode="" Description="Follow instructions from: https://github.com/MediaButler/MediaButler/wiki/Install:Discord" Type="Variable" Display="always" Required="true" Mask="false"/>
   <Config Name="PREFIX" Target="PREFIX" Default="!" Mode="" Description="This is what you want to prefix the commands for the bot, IE: !help, !remind, etc." Type="Variable" Display="always" Required="true" Mask="false"/>
