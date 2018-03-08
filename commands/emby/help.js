@@ -3,7 +3,7 @@ exports.run = (bot, msg, args = []) => {
   if (!args[0]) {
     const commandNames = Array.from(bot.embycommands.keys());
     const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
-    msg.channel.send(`= Command List =\n\n[Use ${msg.guild.settings.prefix} emby help]\n\n${bot.embycommands.map(c => `${msg.guild.settings.prefix}emby ${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`).join('\n')}`, { code: 'asciidoc' });
+    msg.channel.send(`= Command List =\n\n[Use ${msg.guild.settings.prefix}emby help]\n\n${bot.embycommands.map(c => `${msg.guild.settings.prefix}emby ${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`).join('\n')}`, { code: 'asciidoc' });
   } else {
     let command = args[0];
     if (bot.embycommands.has(command)) {
