@@ -10,7 +10,7 @@ module.exports = (movieItem) =>
     .setColor(13619085)
     .setTimestamp()
     .setThumbnail(movieItem.Poster)
-    .setAuthor('Movie Information', 'https://www.thetvdb.com/?tab=series&id=')
+    .setAuthor('Movie Information', 'https://www.icon2s.com/wp-content/uploads/2013/10/social-IMDb-Icon.png', 'http://www.imdb.com/title/' + movieItem.imdbID)
     .addField('Year', movieItem.Year, true)
     .addField('Rated', movieItem.Rated, true)
     .addField('Release date', movieItem.Released, true)

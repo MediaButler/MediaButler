@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const createNowPlayingTVModal = require('./createNowPlayingTVModal');
 const createNowPlayingMovieModal = require('./createNowPlayingMovieModal');
+const createNowPlayingDefaultModal = require('./createNowPlayingDefaultModal');
 
 module.exports = (guild, nowPlayingItem) => {
   	var i;
@@ -13,7 +14,8 @@ module.exports = (guild, nowPlayingItem) => {
     	i.setAuthor(nowPlayingItem.UserName + ' is watching:', '', '');
 	}
 	else{
-
+		i = createNowPlayingDefaultModal(guild, nowPlayingItem.NowPlayingItem);
+    	i.setAuthor(nowPlayingItem.UserName + ' is streaming:', '', '');
 	}
 	return i;
 };
