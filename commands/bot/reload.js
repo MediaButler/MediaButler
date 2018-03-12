@@ -9,16 +9,20 @@ exports.run = (client, msg, args = []) => {
       .then((m) => {
         files.forEach(f => {
           const props = require(`${process.cwd()}/commands/${f}`);
-          m.edit(`${sendMessage}\nLoading Command: ${props.help.name}.\n\`\`\``);
-          client.reload(props.help.name)
-            .then(() => {
-              sendMessage += `Sucessfully reloaded: ${props.help.name}\n`;
-              m.edit(`${sendMessage}\`\`\``);
-            })
-            .catch(e => {
-              sendMessage += `\n\nCommand reload failed: ${props.help.name}\n\`\`\`${e.stack}\`\`\``;
-              m.edit(`${sendMessage}\`\`\``);
-            });
+          if (props.conf.enabled) {
+            m.edit(`${sendMessage}\nLoading Command: ${props.help.name}.\n\`\`\``);
+            client.reload(props.help.name)
+              .then(() => {
+                sendMessage += `Sucessfully reloaded: ${props.help.name}\n`;
+                m.edit(`${sendMessage}\`\`\``);
+              })
+              .catch(e => {
+                sendMessage += `\n\nCommand reload failed: ${props.help.name}\n\`\`\`${e.stack}\`\`\``;
+                m.edit(`${sendMessage}\`\`\``);
+              });
+          } else {
+            m.edit(`${sendMessage}\nSkipping Command: ${props.help.name}.\n\`\`\``);
+          }
         });
       });
   });

@@ -10,7 +10,7 @@ module.exports = (tvShowItem) =>
     .setColor(13619085)
     .setTimestamp()
     .setThumbnail(tvShowItem.Poster)
-    .setAuthor('TV Show Information', 'https://www.thetvdb.com/?tab=series&id=')
+    .setAuthor('TV Show Information', 'http://i.imgur.com/j5Bw0rm.png', 'https://www.thetvdb.com/?tab=series&id=' + tvShowItem.tvdbID)
     .addField('Year', tvShowItem.Year, true)
     .addField('Rated', tvShowItem.Rated, true)
     .addField('Release Date', tvShowItem.Released, true)
