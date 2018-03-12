@@ -18,12 +18,16 @@ fs.readdir('./commands/', (err, files) => {
   log(`Loading a total of ${files.length} commands.`);
   files.forEach(f => {
     const props = require(`./commands/${f}`);
-    log(`Loading Command: ${props.help.name}.`);
-    if (props.start) props.start(client);
-    client.commands.set(props.help.name, props);
-    props.conf.aliases.forEach(alias => {
-      client.aliases.set(alias, props.help.name);
-    });
+    if (props.conf.enabled){
+      log(`Loading Command: ${props.help.name}.`);
+      if (props.start) props.start(client);
+      client.commands.set(props.help.name, props);
+      props.conf.aliases.forEach(alias => {
+        client.aliases.set(alias, props.help.name);
+      });
+    } else {
+      log(`Skipping Command: ${props.help.name}.`);
+    }
   });
 });
 
