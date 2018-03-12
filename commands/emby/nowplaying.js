@@ -10,10 +10,10 @@ exports.run = (bot, msg, params = []) => {
       getNowPlaying(msg.guild)
         .then((nowPlaying) => {
           if(nowPlaying.length !== 1) {
-            m.edit(`There are currently ${nowPlaying.length} people watching.`);
+            m.edit(`There are currently ${nowPlaying.length} people streaming.`);
           }
           else {
-            m.edit(`There is currently ${nowPlaying.length} person watching.`);
+            m.edit(`There is currently ${nowPlaying.length} person streaming.`);
           }
           nowPlaying.forEach(s => { 
             const e = createNowPlayingModal(msg.guild, s);     
