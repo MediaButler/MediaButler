@@ -34,7 +34,6 @@ exports.run = (client, msg, args) => {
       getTvShow(msg.guild, args[0])
         .then((tvShow) => {
           m.edit('Received TV Show infromation. Adding to Sonarr.');
-          console.log(`addTvShow(${msg.guild}, ${tvShow}, ${pid}, ${rp})`);
           addTvShow(msg.guild, tvShow, pid, rp)
             .then(() => {
               m.edit('Show added sucessfully');
