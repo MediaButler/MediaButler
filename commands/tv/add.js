@@ -15,34 +15,34 @@ exports.run = (client, msg, args) => {
       getQualityProfile(msg.guild, msg.guild.settings.sonarr.defaultProfile)
         .then((profileId) => {
           pid = profileId;
-        });
 
-      if (qualityProfile) {
-        m.edit('Detected Quality Profile override. Querying Sonarr for profileId');
-        getQualityProfile(msg.guild, qualityProfile)
-          .then((profileId) => {
-            pid = profileId;
-            m.edit('Received profileId. Continuing');
-          });
-      } 
+          if (qualityProfile) {
+            m.edit('Detected Quality Profile override. Querying Sonarr for profileId');
+            getQualityProfile(msg.guild, qualityProfile)
+              .then((profileId) => {
+                pid = profileId;
+                m.edit('Received profileId. Continuing');
+              });
+          }
 
-      if (rootPath) {
-        m.edit('Detected rootPath override');
-        rp = rootPath;
-      }
-      m.edit('Querying Sonarr for TV Show information');
-      getTvShow(msg.guild, args[0])
-        .then((tvShow) => {
-          m.edit('Received TV Show infromation. Adding to Sonarr.');
-          addTvShow(msg.guild, tvShow, pid, rp)
-            .then(() => {
-              m.edit('Show added sucessfully');
-              const l = createTvShowItem(tvShow);
-              const e = createTvShowItemModal(l);
-              e.setAuthor('TV Show added sucessfully');
-              e.setFooter(`Called by ${msg.author.username}`, msg.author.avatarURL);        
-              m.edit({ embed: e });
-              msg.channel.stopTyping();
+          if (rootPath) {
+            m.edit('Detected rootPath override');
+            rp = rootPath;
+          }
+          m.edit('Querying Sonarr for TV Show information');
+          getTvShow(msg.guild, args[0])
+            .then((tvShow) => {
+              m.edit('Received TV Show infromation. Adding to Sonarr.');
+              addTvShow(msg.guild, tvShow, pid, rp)
+                .then(() => {
+                  m.edit('Show added sucessfully');
+                  const l = createTvShowItem(tvShow);
+                  const e = createTvShowItemModal(l);
+                  e.setAuthor('TV Show added sucessfully');
+                  e.setFooter(`Called by ${msg.author.username}`, msg.author.avatarURL);
+                  m.edit({ embed: e });
+                  msg.channel.stopTyping();
+                });
             });
         }).catch((e) => { m.edit(`ERR: ${e}`); return; });
     });
