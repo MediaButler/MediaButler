@@ -37,5 +37,10 @@
     "plex": {
         "url": "",
         "token": ""
+    },
+    "emby": {
+      "url": "",
+      "external_url": "",
+      "api_key": ""
     }
 }
