@@ -13,7 +13,7 @@ module.exports = (guild) => {
     let port = 443;
     if (details[1] == 'http') port = 80;
     if (details[3] !== undefined) port = details[3];
-    const sonarr = new SonarrAPI({ hostname: details[2], apiKey: settings.apikey, port: port, urlBase: `/${details[6]}`, ssl: useSsl });
+    const sonarr = new SonarrAPI({ hostname: details[2], apiKey: settings.apikey, port: port, urlBase: `${details[5]}`, ssl: useSsl });
     resolve(sonarr);
   });
   return p;

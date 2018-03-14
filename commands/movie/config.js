@@ -1,7 +1,7 @@
 const saveDb = require('../../util/db/saveDb');
 exports.run = (bot, msg, args = []) => {
   const [source, url, apikey, defprofile, defroot] = args;
-  if (!source || !url || !apikey || !defprofile || !defroot) { msg.channel.send('ERR: Not all configuration provided'); return; }
+  if (!source || !url || !apikey || !defprofile || !defroot) { msg.channel.send(`ERR: Not all configuration provided \nUsage: ${msg.guild.settings.prefix}${this.help.usage}`); return; }
   switch (source) {
     case 'radarr':
       msg.channel.send('Configuring Radarr')
