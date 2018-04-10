@@ -15,6 +15,10 @@ module.exports = (client) =>  {
         });
       } else {
         guild.settings = JSON.parse(data);
+        guild.isPlaying = false;
+        guild.isPaused = false;
+        guild.mediaQueue = [];
+        guild.mediaController = null;
         console.log(`Loaded settings for ${guild.id}`);
       }
     });
