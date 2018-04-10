@@ -4,7 +4,7 @@ const searchMusic = require('../../util/plex/searchMusic');
 const playQueue = require('../../util/music/playQueue');
 exports.run = (bot, msg, args = []) => {
   if (!args[0]) { msg.channel.send('Please put a query'); return; }
-  if (!msg.member.voiceChannel) { msg.channel.send('Please join a voice channel'); return; }
+  //if (!msg.member.voiceChannel) { msg.channel.send('Please join a voice channel'); return; }
 
   getUser(msg.member).then((settings) => {
     msg.member.settings = settings;
@@ -33,11 +33,13 @@ exports.run = (bot, msg, args = []) => {
       for (let i = 0; i < args.length; i++) {
         if (args[i].toString().startsWith('offset:')) {
           offset = args[i].split(':')[1];
-          args = args.splice(i, 1);
+          args.splice(i, 1);
         }
       }
+      console.log(args);
       searchMusic(d, encodeURI(args.join(' ')), offset).then((res) => {
-        switch (res.size) {
+        if (res === undefined) msg.channel.send('Unexpected results from plex. Is the URL set correctly?');
+        else switch (res.size) {
           case 0:
             msg.channel.send('No results found');
             break;

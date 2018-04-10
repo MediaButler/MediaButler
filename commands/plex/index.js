@@ -1,6 +1,9 @@
 const fs = require('fs');
 const Discord = require('discord.js');
 exports.run = (bot, msg, args = [], perm) => {
+  if (msg.channel.type == 'dm') {
+    console.log('its a dm message');
+  }
   let command = args[0];
   if (command == undefined) command = 'help';
   let cmd;

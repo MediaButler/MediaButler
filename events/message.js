@@ -6,8 +6,9 @@ module.exports = message => {
   const client = message.client;
   if (message.author.bot) { console.log('thisisabot'); return; }
   if (message.channel.type == 'dm') {
+    console.log(message.content);
     if (!message.content.startsWith('!')) return;
-    command = message.content.split(' ')[0].slice('!'.length);
+    command = message.content.split(' ')[0].slice(1);
     params = message.content.split(' ').slice(1);
     perms = 4;
   }

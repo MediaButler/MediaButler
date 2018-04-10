@@ -11,13 +11,17 @@ const saveUser = require('../../util/db/saveUser');
 
 exports.run = (bot, msg, args = []) => {
   if (msg.channel.type == 'dm') {
+    console.log('plex config in dm called');
+    console.log(msg);
     if (!msg.author.settings) getUser(msg.author).then((set) => {
       msg.author.settings = set;
       if (args[0] != '') { msg.author.settings.plex.url = args; saveUser(msg.author); }
       if (msg.author.settings.plex.url == '') { msg.author.send('ERR: No Plex URL defined'); return; }
 
       getApiUser(msg.author).then((d) => {
+        console.log('got api user');
         if (d.authToken == undefined && msg.author.settings.plex.pinToken == undefined) {
+          console.log('make new pin');
           getPinUser(msg.author).then((pin) => {
             msg.author.settings.plex.pinToken = pin;
             saveUser(msg.author);
@@ -26,14 +30,24 @@ exports.run = (bot, msg, args = []) => {
           return;
         }
         if (d.authToken == undefined && msg.author.settings.plex.pinToken != undefined) {
+          console.log('get token');
           getAuthTokenUser(msg.author).then((token) => {
             msg.author.settings.plex.token = token;
             saveUser(msg.author);
-            msg.channel.send('Sucessfully processed Plex token. Testing...').then((m) => {
+            msg.author.send('Sucessfully processed Plex token. Testing...').then((m) => {
               const testConnection = require('../../util/plex/testConnection');
               testConnection(d).then((r) => {
                 m.edit('Sucessfully configured Plex.');
               });
+            });
+          });
+        }
+        if (d.authToken != undefined) {
+          console.log('test token');
+          msg.author.send('Testing Plex Connection').then((m) => {
+            const testConnection = require('../../util/plex/testConnection');
+            testConnection(d).then((r) => {
+              m.edit('Sucessfully configured Plex.');
             });
           });
         }
