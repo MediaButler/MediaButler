@@ -10,7 +10,7 @@ exports.run = (bot, msg, args = []) => {
     msg.member.settings = settings;
     getApiUser(msg.member).then((d) => {
       if (msg.member.mediaSearch) {
-        if (!args.toString().startsWith('id:')) { msg.member.mediaSearch = null; }
+        if (!args.join(' ').toString().startsWith('id:')) { msg.member.mediaSearch = null; }
         else {
           args[0] = args[0].split(':')[1] - 1;
           const plexurl = settings.plex.url.toString().slice(0, -1);
@@ -70,8 +70,8 @@ exports.run = (bot, msg, args = []) => {
             break;
           }
       });
-    });
-  });
+    }).catch((err) => msg.channel.send(`ERR: ${err}`);
+  };
 };
 exports.help = {
   name: 'add',
