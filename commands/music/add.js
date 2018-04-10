@@ -70,8 +70,8 @@ exports.run = (bot, msg, args = []) => {
             break;
           }
       });
-    }).catch((err) => msg.channel.send(`ERR: ${err}`));
-  };
+    }).catch((err) => { msg.channel.send(`ERR: ${err}`); });
+  });
 };
 exports.help = {
   name: 'add',
