@@ -31,7 +31,7 @@ exports.run = (bot, msg, args = []) => {
       }
       let offset = 0;
       for (let i = 0; i < args.length; i++) {
-        if (args[i].startsWith('offset:')) {
+        if (args[i].toString().startsWith('offset:')) {
           offset = args[i].split(':')[1];
           args = args.splice(i, 1);
         }
