@@ -29,7 +29,14 @@ exports.run = (bot, msg, args = []) => {
           return;
         }
       }
-      searchMusic(d, encodeURI(args.join(' ')), 0).then((res) => {
+      let offset = 0;
+      for (let i = 0; i < args.length; i++) {
+        if (args[i].startsWith('offset:')) {
+          offset = args[i].split(':')[1];
+          args = args.splice(i, 1);
+        }
+      }
+      searchMusic(d, encodeURI(args.join(' ')), offset).then((res) => {
         switch (res.size) {
           case 0:
             msg.channel.send('No results found');

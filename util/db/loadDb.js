@@ -9,6 +9,10 @@ module.exports = (client) =>  {
         fs.readFile(`${coreSettings['path']}/default.json`, (err, data2) => {
           guild.settings = JSON.parse(data2);
           guild.settings.uuidv4 = uuid();
+          guild.isPlaying = false;
+          guild.isPaused = false;
+          guild.mediaQueue = [];
+          guild.mediaController = null;
           saveDb(client);
           console.log(`Loaded default settings for ${guild.id}`);
           return;      

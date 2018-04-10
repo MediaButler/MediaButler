@@ -4,7 +4,7 @@ module.exports = message => {
   let params;
   let perms;
   const client = message.client;
-  if (message.author.bot) return;
+  if (message.author.bot) { console.log('thisisabot'); return; }
   if (message.channel.type == 'dm') {
     if (!message.content.startsWith('!')) return;
     command = message.content.split(' ')[0].slice('!'.length);
