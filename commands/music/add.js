@@ -36,7 +36,6 @@ exports.run = (bot, msg, args = []) => {
           args.splice(i, 1);
         }
       }
-      console.log(offset + 15);
       searchMusic(d, encodeURI(args.join(' ')), offset, offset + 15).then((res) => {
         if (res === undefined) msg.channel.send('Unexpected results from plex. Is the URL set correctly?');
         else switch (res.size) {
