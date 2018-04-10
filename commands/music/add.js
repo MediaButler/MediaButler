@@ -4,7 +4,7 @@ const searchMusic = require('../../util/plex/searchMusic');
 const playQueue = require('../../util/music/playQueue');
 exports.run = (bot, msg, args = []) => {
   if (!args[0]) { msg.channel.send('Please put a query'); return; }
-  //if (!msg.member.voiceChannel) { msg.channel.send('Please join a voice channel'); return; }
+  if (!msg.member.voiceChannel) { msg.channel.send('Please join a voice channel'); return; }
 
   getUser(msg.member).then((settings) => {
     msg.member.settings = settings;
@@ -32,11 +32,11 @@ exports.run = (bot, msg, args = []) => {
       let offset = 0;
       for (let i = 0; i < args.length; i++) {
         if (args[i].toString().startsWith('offset:')) {
-          offset = args[i].split(':')[1];
+          offset = parseInt(args[i].split(':')[1]);
           args.splice(i, 1);
         }
       }
-      console.log(args);
+      console.log(offset + 15);
       searchMusic(d, encodeURI(args.join(' ')), offset, offset + 15).then((res) => {
         if (res === undefined) msg.channel.send('Unexpected results from plex. Is the URL set correctly?');
         else switch (res.size) {
@@ -68,7 +68,7 @@ exports.run = (bot, msg, args = []) => {
             }
             msg.channel.send(`\`\`\`${results}\nPlease select which track you would like with '!music add id:<id>'\`\`\``);
             break;
-        }
+          }
       });
     });
   });

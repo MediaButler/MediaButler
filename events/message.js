@@ -4,7 +4,6 @@ module.exports = message => {
   let params;
   let perms;
   const client = message.client;
-  if (!message.guild.settings) return;
   if (message.author.bot) return;
   if (message.channel.type == 'dm') {
     if (!message.content.startsWith('!')) return;
@@ -13,6 +12,7 @@ module.exports = message => {
     perms = 4;
   }
   else {
+    if (!message.guild.settings) return;
     if (!message.content.startsWith(message.guild.settings.prefix)) return;
     command = message.content.split(' ')[0].slice(message.guild.settings.prefix.length);
     params = message.content.split(' ').slice(1);

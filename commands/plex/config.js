@@ -12,9 +12,11 @@ const saveUser = require('../../util/db/saveUser');
 exports.run = (bot, msg, args = []) => {
   if (msg.channel.type == 'dm') {
     console.log('plex config in dm called');
-    console.log(msg);
-    if (!msg.author.settings) getUser(msg.author).then((set) => {
+    console.log(msg.content);
+
+    getUser(msg.author).then((set) => {
       msg.author.settings = set;
+      console.log(msg.author.settings);
       if (args[0] != '') { msg.author.settings.plex.url = args; saveUser(msg.author); }
       if (msg.author.settings.plex.url == '') { msg.author.send('ERR: No Plex URL defined'); return; }
 
