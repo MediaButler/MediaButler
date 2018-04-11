@@ -19,7 +19,7 @@ module.exports = (message) => {
       message.channel.send({ 'embed': i, 'files': [{ attachment: message.guild.mediaQueue[0].image, name: 'cover.png' }] }).then((m) => {
         setTimeout(() => {
           m.delete();
-        }, 20000);
+        }, message.guild.mediaQueue[0].duration);
       });
       message.guild.mediaController = conn.playArbitraryInput(message.guild.mediaQueue[0].url);
       message.guild.mediaController.on('end', () => {
