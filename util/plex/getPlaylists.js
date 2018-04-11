@@ -11,7 +11,7 @@ module.exports = (plexClient, qs) =>
           {
             console.log(res.MediaContainer.Metadata[i]);
             if (res.MediaContainer.Metadata[i].title == qs) {
-              resolve(res.Metadata[i].ratingKey);
+              resolve(res.MediaContainer.Metadata[i].ratingKey);
               return;
             }
           }
