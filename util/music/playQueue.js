@@ -6,14 +6,17 @@ module.exports = (message) => {
   if (message.member.voiceChannel) {
     message.member.voiceChannel.join().then((conn) => {
       message.guild.isPlaying = true;
+      const runtime = durationFormat(Math.ceil(message.guild.mediaQueue[0].duration/1000));
       const i = new Discord.RichEmbed()
         .setColor(11360941)
-        .setTitle(message.guild.mediaQueue[0].title)
-        .setThumbnail(message.guild.mediaQueue[0].image)
-        .setAuthor(message.guild.mediaQueue[0].artist)
-        .addField('Album', message.guild.mediaQueue[0].album, true)
-        .addField('Runtime', durationFormat(Math.ceil(message.guild.mediaQueue[0].duration/1000)), true);
-      message.channel.send(i).then((m) => {
+        .setDescription(message.guild.mediaQueue[0].album)
+        .setTitle(`${message.guild.mediaQueue[0].artist} - ${message.guild.mediaQueue[0].title}`)
+        .setThumbnail('attachment://cover.png')
+        .setAuthor('Now Playing')
+        .addField('Year', message.guild.mediaQueue[0].year, true)
+        .addField('Runtime', `\`\`\`0m 1s ► |-------------------| ${runtime}\`\`\``, true);
+      message.client.user.setPresence({game: {name: `${message.guild.mediaQueue[0].artist} - ${message.guild.mediaQueue[0].title}`, type: 0}});
+      message.channel.send({ 'embed': i, 'files': [{ attachment: message.guild.mediaQueue[0].image, name: 'cover.png' }] }).then((m) => {
         setTimeout(() => {
           m.delete();
         }, 20000);

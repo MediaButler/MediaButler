@@ -11,9 +11,10 @@ module.exports = (message, trackList, number) => {
         else artist = trackList.Metadata[i].grandparentTitle;
         const title = trackList.Metadata[i].title;
         const album = trackList.Metadata[i].parentTitle;
+        const year = trackList.Metadata[i].year;
         const duration = trackList.Metadata[i].duration.toString();
         const image = `${plexurl}${trackList.Metadata[i].thumb}?X-Plex-Token=${settings.plex.token}&X-Plex-Client-Identifier=6ce0a124-842d-4e5c-a5bd-908e7de9082e`;
-        message.guild.mediaQueue.push({artist, title, url, album, duration, image});
+        message.guild.mediaQueue.push({artist, title, url, album, duration, image, year, 'user': message.author});
       }
       if (message.guild.mediaQueue.length > 1) message.channel.send(`Added playlist of ${trackList.Metadata.length} items to queue`);
       break;
@@ -26,8 +27,9 @@ module.exports = (message, trackList, number) => {
       const title = trackList.Metadata[number].title;
       const album = trackList.Metadata[number].parentTitle;
       const duration = trackList.Metadata[number].duration.toString();
+      const year = trackList.Metadata[i].year;
       const image = `${plexurl}${trackList.Metadata[number].thumb}?X-Plex-Token=${settings.plex.token}&X-Plex-Client-Identifier=6ce0a124-842d-4e5c-a5bd-908e7de9082e`;
-      message.guild.mediaQueue.push({artist, title, url, album, duration, image});
+      message.guild.mediaQueue.push({artist, title, url, album, duration, image, year, 'user': message.author});
       if (message.guild.mediaQueue.length > 1) message.channel.send(`Added ${artist} - ${title} to the queue`);
       break;
   }
