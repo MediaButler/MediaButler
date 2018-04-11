@@ -23,7 +23,7 @@ module.exports = (message) => {
         }, message.guild.mediaQueue[0].duration);
       });
       message.guild.mediaController = conn.playArbitraryInput(message.guild.mediaQueue[0].url);
-      conn.setBitrate(128);
+      message.guild.mediaController.setBitrate(128);
       message.guild.mediaController.on('end', () => {
         message.guild.mediaQueue.shift();
         if (message.guild.mediaQueue.length > 0) playQueue(message);
