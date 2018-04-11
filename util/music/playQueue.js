@@ -9,6 +9,7 @@ module.exports = (message) => {
       const runtime = durationFormat(Math.ceil(message.guild.mediaQueue[0].duration/1000));
       const i = new Discord.RichEmbed()
         .setColor(11360941)
+        .setFooter(`Added by ${message.guild.mediaQueue[0].user.username}`, message.guild.mediaQueue[0].user.avatarURL)
         .setDescription(message.guild.mediaQueue[0].album)
         .setTitle(`${message.guild.mediaQueue[0].artist} - ${message.guild.mediaQueue[0].title}`)
         .setThumbnail('attachment://cover.png')
