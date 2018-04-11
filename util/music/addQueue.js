@@ -27,7 +27,7 @@ module.exports = (message, trackList, number) => {
       const title = trackList.Metadata[number].title;
       const album = trackList.Metadata[number].parentTitle;
       const duration = trackList.Metadata[number].duration.toString();
-      const year = trackList.Metadata[i].year;
+      const year = trackList.Metadata[number].year;
       const image = `${plexurl}${trackList.Metadata[number].thumb}?X-Plex-Token=${settings.plex.token}&X-Plex-Client-Identifier=6ce0a124-842d-4e5c-a5bd-908e7de9082e`;
       message.guild.mediaQueue.push({artist, title, url, album, duration, image, year, 'user': message.author});
       if (message.guild.mediaQueue.length > 1) message.channel.send(`Added ${artist} - ${title} to the queue`);
