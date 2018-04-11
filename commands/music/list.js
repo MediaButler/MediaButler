@@ -8,7 +8,7 @@ exports.run = (bot, msg, args = []) => {
   }
   let results = '\n';
   let totalDuration = 0;
-  let limit = 30;
+  let limit = 20;
   if (msg.guild.mediaQueue.length < limit) limit = msg.guild.mediaQueue.length;
   for (let i = 0; i < msg.guild.mediaQueue.length; i++) totalDuration += parseInt(msg.guild.mediaQueue[i].duration);
   for (let i = 0; i < limit; i++) {
