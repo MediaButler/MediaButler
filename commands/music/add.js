@@ -20,7 +20,7 @@ exports.run = (bot, msg, args = []) => {
             msg.member.mediaSearch = null;
             finished = true;
             return;
-        );
+        });
         }
       }
       let offset = 0;
