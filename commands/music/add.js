@@ -17,10 +17,9 @@ exports.run = (bot, msg, args = []) => {
         else {
           const trackNumber = args[0].split(':')[1] - 1;
           addQueue(msg, msg.member.mediaSearch, trackNumber);
-            msg.member.mediaSearch = null;
-            finished = true;
-            return;
-        });
+          msg.member.mediaSearch = null;
+          finished = true;
+          return;
         }
       }
       let offset = 0;
