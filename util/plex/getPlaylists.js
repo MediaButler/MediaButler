@@ -9,7 +9,7 @@ module.exports = (plexClient, qs) =>
         } else {
           for (let i = 0; i <= res.MediaContainer.size; i++)
           {
-            console.log(res.MediaContainer.Playlist[i]);
+            console.log(res.MediaContainer.Metadata[i]);
             if (res.MediaContainer.Metadata[i].title == qs) {
               resolve(res.Metadata[i].ratingKey);
               return;
