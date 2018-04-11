@@ -16,11 +16,11 @@ exports.run = (bot, msg, args = []) => {
         if (!args.join(' ').toString().startsWith('id:')) { msg.member.mediaSearch = null; }
         else {
           const trackNumber = args[0].split(':')[1] - 1;
-          addQueue(msg, msg.member.mediaSearch, trackNumber).then(() => {
+          addQueue(msg, msg.member.mediaSearch, trackNumber);
             msg.member.mediaSearch = null;
             finished = true;
             return;
-          });
+        );
         }
       }
       let offset = 0;
