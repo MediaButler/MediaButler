@@ -1,0 +1,39 @@
+{
+  "name": "mediabutler",
+  "version": "0.6.0",
+  "description": "Discord bot to interact with services",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MediaButler/MediaButler.git"
+  },
+  "keywords": [
+    "discord",
+    "plex",
+    "sonarr",
+    "radarr",
+    "tautulli",
+    "ombi"
+  ],
+  "author": "MediaButler",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/MediaButler/MediaButler/issues"
+  },
+  "homepage": "https://github.com/MediaButler/MediaButler#readme",
+  "dependencies": {
+    "bufferutil": "^3.0.4",
+    "discord.js": "^11.3.2",
+    "erlpack": "^0.1.2",
+    "ffmpeg-binaries": "^3.2.2",
+    "node-opus": "^0.2.7",
+    "npm": "^5.8.0",
+    "plex-api": "^5.2.0",
+    "plex-api-pinauth": "^0.1.0",
+    "sonarr-api": "^0.2.0",
+    "uuid-v4": "^0.1.0"
+  }
+}

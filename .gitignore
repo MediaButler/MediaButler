@@ -1,0 +1,4 @@
+node_modules/*
+!app/config/default.json
+!app/confg/user/defaut.json
+!app/config/*
