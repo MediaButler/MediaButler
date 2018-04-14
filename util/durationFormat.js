@@ -11,7 +11,7 @@ module.exports = (time) =>
     ret += `${mins}m `;
   }
   if (secs > 0) {
-    ret += `${secs}s `;
+    ret += `${secs}s`;
   }
   return ret;
 };

@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-client.mbVersion = '0.4';
+client.mbVersion = '0.5';
 const settings = require('./settings.json');
 const fs = require('fs');
 const moment = require('moment');
@@ -18,7 +18,7 @@ fs.readdir('./commands/', (err, files) => {
   log(`Loading a total of ${files.length} commands.`);
   files.forEach(f => {
     const props = require(`./commands/${f}`);
-    if (props.conf.enabled){
+    if (props.conf.enabled) {
       log(`Loading Command: ${props.help.name}.`);
       if (props.start) props.start(client);
       client.commands.set(props.help.name, props);

@@ -1,17 +1,14 @@
 const fs = require('fs');
 const Discord = require('discord.js');
 exports.run = (bot, msg, args = [], perm) => {
-  if (msg.channel.type == 'dm') {
-    console.log('its a dm message');
-  }
   let command = args[0];
   if (command == undefined) command = 'help';
   let cmd;
-  if (bot.plexCommands.has(command)) {
-    cmd = bot.plexCommands.get(command);
+  if (bot.musicCommands.has(command)) {
+    cmd = bot.musicCommands.get(command);
     args.splice(0, 1);    
   } else {
-    cmd = bot.plexCommands.get('search');
+    cmd = bot.musicCommands.get('search');
   }
   if (cmd) {
     if (perm < cmd.conf.permLevel) { msg.channel.send('Sorry. You do not have the required permissions to perform this action'); return; }
@@ -19,9 +16,9 @@ exports.run = (bot, msg, args = [], perm) => {
   }
 };
 exports.help = {
-  name: 'plex',
-  description: 'Plex related commands',
-  usage: 'plex'
+  name: 'music',
+  description: 'Music related commands',
+  usage: 'music'
 };
 exports.conf = {
   enabled: true,
@@ -30,16 +27,16 @@ exports.conf = {
   permLevel: 0
 };
 exports.start = (bot) => {
-  bot.plexCommands = new Discord.Collection();
+  bot.musicCommands = new Discord.Collection();
   fs.readdir(`./commands/${this.help.name}/`, (err, files) => {
     files.forEach((f) => {
       if (f != 'index.js') {
         const props = require(`./${f}`);
-        bot.plexCommands.set(props.help.name, props);
+        bot.musicCommands.set(props.help.name, props);
       }
     });
   });
 };
 exports.stop = (bot) => {
-  bot.plexCommands = null;
+  bot.musicCommands = null;
 };
