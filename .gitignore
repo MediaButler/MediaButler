@@ -9,3 +9,9 @@ config/*
 !config/default.json
 !config/user/default.json
 web/dist/*
+
+#Visual Studio
+.vs/
+.vscode/
+ProjectSettings.json
+slnx.sqlite
