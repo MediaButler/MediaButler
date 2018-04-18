@@ -65,3 +65,13 @@ process.env.WEBPACK_PORT = 2486;
 process.env.BASE_URL = 'http://localhost:2486/';
 process.env.NODE_ENV = 'development';
 client.webapp = webserver();
+
+process.on('SIGINT', () => {
+    console.log('Gracefully shutting down from SIGINT (CTRL + C)');
+    console.log('Logging out of discord...');
+    client.destroy()
+        .then(() => {
+            console.log('Shutting down. Bye!');
+            process.exit(0);
+        });
+});
