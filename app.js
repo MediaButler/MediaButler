@@ -67,11 +67,11 @@ process.env.NODE_ENV = 'development';
 client.webapp = webserver();
 
 process.on('SIGINT', () => {
-    console.log('Gracefully shutting down from SIGINT (CTRL + C)');
-    console.log('Logging out of discord...');
+    log('Gracefully shutting down from SIGINT (CTRL + C)');
+    log('Logging out of discord...');
     client.destroy()
         .then(() => {
-            console.log('Shutting down. Bye!');
+            log('Shutting down. Bye!');
             process.exit(0);
         });
 });
