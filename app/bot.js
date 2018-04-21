@@ -44,13 +44,12 @@ fs.readdir('./commands/direct/', (err, files) => {
         props.conf.alias.forEach(alias => {
             client.directCommandAlias.set(alias, props.conf.name);
         });
-        console.log(`Loaded DM command ${props.conf.name}`)
+        console.log(`Loaded DM command ${props.conf.name}`);
     });
 });
 
-// Loaded database
+// Load database
 
-// Ready
 // Load Events
 require('./service/events/loader')(client);
 client.login(token)

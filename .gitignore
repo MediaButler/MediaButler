@@ -1,3 +1,4 @@
 node_modules/*
 !app/config/bot.json
 !app/config/*
+.DS_Store
