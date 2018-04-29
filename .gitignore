@@ -2,3 +2,5 @@ node_modules/*
 !app/config/bot.json
 !app/config/*
 .DS_Store
+app/data/*.sqlite
+app/data/*.sqlite*
