@@ -2,15 +2,19 @@ const Discord = require('discord.js');
 const fs = require('fs');
 
 module.exports = {
-    run: (client, message, args, perms) => {
-        message.channel.send('Ping?')
-            .then(msg => {
-                msg.edit(`I'm still working! (It took me ${msg.createdTimestamp - message.createdTimestamp}ms to respond)`);
-            });
+    run: (client, message, args = [], perms) => {
+        let command = args[0];
+        if (!command) command = 'help';
+        if (client.botCommands.has(command)) {
+            client.debugMsg(`Running ${module.exports.conf.name} subcommand ${command}`);
+            args.splice(0, 1);
+            client.botCommands.get(command).run(client, message, args, perms);
+        } else message.channel.send(`Error: Unknown command "${command}"`);
     },
     conf: {
         name: 'bot',
-        alias: []
+        alias: [],
+        description: 'Actions focused around controlling the bot (like prefix)'
     },
     start: (client) => {
         client.botCommands = new Discord.Collection();
@@ -28,6 +32,6 @@ module.exports = {
         });
     },
     stop: (client) => {
-
+        delete client.botCommands;
     }
 }

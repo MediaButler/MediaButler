@@ -5,10 +5,10 @@ const guildSettingsProvider = new EnmapSQLite({ name: 'guildSettings' });
 const client = new Discord.Client();
 const fs = require('fs');
 client.mbVersion = '0.6';
-client.debug = true;
+client.debug = require('./config.json').debug;
 client.started = false;
 client.guildSettings = new Enmap({ provider: guildSettingsProvider });
-const token = require('./config/bot.json').discordToken;
+const token = require('./config.json').discordToken;
 const formatDate = require('./service/internal/discord/formatDate');
 
 // Logging functions

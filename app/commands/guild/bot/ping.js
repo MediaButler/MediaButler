@@ -7,6 +7,7 @@ module.exports = {
     },
     conf: {
         name: 'ping',
-        alias: ['p']
+        alias: ['p'],
+        description: 'Ping? Pong!'
     }
 }
