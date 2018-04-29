@@ -1,17 +1,17 @@
 const Discord = require('discord.js');
 const Enmap = require('enmap');
 const EnmapSQLite = require('enmap-sqlite');
-const settingsProvider = new EnmapSQLite({ name: 'settings' });
+const guildSettingsProvider = new EnmapSQLite({ name: 'guildSettings' });
 const client = new Discord.Client();
 const fs = require('fs');
 client.mbVersion = '0.6';
 client.debug = true;
 client.started = false;
-client.settings = new Enmap({ provider: settingsProvider });
+client.guildSettings = new Enmap({ provider: guildSettingsProvider });
 const token = require('./config/bot.json').discordToken;
 const formatDate = require('./service/internal/discord/formatDate');
-// Logging functions
 
+// Logging functions
 client.debugMsg = (msg) => {
     if (!client.debug) return;
     console.log(`${formatDate(new Date(), 'd M Y H:i:s')} | DEBUG | ${msg}`);
@@ -64,8 +64,6 @@ fs.readdir('./commands/direct/', (err, files) => {
         client.infoMsg(`Loaded DM command ${props.conf.name}`);
     });
 });
-
-// Load database
 
 // Load Events
 require('./service/events/loader')(client);
