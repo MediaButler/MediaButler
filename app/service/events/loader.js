@@ -4,8 +4,8 @@ module.exports = client => {
     client.on('reconnecting', () => reqEvent('reconnecting')(client));
     client.on('disconnect', (evnt) => reqEvent('disconnect')(client, evnt));
     client.on('message', (message) => reqEvent('message')(message));
-    client.on('guildCreate', (guild) => reqEvent('guildCreate')(guild));
-    client.on('guildDelete', (guild) => reqEvent('guildDelete')(guild));  
+    client.on('guildCreate', (client, guild) => reqEvent('guildCreate')(client, guild));
+    client.on('guildDelete', (client, guild) => reqEvent('guildDelete')(client, guild));  
     client.on('debug', (info) => reqEvent('debug')(client, info));
     client.on('error', (error) => reqEvent('error')(client, error));
     client.on('warn', (warning) => reqEvent('warn')(client, warning));

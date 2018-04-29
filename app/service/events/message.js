@@ -21,7 +21,7 @@ module.exports = (message) => {
             client.debugMsg(`Message received from ${message.author.username}@${message.guild.name}: ${message.content}`);
             let settings = client.guildSettings.get(message.guild.id);
             if (!settings) {
-                settings = require('../internal/db/defaultGuild.json');
+                settings = require('../internal/defaultGuild.json');
                 settings.uuid = uuid();
                 client.guildSettings.set(message.guild.id, settings);
             }
