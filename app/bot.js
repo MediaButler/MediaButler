@@ -27,8 +27,8 @@ console.log("\n"
     + "██║╚██╔╝██║██╔══╝  ██║  ██║██║██╔══██║██╔══██╗██║   ██║   ██║   ██║     ██╔══╝  ██╔══██╗ \n"
     + "██║ ╚═╝ ██║███████╗██████╔╝██║██║  ██║██████╔╝╚██████╔╝   ██║   ███████╗███████╗██║  ██║ \n"
     + "╚═╝     ╚═╝╚══════╝╚═════╝ ╚═╝╚═╝  ╚═╝╚═════╝  ╚═════╝    ╚═╝   ╚══════╝╚══════╝╚═╝  ╚═╝ \n"
-    + `Version ${client.mbVersion}\n\n`
-    + "Starting...");
+    + `Version ${client.mbVersion}\n`
+    + "Starting...\n\n");
 
 // Load commands
 client.guildCommands = new Discord.Collection();
