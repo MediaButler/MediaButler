@@ -9,7 +9,7 @@ client.debug = require('./config.json').debug;
 client.started = false;
 client.guildSettings = new Enmap({ provider: guildSettingsProvider });
 const token = require('./config.json').discordToken;
-const formatDate = require('./service/internal/discord/formatDate');
+const formatDate = require('./service/internal/formatDate');
 
 // Logging functions
 client.debugMsg = (msg) => {
@@ -18,6 +18,9 @@ client.debugMsg = (msg) => {
 }
 client.infoMsg = (msg) => {
     console.log(`${formatDate(new Date(), 'd M Y H:i:s')} | INFO | ${msg}`);
+}
+client.errorMsg = (msg) => {
+    console.error(`${formatDate(new Date(), 'd M Y H:i:s')} | ERROR | ${msg}`);
 }
 
 console.log("\n"
@@ -37,7 +40,7 @@ client.guildCommandAlias = new Discord.Collection();
 client.directCommandAlias = new Discord.Collection();
 
 fs.readdir('./commands/guild/', (err, files) => {
-    if (err) console.error(err);
+    if (err) client.errorMsg(err);
     client.infoMsg(`Loading Guild Commands... (Total: ${files.length})`);
     files.forEach(f => {
         const props = require(`./commands/guild/${f}`);
@@ -52,7 +55,7 @@ fs.readdir('./commands/guild/', (err, files) => {
 });
 
 fs.readdir('./commands/direct/', (err, files) => {
-    if (err) console.error(err);
+    if (err) client.errorMsg(err);
     client.infoMsg(`Loading Direct Message Commands... (Total: ${files.length})`);
     files.forEach(f => {
         const props = require(`./commands/direct/${f}`);
