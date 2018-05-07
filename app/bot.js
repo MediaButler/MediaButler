@@ -19,6 +19,9 @@ client.debugMsg = (msg) => {
 client.infoMsg = (msg) => {
     console.log(`${formatDate(new Date(), 'd M Y H:i:s')} | INFO | ${msg}`);
 }
+client.warnMsg = (msg) => {
+    console.warn(`${formatDate(new Date(), 'd M Y H:i:s')} | WARN | ${msg}`);
+}
 client.errorMsg = (msg) => {
     console.error(`${formatDate(new Date(), 'd M Y H:i:s')} | ERROR | ${msg}`);
 }
