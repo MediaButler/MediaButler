@@ -1,15 +1,16 @@
-const lang = require('../../../lang/en');
+const l = require('../../../config.json').defaultLanguage;
+const lang = require('../../../lang')(l);
 
 module.exports = {
     run: (client, message, args, perms) => {
-        message.channel.send(lang.bot.ping.ping)
+        message.channel.send(lang.get('bot.ping.ping'))
             .then(msg => {
-                msg.edit(lang.format(lang.bot.ping.reply, msg.createdTimestamp - message.createdTimestamp));
+                msg.edit(lang.get('bot.ping.reply', msg.createdTimestamp - message.createdTimestamp));
             });
     },
     conf: {
-        name: lang.bot.ping.name,
-        alias: [lang.bot.ping.alias],
-        description: lang.bot.ping.description
+        name: lang.get('bot.ping.name'),
+        alias: [lang.get('bot.ping.alias')],
+        description: lang.get('bot.ping.description')
     }
 }
