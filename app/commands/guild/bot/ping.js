@@ -1,13 +1,15 @@
+const lang = require('../../../lang/en');
+
 module.exports = {
     run: (client, message, args, perms) => {
-        message.channel.send('Ping?')
+        message.channel.send(lang.bot.ping.ping)
             .then(msg => {
-                msg.edit(`I'm still working! (It took me ${msg.createdTimestamp - message.createdTimestamp}ms to respond)`);
+                msg.edit(lang.format(lang.bot.ping.reply, msg.createdTimestamp - message.createdTimestamp));
             });
     },
     conf: {
-        name: 'ping',
-        alias: ['p'],
-        description: 'Ping? Pong!'
+        name: lang.bot.ping.name,
+        alias: [lang.bot.ping.alias],
+        description: lang.bot.ping.description
     }
 }

@@ -37,6 +37,7 @@
     "plex-api": "^5.2.0",
     "plex-api-pinauth": "^0.1.0",
     "sonarr-api": "^0.2.0",
+    "string-format": "^1.0.0",
     "uuid-v4": "^0.1.0"
   }
 }
