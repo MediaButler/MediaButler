@@ -1,6 +1,6 @@
 const SonarrAPI = require('sonarr-api');
 
-class sonarrService {
+class radarrService {
     constructor(settings) {
         if (!settings) throw new Error('Settings not provided');
         this._settings = settings;
@@ -12,7 +12,7 @@ class sonarrService {
         if (details[3] !== undefined) port = details[3];
         this._api = new SonarrAPI({ hostname: details[2], apiKey: settings.apikey, port: port, urlBase: `${details[4]}`, ssl: useSsl });
     }
-
+    
     get calendar(start = null, end = null) {
         return new Promise((resolve, reject) => {
             try {
@@ -28,14 +28,14 @@ class sonarrService {
         });
     }
 
-    getShow(filter) {
+    getMovie(filter) {
         return new Promise((resolve, reject) => {
             try {
                 let qry;
-                if (filter.tvdbId) qry = `tvdb:${filter.tvdbId}`;
+                if (filter.imdbId) qry = `imdb:${filter.imdbId}`;
                 if (filter.name) qry = filter.name;
                 if (!qry) throw new Error('No query');
-                _api.get('series/lookup', { 'term': `${qry}` })
+                _api.get('movie/lookup', { 'term': `${qry}` })
                     .then((result) => {
                         if (result.length === 0) throw new Error('No results for query');
                         resolve(result[0]);
@@ -47,28 +47,27 @@ class sonarrService {
         });
     }
 
-    addShow(show) {
+    addMovie(movie) {
         return new Promise((resolve, reject) => {
             try {
-                if (!show.tvdbId) throw new Error('tvdbId not set');
-                if (!show.profile && !show.profileId) throw new Error('Profile not set');
-                if (!show.rootPath) throw new Error('Root path not set');
+                if (!movie.imdbId) throw new Error('imdbId not set');
+                if (!movie.profile && !movie.profileId) throw new Error('Profile not set');
+                if (!movie.rootPath) throw new Error('Root path not set');
 
-                if (!show.profileId) this.getProfile(show.profile).then((profile) => { show.profileId = profile.id; });
+                if (!movie.profileId) this.getProfile(show.profile).then((profile) => { movie.profileId = profile.id; });
 
-                this.getShow({ tvdbId: show.tvdbId, limit: 1 }).then((getResult) => {
+                this.getMovie({ imdbId: show.imdbId, limit: 1 }).then((getResult) => {
                     const data = {
-                        'tvdbId': getResult.tvdbId,
+                        'tmdbId': getResult.tmdbId,
                         'title': getResult.title,
-                        'qualityProfileId': show.profileId,
+                        'qualityProfileId': movie.profileId,
                         'titleSlug': getResult.titleSlug,
                         'images': getResult.images,
-                        'seasons': getResult.seasons,
                         'monitored': true,
-                        'seasonFolder': true,
-                        'rootFolderPath': show.rootPath || this._settings.rootPath
-                    };
-                    _api.post('series', data)
+                        'rootFolderPath': movie.rootPath || this._settings.rootPath,
+                        'year': getResult.year
+                      };
+                    _api.post('movie', data)
                         .then((result) => {
                             if (result.title == undefined || result.title == null) reject('Failed to add');
                             resolve(true);
