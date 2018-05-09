@@ -1,3 +1,5 @@
+const axios = require('axios');
+
 class organizrService {
     constructor(settings) {
         this._settings = settings;
@@ -17,6 +19,7 @@ class organizrService {
                     });
             }
             catch (err) { reject(err); }
-        }
+        });
     }
 }
+module.exports = organizrService;

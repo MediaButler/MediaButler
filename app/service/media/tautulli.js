@@ -84,3 +84,4 @@ class tautulliService {
         });
     }
 }
+module.exports = tautulliService;

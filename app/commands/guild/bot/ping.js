@@ -1,10 +1,8 @@
-const _languageService = require('../../../service/language');
 module.exports = {
     run: (client, message, args, perms) => {
-        const languageService = new _languageService(message.guild.settings.lang);
-        message.channel.send(languageService.get('bot.ping.ping'))
+        message.channel.send(message.guild.languageService.get('bot.ping.ping'))
             .then(msg => {
-                msg.edit(languageService.get('bot.ping.reply', msg.createdTimestamp - message.createdTimestamp));
+                msg.edit(message.guild.languageService.get('bot.ping.reply', msg.createdTimestamp - message.createdTimestamp));
             });
     },
     conf: {

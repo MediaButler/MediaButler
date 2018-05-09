@@ -114,3 +114,4 @@ class playerService {
         }
     }
 }
+module.exports = playerService;

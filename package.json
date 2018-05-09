@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/MediaButler/MediaButler#readme",
   "dependencies": {
+    "axios": "^0.18.0",
     "bufferutil": "^3.0.4",
     "daemon": "^1.1.0",
     "discord.js": "^11.3.2",

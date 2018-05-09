@@ -13,7 +13,7 @@ class sonarrService {
         this._api = new SonarrAPI({ hostname: details[2], apiKey: settings.apikey, port: port, urlBase: `${details[4]}`, ssl: useSsl });
     }
 
-    get calendar(start = null, end = null) {
+    get monthCalendar() {
         return new Promise((resolve, reject) => {
             try {
                 const today = new Date();
@@ -79,3 +79,4 @@ class sonarrService {
         });
     }
 }
+module.exports = sonarrService;

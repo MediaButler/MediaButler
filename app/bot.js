@@ -11,8 +11,14 @@ client.guildSettings = new Enmap({ provider: guildSettingsProvider });
 const token = require('./config.json').discordToken;
 const formatDate = require('./service/internal/formatDate');
 
-const services = {};
-services.language = require('./service/language');
+client.services = {
+    language: require('./service/language'),
+    player: require('./service/player'),
+    organizr: require('./service/media/organizr'),
+    sonarr: require('./service/media/sonarr'),
+    radarr: require('./service/media/radarr'),
+    tautulli: require('./service/media/tautulli')
+};
 
 // Logging functions
 client.debugMsg = (msg) => {
@@ -46,7 +52,7 @@ client.guildCommandAlias = new Discord.Collection();
 client.directCommandAlias = new Discord.Collection();
 
 // Set global language
-client.languageService = new services.language('en');
+client.languageService = new client.services.language('en');
 
 fs.readdir('./commands/guild/', (err, files) => {
     if (err) client.errorMsg(err);

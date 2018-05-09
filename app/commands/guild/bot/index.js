@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 const fs = require('fs');
-const _languageService = require('../../../service/language');
 
 module.exports = {
     run: (client, message, args = [], perms) => {

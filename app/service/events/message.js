@@ -27,7 +27,7 @@ module.exports = (message) => {
                 client.guildSettings.set(message.guild.id, settings);
             }
             message.guild.settings = settings
-            message.guild.languageService = new _languageService(settings.lang)
+            if (!message.guild.languageService) message.guild.languageService = new _languageService(settings.lang);
             if (message.content.startsWith(settings.prefix)) {
                 command = message.content.split(' ')[0].slice(settings.prefix.length);
                 args = message.content.split(' ').slice(1);
