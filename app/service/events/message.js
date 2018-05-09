@@ -1,4 +1,5 @@
 const uuid = require('uuid-v4');
+const _languageService = require('../language');
 
 module.exports = (message) => {
     const client = message.client;
@@ -25,6 +26,8 @@ module.exports = (message) => {
                 settings.uuid = uuid();
                 client.guildSettings.set(message.guild.id, settings);
             }
+            message.guild.settings = settings
+            message.guild.languageService = new _languageService(settings.lang)
             if (message.content.startsWith(settings.prefix)) {
                 command = message.content.split(' ')[0].slice(settings.prefix.length);
                 args = message.content.split(' ').slice(1);
@@ -32,7 +35,7 @@ module.exports = (message) => {
                 if (client.guildCommandAlias.has(command)) action = client.guildCommandAlias.get(command);
                 if (client.guildCommands.has(command)) action = client.guildCommands.get(command);
                 if (action) {
-                    client.debugMsg(`Running command ${action.conf.name}`);
+                    client.debugMsg(`Running command ${client.languageService.get(action.conf.name)}`);
                     action.run(client, message, args, perms);
                 }
             }

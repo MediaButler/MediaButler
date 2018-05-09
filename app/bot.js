@@ -11,6 +11,9 @@ client.guildSettings = new Enmap({ provider: guildSettingsProvider });
 const token = require('./config.json').discordToken;
 const formatDate = require('./service/internal/formatDate');
 
+const services = {};
+services.language = require('./service/language');
+
 // Logging functions
 client.debugMsg = (msg) => {
     if (!client.debug) return;
@@ -42,18 +45,22 @@ client.directCommands = new Discord.Collection();
 client.guildCommandAlias = new Discord.Collection();
 client.directCommandAlias = new Discord.Collection();
 
+// Set global language
+client.languageService = new services.language('en');
+
 fs.readdir('./commands/guild/', (err, files) => {
     if (err) client.errorMsg(err);
     client.infoMsg(`Loading Guild Commands... (Total: ${files.length})`);
     files.forEach(f => {
         const props = require(`./commands/guild/${f}`);
         if (props.onLoad) props.onLoad();
-        client.guildCommands.set(props.conf.name, props);
-        if (props.start) props.start(client);
-        props.conf.alias.forEach(alias => {
-            client.guildCommandAlias.set(alias, props);
-        });
-        client.infoMsg(`Loaded command ${props.conf.name}`)
+        client.guildCommands.set(client.languageService.get(props.conf.name), props);
+        if (props.start) props.start(client, client.languageService);
+        if (props.conf.alias) {
+            const t = client.languageService.get(props.conf.alias.toString());
+            client.guildCommandAlias.set(t, props);
+        }
+        client.infoMsg(`Loaded command ${client.languageService.get(props.conf.name)}`)
     });
 });
 
@@ -63,11 +70,12 @@ fs.readdir('./commands/direct/', (err, files) => {
     files.forEach(f => {
         const props = require(`./commands/direct/${f}`);
         if (props.onLoad) props.onLoad();
-        client.directCommands.set(props.conf.name, props);
-        props.conf.alias.forEach(alias => {
-            client.directCommandAlias.set(alias, props);
-        });
-        client.infoMsg(`Loaded DM command ${props.conf.name}`);
+        client.directCommands.set(client.languageService.get(props.conf.name), props);
+        if (props.conf.alias) {
+            const t = client.languageService.get(props.conf.alias.toString());
+            client.guildCommandAlias.set(t, props);
+        }
+        client.infoMsg(`Loaded DM command ${client.languageService.get(props.conf.name)}`);
     });
 });
 

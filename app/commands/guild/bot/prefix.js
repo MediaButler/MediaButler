@@ -1,7 +1,7 @@
 module.exports = {
     run: (client, message, args, perms) => {
         let err;
-        if (args.length == 0) err = 'No prefix defined';
+        if (args.length == 0) err = message.guild.languageService.get('bot.prefix.noPrefix');
 
         if (err) {
             message.channel.send(`Error: ${err}`);
@@ -10,11 +10,11 @@ module.exports = {
         const settings = client.guildSettings.get(message.guild.id);
         settings.prefix = args;
         client.guildSettings.set(message.guild.id, settings);
-        message.channel.send(`Updated prefix to ${args}`);
+        message.channel.send(message.guild.languageService.get('bot.prefix.changePrefix',args));
     },
     conf: {
-        name: 'prefix',
-        alias: [],
-        description: 'Changes bot prefix'
+        name: 'bot.prefix.name',
+        alias: false,
+        description: 'bot.prefix.description'
     }
 }

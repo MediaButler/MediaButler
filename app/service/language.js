@@ -12,3 +12,4 @@ class languageService {
         return format(eval(`this.core.${key}`), values);
     }
 }
+module.exports = languageService;
