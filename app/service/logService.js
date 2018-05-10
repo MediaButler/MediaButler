@@ -13,8 +13,8 @@ module.exports = class logService {
     }
 
     warn(warning) {
-        if (this.levels.indexOf('warn') >= this.console) this._writeConsole(msg, 'WARN');
-        if (this.levels.indexOf('warn') >= this.logfile) this._writeFile(msg, 'WARN');
+        if (this.levels.indexOf('warn') >= this.console) this._writeConsole(warning, 'WARN');
+        if (this.levels.indexOf('warn') >= this.logfile) this._writeFile(warning, 'WARN');
     }
 
     info(msg) {
@@ -22,8 +22,8 @@ module.exports = class logService {
         if (this.levels.indexOf('info') >= this.logfile) this._writeFile(msg, 'INFO');
     }
     error(err) {
-        if (this.levels.indexOf('error') >= this.console) this._writeConsole(msg, 'ERROR');
-        if (this.levels.indexOf('error') >= this.logfile) this._writeFile(msg, 'ERROR');
+        if (this.levels.indexOf('error') >= this.console) this._writeConsole(err, 'ERROR');
+        if (this.levels.indexOf('error') >= this.logfile) this._writeFile(err, 'ERROR');
     }
 
     _writeConsole(msg, level) {

@@ -20,16 +20,33 @@ module.exports = class languageService {
         catch (err) { throw err; }
     }
 
-    get languages() {
-        return this.langCore.keys();
+    getLanguages() {
+        const t = Array.from(this.langCore.keys());
+        return t;
     }
 
     get(lang, key, values = []) {
-        const lang = this.langCore.get(lang);
-        return this.format(eval(`lang.${key}`), values);
+        const lang2 = this.langCore.get(lang.toString());
+        return this.format(eval(`lang2.${key}`), values);
     }
 
     format(str, values = []) {
         return format(str, values);
+    }
+
+    async resolve(lang, value) {
+        lang = this.langCore.get(lang.toString());
+        let g;
+        let i;
+        Object.keys(lang).slice(2).forEach((e) => {
+            const evl = eval(`lang.${e}`);
+            Object.keys(evl).forEach((k) => {
+                if (eval(`lang.${e}.${k}.name`) == value) {
+                    g = `${e}`;
+                    i = `${k}`;
+                }
+            });
+        });
+        return `${g}.${i}`;
     }
 }

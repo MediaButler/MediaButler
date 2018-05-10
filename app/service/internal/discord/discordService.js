@@ -3,17 +3,19 @@ const logService = require('../../logService');
 const languageService = require('../../languageService');
 const messageHandler = require('../discord/messageHandler');
 const settingsService = require('../../settingsService');
+const commandRepository = require('./commandRepository');
 
 module.exports = class discordService extends Discord.Client {
     constructor(config = {}) {
         super(config);
-        this.mbVersion = '0.6';
+        this.mbVersion = '0.6-DEV';
         this.settingsService = new settingsService();
         this.logService = new logService(0);
         this.languageService = new languageService(this.logService);
-        this.messageHandler = new messageHandler(this, this.logService, this.languageService);
+        this.commandRepository = new commandRepository(this)
+        this.messageHandler = new messageHandler(this, this.commandRepository, this.logService, this.languageService, this.settingsService);
 
-        const msgErr = err => { this.emit('error', err); };
+        const msgErr = (err) => { this.emit('error', err); };
         this.on('message', (message) => { 
             this.messageHandler.handle(message).catch(msgErr);
         });
@@ -25,14 +27,22 @@ module.exports = class discordService extends Discord.Client {
         this.on('warn', (msg) => this.logService.warn(msg));
 
         this.on('guildCreate', (client, guild) => {
-            // Create settings for guild
+            guild.settings = this.settingsService.get(guild.id);
+            if (!guild.settings) {
+                guild.settings = require('../internal/defaultGuild.json');
+                guild.settings.uuid = uuid();
+                this.settingsService.set(guild.id, guild.settings);
+                this.logService.info(`Joined Guild ${guild.name}`);
+            }
         });
         this.on('guildDelete', (client, guild) => {
-            // Remove all settings for guild
+            this.settingsService.delete(guild.id);
+            this.logService.info(`Left Guild ${guild.name}`);
         });
 
         this.once('ready', () => {
             // Roll through each guild load in settings, make them accessible
+            this.user.setPresence({game: {name: `MediaButler v${this.mbVersion}`, type: 0}});
         });
     }
 }

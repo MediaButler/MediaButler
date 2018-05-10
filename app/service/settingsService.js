@@ -13,4 +13,8 @@ module.exports = class settingsService {
     set(key, value) {
         return this.provider.set(key, value);
     }
+
+    delete(key) {
+        return this.provider.delete(key);
+    }
 }
