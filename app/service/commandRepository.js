@@ -9,18 +9,40 @@ module.exports = class commandRepository {
         this.loadCommands('commands/guild');
     }
 
-    allCommands() {
-        return this.commands.keys();
+    getGroups() {
+        return this.groups.keyArray()
+    }
+
+    getCommands() {
+        return this.commands.keyArray();
+    }
+
+    async getGroup(name) {
+        return await this.groups.get(name);
+    }
+
+    addGroup(name) {
+        const t = {
+            'name': name,
+            'commands': new Discord.Collection(),
+        }
+        this.groups.set(name, t);
     }
 
     addCommand(command) {
         const cmd = new command(this.client);
 
-        if (this.commands.some(ccmd => ccmd.name === cmd.info.name)) {
+        if (!this.groups.some(x => x.name == cmd.info.group)) { 
+            this.addGroup(cmd.info.group);
+        }
+
+        const g = this.groups.get(cmd.info.group);
+        if (g.commands.some(x => x.name === cmd.info.name)) {
             throw new Error(`Command "${cmd.info.name}" already exists`);
         }
-        this.client.logService.info(`Loaded command: ${cmd.info.name}`);
-        return this.commands.set(cmd.info.name, command);
+        g.commands.set(cmd.info.name, command);
+        this.groups.set(cmd.info.group, g);
+        this.client.logService.info(`Loaded command: ${cmd.info.group}.${cmd.info.name}`);
     }
 
     getCommand(key) {

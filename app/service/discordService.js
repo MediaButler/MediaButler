@@ -1,8 +1,8 @@
 const Discord = require('discord.js');
-const logService = require('../../logService');
-const languageService = require('../../languageService');
-const messageHandler = require('../discord/messageHandler');
-const settingsService = require('../../settingsService');
+const logService = require('./logService');
+const languageService = require('./languageService');
+const messageService = require('./messageService');
+const settingsService = require('./settingsService');
 const commandRepository = require('./commandRepository');
 
 module.exports = class discordService extends Discord.Client {
@@ -13,14 +13,14 @@ module.exports = class discordService extends Discord.Client {
         this.logService = new logService(0);
         this.languageService = new languageService(this.logService);
         this.commandRepository = new commandRepository(this)
-        this.messageHandler = new messageHandler(this, this.commandRepository, this.logService, this.languageService, this.settingsService);
+        this.messageService = new messageService(this, this.commandRepository, this.logService, this.languageService, this.settingsService);
 
         const msgErr = (err) => { this.emit('error', err); };
         this.on('message', (message) => { 
-            this.messageHandler.handle(message).catch(msgErr);
+            this.messageService.handle(message).catch(msgErr);
         });
         this.on('messageUpdate', (oldMessage, message) => {
-            this.messageHandler.handle(message, oldMessage).catch(msgErr);
+            this.messageService.handle(message, oldMessage).catch(msgErr);
         });
         this.on('debug', (msg) => this.logService.debug(msg));
         this.on('error', (msg) => this.logService.error(msg));

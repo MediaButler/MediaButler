@@ -3,10 +3,8 @@ const command = require('../base');
 module.exports = class prefixCommand extends command {
     constructor(client) {
         const info = {
-            "name": "bot.prefix",
-            "alias": ["bot.ping.alias"],
+            "name": "prefix",
             "group": "bot",
-            "description": "bot.prefix.description",
             "type": "guild"
         }
         super(client, info);

@@ -3,10 +3,8 @@ const command = require('../base');
 module.exports = class languageCommand extends command {
     constructor(client) {
         const info = {
-            "name": "bot.language",
-            "alias": ["bot.language.alias"],
+            "name": "language",
             "group": "bot",
-            "description": "bot.language.description",
             "type": "guild"
         }
         super(client, info);

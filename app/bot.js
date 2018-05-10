@@ -1,4 +1,4 @@
-const discordService = require('./service/internal/discord/discordService');
+const discordService = require('./service/discordService');
 const client = new discordService();
 const token = require('./config.json').discordToken;
 
