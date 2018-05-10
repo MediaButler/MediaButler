@@ -62,15 +62,22 @@ class plexService {
         });
     }
 
-    get playlists() {
+    get audioPlaylists() {
         // Return all playlists
     }
 
-    killStream() {
-        // Kill active stream
+    killStream(id, reason) {
+        return new Promise((resolve, reject) => {
+            try {
+                this._api.perform(`/status/sessions/terminate?sessionId=${id}&reason=${reason}`).then(function () {
+                    resolve();
+                }, (err) => { throw err; });
+            }
+            catch (err) { reject(err); }
+        });
     }
 
-    getPlaylist() {
+    audioPlaylist() {
         // Get single playlist from playlists
     }
 }
