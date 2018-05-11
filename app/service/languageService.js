@@ -9,7 +9,7 @@ module.exports = class languageService {
         try {
             this.logService = logService;
             if (!logService) logService = new logService();
-            this.langCore = new Discord.Collection();
+            this.langCore = new Enmap();
             fs.readdir(`${process.cwd()}/lang/`, (err, files) => {
                 if (err) return this.logService.error(err);
                 files.forEach(f => {
