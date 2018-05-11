@@ -1,11 +1,12 @@
 const Discord = require('discord.js');
 const fs = require('fs');
+const Enmap = require('enmap');
 
 module.exports = class commandRepository {
     constructor(client) {
         this.client = client;
-        this.groups = new Discord.Collection();
-        this.commands = new Discord.Collection();
+        this.groups = new Enmap();
+        this.commands = new Enmap();
         this.loadCommands('commands/guild');
     }
 
@@ -24,7 +25,7 @@ module.exports = class commandRepository {
     addGroup(name) {
         const t = {
             'name': name,
-            'commands': new Discord.Collection(),
+            'commands': new Enmap(),
         }
         this.groups.set(name, t);
     }

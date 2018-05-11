@@ -11,7 +11,8 @@ class playerService {
     //        user: Discord.User
     //    }
     constructor(channel) {
-        this._channel = channel;
+        this.channel = channel;
+        this.guild = guild;
         this.queue = [];
         this.isPlaying = false;
         this.isPaused = false;
@@ -26,7 +27,7 @@ class playerService {
     add(media) {
         try {
             if (!media.url) throw new Error('Media URL not found');
-            if (!media.user) throw new Error('User not ser');
+            if (!media.user) throw new Error('User not set');
             if (!media.artist) throw new Error('No Artist found');
             if (!media.title) throw new Error('Song title not found');
             this.queue.push(media);

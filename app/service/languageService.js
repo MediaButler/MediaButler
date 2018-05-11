@@ -11,7 +11,7 @@ module.exports = class languageService {
             if (!logService) logService = new logService();
             this.langCore = new Discord.Collection();
             fs.readdir(`${process.cwd()}/lang/`, (err, files) => {
-                if (err) client.errorMsg(err);
+                if (err) return this.logService.error(err);
                 files.forEach(f => {
                     const prop = require(`${process.cwd()}/lang/${f}`);
                     this.langCore.set(prop.code, prop);

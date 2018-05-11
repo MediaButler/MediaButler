@@ -11,16 +11,17 @@ module.exports = class languageCommand extends command {
     }
 
     async run(message, args) {
-        args = args.toString();
-        if (args == '') return message.channel.send(this.client.languageService.get(message.guild.settings.lang, 'bot.language.failedArgs'));
-        if (args == message.guild.settings.lang) return message.channel.send(this.client.languageService.get(message.guild.settings.lang, 'bot.language.failedSame'));
+        console.log(args);
+        //args = args.toString();
+        if (args == '') return message.say(this.client.languageService.get(message.guild.settings.lang, 'bot.language.failedArgs'));
+        if (args == message.guild.settings.lang) return message.say(this.client.languageService.get(message.guild.settings.lang, 'bot.language.failedSame'));
         const languages = this.client.languageService.getLanguages();
-        if (languages.indexOf(args) == -1) return message.channel.send(this.client.languageService.get(message.guild.settings.lang, 'bot.language.failedNotFound'));
+        if (languages.indexOf(args) == -1) return message.say(this.client.languageService.get(message.guild.settings.lang, 'bot.language.failedNotFound'));
 
         message.guild.settings = this.client.settingsService.get(message.guild.id);
         message.guild.settings.lang = args;
         this.client.settingsService.set(message.guild.id, message.guild.settings);
 
-        message.channel.send(this.client.languageService.get(message.guild.settings.lang, 'bot.language.success'));
+        return message.say(this.client.languageService.get(message.guild.settings.lang, 'bot.language.success'));
     }
 }

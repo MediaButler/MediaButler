@@ -10,10 +10,8 @@ module.exports = class pingCommand extends command {
         super(client, info);
     }
 
-    run(message, args = []) {
-        message.channel.send(this.client.languageService.get(message.guild.settings.lang, 'bot.ping.ping'))
-        .then(msg => {
-            msg.edit(this.client.languageService.get(message.guild.settings.lang, 'bot.ping.reply', msg.createdTimestamp - message.createdTimestamp));
-        });
+    async run(message, args = []) {
+        const msg = await message.say(this.client.languageService.get(message.guild.settings.lang, 'bot.ping.ping'));
+        return msg.edit(this.client.languageService.get(message.guild.settings.lang, 'bot.ping.reply', msg.createdTimestamp - message.createdTimestamp));
     }
 }

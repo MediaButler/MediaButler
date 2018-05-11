@@ -17,7 +17,6 @@ module.exports = class prefixCommand extends command {
         message.guild.settings.prefix = args;
         this.client.settingsService.set(message.guild.id, message.guild.settings);
         message.channel.send(this.client.languageService.get(message.guild.settings.lang, 'bot.prefix.changePrefix', args));
-
     }
 
 }

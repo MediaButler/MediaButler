@@ -1,4 +1,6 @@
 const Discord = require('discord.js');
+const fs = require('fs');
+const uuid = require('uuid');
 const logService = require('./logService');
 const languageService = require('./languageService');
 const messageService = require('./messageService');
@@ -8,9 +10,14 @@ const commandRepository = require('./commandRepository');
 module.exports = class discordService extends Discord.Client {
     constructor(config = {}) {
         super(config);
-        this.mbVersion = '0.6-DEV';
-        this.settingsService = new settingsService();
-        this.logService = new logService(0);
+        this.mbVersion = '1.0';
+        this.isDocker = false;
+        if (fs.existsSync('/config/')) {
+            this.isDocker = true;
+        }
+
+        this.settingsService = new settingsService(this);
+        this.logService = new logService(config.consoleLog);
         this.languageService = new languageService(this.logService);
         this.commandRepository = new commandRepository(this)
         this.messageService = new messageService(this, this.commandRepository, this.logService, this.languageService, this.settingsService);
@@ -29,9 +36,7 @@ module.exports = class discordService extends Discord.Client {
         this.on('guildCreate', (client, guild) => {
             guild.settings = this.settingsService.get(guild.id);
             if (!guild.settings) {
-                guild.settings = require('../internal/defaultGuild.json');
-                guild.settings.uuid = uuid();
-                this.settingsService.set(guild.id, guild.settings);
+                guild.settings = this.settingsService.create(guild.id);
                 this.logService.info(`Joined Guild ${guild.name}`);
             }
         });
@@ -41,8 +46,14 @@ module.exports = class discordService extends Discord.Client {
         });
 
         this.once('ready', () => {
-            // Roll through each guild load in settings, make them accessible
             this.user.setPresence({game: {name: `MediaButler v${this.mbVersion}`, type: 0}});
+            this.guilds.forEach((guild) => {
+                guild.settings = this.settingsService.get(guild.id);
+                if (!guild.settings) {
+                    guild.settings = this.settingsService.create(guild.id);
+                    this.logService.info(`Created guildSettings: ${guild.name}`);
+                }
+            });
         });
     }
 }
