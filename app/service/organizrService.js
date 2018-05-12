@@ -7,19 +7,12 @@ class organizrService {
         if (!settings.apikey) throw new Error('APIKey not set');
     }
 
-    get config() {
-        return new Promise((resolve, reject) => {
-            try {
-                const data = {
-                    plugin: 'MB/config/get'
-                };
-                axios.post(this._settings.url + '/api/?v1/plugin', { data }, { headers: { 'token': this._settings.apikey } })
-                    .then((response) => {
-                        resolve(response.data.data);
-                    });
-            }
-            catch (err) { reject(err); }
-        });
+    async getConfig() {
+        try {
+            const response = await axios.post(this._settings.url + '/api/?v1/plugin', 'data[plugin]=MB/config/get', { headers: { 'token': this._settings.apikey } });
+            return response.data.data;
+        }
+        catch (err) { throw err; }
     }
 }
 module.exports = organizrService;

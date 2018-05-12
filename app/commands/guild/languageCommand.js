@@ -11,8 +11,6 @@ module.exports = class languageCommand extends command {
     }
 
     async run(message, args) {
-        console.log(args);
-        //args = args.toString();
         if (args == '') return message.say(this.client.languageService.get(message.guild.settings.lang, 'bot.language.failedArgs'));
         if (args == message.guild.settings.lang) return message.say(this.client.languageService.get(message.guild.settings.lang, 'bot.language.failedSame'));
         const languages = this.client.languageService.getLanguages();

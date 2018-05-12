@@ -1,6 +1,6 @@
 {
   "name": "mediabutler",
-  "version": "0.6.0",
+  "version": "1.0.0",
   "description": "Discord bot to interact with services",
   "main": "bot.js",
   "scripts": {
@@ -36,8 +36,9 @@
     "node-opus": "^0.2.7",
     "npm": "^5.8.0",
     "plex-api": "^5.2.0",
-    "plex-api-pinauth": "^0.1.0",
+    "plex-pin": "^0.0.5",
     "sonarr-api": "^0.2.0",
+    "better-sqlite3": "^4.0.0",
     "string-format": "^1.0.0",
     "uuid-v4": "^0.1.0"
   }

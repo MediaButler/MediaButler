@@ -3,3 +3,4 @@ node_modules/*
 app/data/*.sqlite
 app/data/*.sqlite*
 app/config.json
+build/*

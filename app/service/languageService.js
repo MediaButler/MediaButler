@@ -1,5 +1,6 @@
 const format = require('string-format');
 const fs = require('fs');
+const Enmap = require('enmap');
 const process = require('process');
 const Discord = require('discord.js');
 const logService = require('./logService');
@@ -27,12 +28,12 @@ module.exports = class languageService {
         return t;
     }
 
-    get(lang, key, values = []) {
+    get(lang, key, values = null) {
         const lang2 = this.langCore.get(lang.toString());
         return this.format(eval(`lang2.${key}`), values);
     }
 
-    format(str, values = []) {
+    format(str, values) {
         return format(str, values);
     }
 

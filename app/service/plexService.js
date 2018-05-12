@@ -1,13 +1,14 @@
 const plexApi = require('plex-api');
-const plexPinAuth = require('plex-api-pinauth')();
 
 class plexService {
-    constructor(settings) {
-        this.hasToken = false;
-        if (!settings.plex.url) throw new Error('URL is not set');
-        if (settings.plex.token) this.hasToken = true;
+    constructor(settings, client) {
+        this.hasToken = true;
+        console.log(settings);
+        if (!settings.url) throw new Error('URL is not set');
+        if (!settings.token) throw new Error('Token not provided');
+        if (!settings.uuid) throw new Error('No identifier provided');
         const regex = /^(http[s]?):\/?\/?([^:\/\s]+):?([0-9]{5})?((\/\w+)*\/)([\w\-\.]+[^#?\s]+)?$/g;
-        const details = regex.exec(settings.plex.url);
+        const details = regex.exec(settings.url);
         let usePort = 80;
         let useHttps = false;
         if (details[1] == 'https') { useHttps = true; usePort = 443; }
@@ -17,49 +18,54 @@ class plexService {
                 identifier: settings.uuid,
                 product: 'MediaButler',
                 version: client.mbVersion,
-                deviceName: message.guild.name,
+                deviceName: 'plexService',
                 device: 'Discord',
             },
-            authenticator: plexPinAuth,
             hostname: details[2],
             port: usePort,
             https: useHttps,
-            token: settings.plex.token,
+            token: settings.token,
         }
         if (settings.pinToken) this.pinToken = settings.pinToken;
         this._api = new plexApi(opts);
     }
 
-    getPinAuth() {
+    async getPinAuth() {
         if (!this.hasToken) {
-            this._api.authenticator.getNewPin().then((pin) => {
-                this.pinToken = pin;
-            });
+            this.pinToken = await this._api.authenticator.getNewPin();
+            return this.pinToken;
         }
     }
 
-    checkPinAuth() {
-        if (this.pinToken && !this.hasToken) {
-            this._api.authenticator.checkPinForAuth(this.pinToken, (err, status) => {
-                if (err) throw err;
-                this
-            });
+    async checkPinAuth() {
+        if (this.pinToken) {
+            console.log('checking for auth');
+
+            const token = await this._api.authenticator.checkPinForAuth(this.pinToken);
+            //, (err, status) => {
+            //    if (err) throw err;
+            //    if (status == 'authorized') {
+            console.log('have auth');
+            console.log(token);
+            console.log(this._api.authenticator.token);
+            //        this.hasToken = true;
+            return this._api.authenticator.token;
+            //    }
+            //    console.log(status);
+            //    return status;
+            //});
         } else {
             throw new Error('No Token to Authenticate to');
         }
     }
 
-    get nowPlaying() {
+    async getNowPlaying() {
         // Active streams
-        return new Promise((resolve, reject) => {
             try {
-                this._api.query('/status/sessions')
-                    .then((res) => {
-                        resolve(res);
-                    }, (err) => { throw err });
+                const res = await this._api.query('/status/sessions')
+                return res;
             }
-            catch (err) { reject(err); }
-        });
+            catch (err) { throw err; }
     }
 
     get audioPlaylists() {

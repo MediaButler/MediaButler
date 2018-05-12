@@ -20,7 +20,7 @@ module.exports = class messageService {
             let msgCmd, msgCmdOld;
             msgCmd = await this.parseMessage(message);
             if (oldMessage) {
-                msgCmdOld = await this._results.get(oldMessage.id);                
+                msgCmdOld = await this._results.get(oldMessage.id);
                 if (msgCmd && msgCmdOld) {
                     msgCmd.response = msgCmdOld.response;
                     msgCmd.responsePositions = msgCmdOld.responsePositions;
@@ -31,10 +31,12 @@ module.exports = class messageService {
                 if (msgCmdOld) {
                     msgCmdOld.finalize(null);
                 }
-                response = await msgCmd.run();
-                if (typeof response === 'undefined') response = null;
-                msgCmd.finalize(response);
-                this.saveCommandMessage(message, oldMessage, msgCmd, response);
+                if (msgCmd.command) {
+                    response = await msgCmd.run();
+                    if (typeof response === 'undefined') response = null;
+                    msgCmd.finalize(response);
+                    this.saveCommandMessage(message, oldMessage, msgCmd, response);
+                }
             }
         }
     }
@@ -67,13 +69,15 @@ module.exports = class messageService {
             const [grp, cmd] = a.split('.');
             const g = await this.commandRepository.getGroup(grp);
             command = await g.commands.get(cmd);
-            args = message.content.split(' ').shift();
+            args = message.content.split(' ');
+            args.shift();
             args = args.toString();
         }
         const t = await this.languageService.resolveGroup(message.guild.settings.lang, fw);
         if (t) {
-            let sw = message.content.split(' ')[1];
-            if (!sw) throw new Error('No command specified');
+            const sw = message.content.split(' ')[1];
+            const ttt = await this.languageService.get(message.guild.settings.lang, 'bot.notEnoughArguments');
+            if (!sw) return message.channel.send(ttt);
             const t2 = await this.languageService.resolveCommand(message.guild.settings.lang, t, sw);
             const g = await this.commandRepository.getGroup(t);
             command = g.commands.get(t2);

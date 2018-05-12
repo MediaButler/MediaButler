@@ -1,6 +1,6 @@
 const SonarrAPI = require('sonarr-api');
 
-class sonarrService {
+module.exports = class sonarrService {
     constructor(settings) {
         if (!settings) throw new Error('Settings not provided');
         this._settings = settings;
@@ -13,70 +13,60 @@ class sonarrService {
         this._api = new SonarrAPI({ hostname: details[2], apiKey: settings.apikey, port: port, urlBase: `${details[4]}`, ssl: useSsl });
     }
 
-    get monthCalendar() {
-        return new Promise((resolve, reject) => {
-            try {
-                const today = new Date();
-                const beginningMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-                const endMonth = new Date(today.getFullYear(), today.getMonth(), 31);
-                _api.get('calendar', { 'start': beginningMonth.toISOString(), 'end': endMonth.toISOString() })
-                    .then((result) => {
-                        resolve(result);
-                    });
-            }
-            catch (err) { reject(err); }
-        });
+    async getMonthCalendar() {
+        try {
+            const today = new Date();
+            const beginningMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+            const endMonth = new Date(today.getFullYear(), today.getMonth(), 31);
+            const result = await this._api.get('calendar', { 'start': beginningMonth.toISOString(), 'end': endMonth.toISOString() });
+            return result;
+        }
+        catch (err) { throw err; }
     }
 
-    getShow(filter) {
-        return new Promise((resolve, reject) => {
-            try {
-                let qry;
-                if (filter.tvdbId) qry = `tvdb:${filter.tvdbId}`;
-                if (filter.name) qry = filter.name;
-                if (!qry) throw new Error('No query');
-                _api.get('series/lookup', { 'term': `${qry}` })
-                    .then((result) => {
-                        if (result.length === 0) throw new Error('No results for query');
-                        resolve(result[0]);
-                    })
-            }
-            catch (err) {
-                reject(err);
-            }
-        });
+    async getShow(filter) {
+        try {
+            let qry;
+            if (filter.tvdbId) qry = `tvdb:${filter.tvdbId}`;
+            if (filter.name) qry = filter.name;
+            if (!qry) throw new Error('No query');
+            const result = await this._api.get('series/lookup', { 'term': `${qry}` });
+            if (result.length === 0) throw new Error('No results for query');
+            return result[0];
+        }
+        catch (err) { throw err; }
     }
 
-    addShow(show) {
-        return new Promise((resolve, reject) => {
-            try {
-                if (!show.tvdbId) throw new Error('tvdbId not set');
-                if (!show.profile && !show.profileId) throw new Error('Profile not set');
-                if (!show.rootPath) throw new Error('Root path not set');
+    async addShow(show) {
+        try {
+            if (!show.tvdbId) throw new Error('tvdbId not set');
+            if (!show.profile && !show.profileId) throw new Error('Profile not set');
+            if (!show.rootPath) throw new Error('Root path not set');
 
-                if (!show.profileId) this.getProfile(show.profile).then((profile) => { show.profileId = profile.id; });
-
-                this.getShow({ tvdbId: show.tvdbId, limit: 1 }).then((getResult) => {
-                    const data = {
-                        'tvdbId': getResult.tvdbId,
-                        'title': getResult.title,
-                        'qualityProfileId': show.profileId,
-                        'titleSlug': getResult.titleSlug,
-                        'images': getResult.images,
-                        'seasons': getResult.seasons,
-                        'monitored': true,
-                        'seasonFolder': true,
-                        'rootFolderPath': show.rootPath || this._settings.rootPath
-                    };
-                    _api.post('series', data)
-                        .then((result) => {
-                            if (result.title == undefined || result.title == null) reject('Failed to add');
-                            resolve(true);
-                        });
-                })
+            if (!show.profileId) {
+                const profile = await this.getProfile(show.profile);
+                if (profile.id) show.profileId = profile.id;
+                else throw new Error('Unable to determine profile');
             }
-            catch (err) { reject(err); }
-        });
+
+            const getResult = await this.getShow({ tvdbId: show.tvdbId, limit: 1 });
+            if (getResult) {
+                const data = {
+                    'tvdbId': getResult.tvdbId,
+                    'title': getResult.title,
+                    'qualityProfileId': show.profileId,
+                    'titleSlug': getResult.titleSlug,
+                    'images': getResult.images,
+                    'seasons': getResult.seasons,
+                    'monitored': true,
+                    'seasonFolder': true,
+                    'rootFolderPath': show.rootPath || this._settings.rootPath
+                };
+                const result = await this._api.post('series', data);
+                if (result.title == undefined || result.title == null) throw new Error('Failed to add');
+                return true;
+            }
+        }
+        catch (err) { throw err; }
     }
 }
-module.exports = sonarrService;
