@@ -37,15 +37,15 @@ module.exports = class languageService {
         return format(str, values);
     }
 
-    async resolve(lang, value) {
-        let g = await this.resolveGroup(lang, value);
+    resolve(lang, value) {
+        let g = this.resolveGroup(lang, value);
         g = g.toString();
-        let c = await this.resolveCommand(lang, value);
+        let c = this.resolveCommand(lang, value);
         c = c.toString();
         return `${g}.${c}`;
     }
 
-    async resolveAlias(lang, value) {
+    resolveAlias(lang, value) {
         lang = this.langCore.get(lang.toString());
         let g;
         let c;
@@ -61,7 +61,7 @@ module.exports = class languageService {
         return `${g}.${c}`;
     }
 
-    async resolveGroup(lang, value) {
+    resolveGroup(lang, value) {
         lang = this.langCore.get(lang.toString());
         let g;
         Object.keys(lang).slice(2).forEach((e) => {
