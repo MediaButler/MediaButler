@@ -162,7 +162,6 @@ module.exports = class configureCommand extends command {
 
     async configureSonarr(msg, args) {
         try {
-            console.log(args);
             if (!args.rootpath || !args.profile) throw new Error('Root Path or Profile name not specifified');
             if (await this._testSonarr(msg, args)) {
                 this._updateSettings('sonarr', msg.guild.id, { 'url': args.url, 'apikey': args.apikey, 'profile': args.profile, 'rootPath': args.rootpath });

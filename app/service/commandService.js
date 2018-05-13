@@ -40,7 +40,6 @@ module.exports = class commandService {
                     this.response[id] = [];
 					this.responsePositions[id] = -1;
                 }
-                console.log(`saving ${response.id}`);
                 this.responses[id].push(response);
             });
         } else if (response) {

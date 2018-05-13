@@ -8,20 +8,30 @@ MediaButler is a bot for Discord that interacts with several services around med
 
 Ticks are currently supported. Others are planned support.
 
-[x] Plex
-[x] Emby
-[x] Sonarr
-[x] Radarr
+[X] Plex
+[ ] Emby
+[X] Sonarr
+[X] Radarr
 [ ] Lidarr
-[x] Tautulli
+[X] Tautulli
 [ ] Ombi
 
 ## Installation
 
-    git clone https://github.com/MediaButler/MediaButler
+### Native
+
+    git clone https://github.com/vertig0ne/MediaButler.git -b v1
     cd MediaButler
     npm install
-    nano config/bot.js
-    npm start
+    TOKEN=DISCORD_TOKEN npm start
 
-## Configuration
+### Docker
+
+    docker create --name=mediabutler \
+        -e TOKEN=DISCORD_TOKEN \
+        -v ~/.docker/MediaButler:/config:rw \
+        vertig0ne/mediabutler:v1
+
+## Current Known bugs
+
+  - Sonarr/Radarr may fail to validate if there are no items configured
