@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/MediaButler/MediaButler#readme",
   "dependencies": {
+    "sqlite3": "4.0.0"
     "axios": "^0.18.0",
     "bufferutil": "^3.0.4",
     "discord.js": "^11.3.2",
@@ -38,7 +39,7 @@
     "plex-api": "^5.2.0",
     "plex-pin": "^0.0.5",
     "sonarr-api": "^0.2.0",
-    "better-sqlite3": "^4.0.0",
+    "better-sqlite3": "4.0.0",
     "string-format": "^1.0.0",
     "uuid-v4": "^0.1.0"
   }
