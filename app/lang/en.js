@@ -62,7 +62,7 @@ module.exports = {
 
             "success": "Success",
             "successLong": "Sucessfully configured {0}",
-            "failed": "Failed",
+            "failed": "Failed {0}",
             "insufficent": "Insufficent Details",
             "configuring": "Configuring {0} for use with MediaButler",
 
