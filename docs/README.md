@@ -51,7 +51,7 @@ You will need:
 
 ## Current Known bugs
 
-  - Sonarr/Radarr may fail to validate if there are no items configured
+  - Sonarr/Radarr may fail to validate if there are no items in the calendar for the current month
 
 ## Troubleshooting
 

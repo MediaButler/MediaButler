@@ -7,6 +7,7 @@ const sonarrService = require('../../service/sonarrService');
 const radarrService = require('../../service/radarrService');
 const plexService = require('../../service/plexService');
 const plexTokenService = require('../../service/plexTokenService');
+const embyService = require('../../service/embyService');
 
 module.exports = class configureCommand extends command {
     constructor(client) {
@@ -21,17 +22,18 @@ module.exports = class configureCommand extends command {
 
     async run(message, args) {
         this.lang = message.guild.settings.lang;
-        this.embed = new Discord.RichEmbed();
-        this.embed.setTitle(this.languageService.get(this.lang, 'bot.configure.title'));
-        this.embed.setDescription(this.languageService.get(this.lang, 'bot.configure.starting'));
-        this.embed.setColor(891626);
-        this.embed.setTimestamp();
-        this.embed.setAuthor(message.guild.name);
+        this.embed = new Discord.RichEmbed()
+                .setTitle(this.languageService.get(this.lang, 'bot.configure.title'))
+                .setDescription(this.languageService.get(this.lang, 'bot.configure.starting'))
+                .setColor(891626)
+                .setTimestamp()
+                d.setAuthor(message.guild.name);
         args = this.parseArgs(args);
 
-        if (args.element != 'checkauth' && args.element != 'update' && (!args.url || !args.apikey || !args.element)) throw new Error('Could not parse url, api key or item to configure');
-
+        if (args.element != 'checkauth' && args.element != 'update' &&
+            (!args.url || !args.apikey || !args.element)) throw new Error('Could not parse url, api key or item to configure');
         const msg = await message.reply(this.embed);
+
         let r;
         switch (args.element) {
             case 'checkauth':
@@ -67,13 +69,13 @@ module.exports = class configureCommand extends command {
     }
 
     async configureOrganizr(msg, args) {
-        this.embed = new Discord.RichEmbed();
-        this.embed.setTitle(this.languageService.get(this.lang, 'bot.configure.organizrTitle'));
-        this.embed.setDescription(this.languageService.get(this.lang, 'bot.configure.organizrDescr'));
-        this.embed.setColor(891626);
-        this.embed.setTimestamp();
-        this.embed.setThumbnail('https://i.imgur.com/vvsZjod.png');
-        this.embed.setAuthor(msg.guild.name);
+        this.embed = new Discord.RichEmbed()
+            .setTitle(this.languageService.get(this.lang, 'bot.configure.organizrTitle'))
+            .setDescription(this.languageService.get(this.lang, 'bot.configure.organizrDescr'))
+            .setColor(891626)
+            .setTimestamp()
+            .setThumbnail('https://i.imgur.com/vvsZjod.png')
+            .setAuthor(msg.guild.name);
         msg.edit(this.embed);
 
         const o = new organizrService(args);
@@ -81,24 +83,34 @@ module.exports = class configureCommand extends command {
         if (c) {
             const s = this.client.settingsService.get(msg.guild.id);
             s.organizr = { 'url': args.url, 'apikey': args.apikey };
+            if (c.prefix != s.prefix) {
+                s.prefix = c.prefix;
+                this.embed.addField(this.languageService.get(this.lang, 'bot.configure.prefix'), this.languageService.get(this.lang, 'bot.prefix.changePrefix', c.prefix), true);
+            }
             this.client.settingsService.set(msg.guild.id, s);
             this.embed.addField(this.languageService.get(this.lang, 'bot.configure.organizr'), this.languageService.get(this.lang, 'bot.configure.success'), true);
             msg.edit(this.embed);
 
-            if (c.tautulli.url && c.tautulli.apikey) this.configureTautulli(msg, c.tautulli);
+            if ((c.emby.url && c.emby.url != '') && (c.emby.token && c.emby.token != '')) this.configureEmby(msg, c.emby);
+            else { this.embed.addField(this.languageService.get(this.lang, 'bot.configure.emby'), this.languageService.get(this.lang, 'bot.configure.insufficent'), true); msg.edit(this.embed); }
+
+            if ((c.tautulli.url && c.tautulli.url != '') && (c.tautulli.apikey && c.tautulli.apikey != '')) this.configureTautulli(msg, c.tautulli);
             else { this.embed.addField(this.languageService.get(this.lang, 'bot.configure.tautulli'), this.languageService.get(this.lang, 'bot.configure.insufficent'), true); msg.edit(this.embed); }
 
             if (c.sonarr.defaultProfile) c.sonarr.profile = c.sonarr.defaultProfile;
             if (c.sonarr.defaultRootPath) c.sonarr.rootpath = c.sonarr.defaultRootPath;
-            if (c.sonarr.url && c.sonarr.apikey && c.sonarr.rootpath && c.sonarr.profile) this.configureSonarr(msg, c.sonarr);
+            if ((c.sonarr.url && c.sonarr.url != '') && (c.sonarr.apikey && c.sonarr.apikey != '') && (c.sonarr.profile && c.sonarr.profile != '')
+                && (c.sonarr.rootpath && c.sonarr.rootpath != '')) this.configureSonarr(msg, c.sonarr);
             else { this.embed.addField(this.languageService.get(this.lang, 'bot.configure.sonarr'), this.languageService.get(this.lang, 'bot.configure.insufficent'), true); msg.edit(this.embed); }
 
             if (c.radarr.defaultProfile) c.radarr.profile = c.radarr.defaultProfile;
             if (c.radarr.defaultRootPath) c.radarr.rootpath = c.radarr.defaultRootPath;
-            if (c.radarr.url && c.radarr.apikey && c.radarr.rootpath && c.radarr.profile) this.configureRadarr(msg, c.radarr);
+            if ((c.radarr.url && c.radarr.url != '') && (c.radarr.apikey && c.radarr.apikey != '') && (c.radarr.profile && c.radarr.profile != '')
+                && (c.radarr.rootpath && c.radarr.rootpath != '')) this.configureRadarr(msg, c.radarr);
             else { this.embed.addField(this.languageService.get(this.lang, 'bot.configure.radarr'), this.languageService.get(this.lang, 'bot.configure.insufficent'), true); msg.edit(this.embed); }
 
-            if (c.plex.url) this.configurePlex(msg, c.plex);
+            if ((c.plex.url && c.plex.url != '') && (s.plex.token && s.plex.token == '')) this.configurePlex(msg, c.plex);
+            else if (s.plex.token && s.plex.token != '') this.checkPlex(msg, c.plex);
             else { this.embed.addField(this.languageService.get(this.lang, 'bot.configure.plex'), this.languageService.get(this.lang, 'bot.configure.insufficent'), true); msg.edit(this.embed); }
         }
         else {
@@ -139,9 +151,25 @@ module.exports = class configureCommand extends command {
         try {
             const s = new radarrService(args);
             const c = await s.getMonthCalendar();
-            if (c[0].tmdbId) {
-                return true;
-            } else return false;
+            if (c[0].tmdbId) return true;
+            else return false;
+        } catch (err) { throw err; }
+    }
+
+    async _testPlex(msg, args) {
+        try {
+            const pl = new plexService(args, this.client);
+            const t = await pl.getNowPlaying();
+            if (t.MediaContainer) return true;
+            else return false;
+        } catch (err) { throw err; }
+    }
+
+    async _testEmby(msg, args) {
+        try {
+            const es = new embyService(args, this.client);
+            if (await es.getNowPlaying().length) return true;
+            else return false;
         } catch (err) { throw err; }
     }
 
@@ -211,6 +239,22 @@ module.exports = class configureCommand extends command {
         }
     }
 
+    async configureEmby(msg, args) {
+        try {
+            if (await this._testEmby(msg, args)) {
+                this._updateSettings('emby', msg.guild.id, { 'url': args.url, 'token': args.token });
+                this.embed.addField(this.languageService.get(this.lang, 'bot.configure.emby'), this.languageService.get(this.lang, 'bot.configure.success'), true);
+                return msg.edit(this.embed);
+            }
+            throw new Error('Unable to connect to Emby');
+        }
+        catch (err) {
+            this.embed.addField(this.languageService.get(this.lang, 'bot.configure.emby'), this.languageService.get(this.lang, 'bot.configure.failed', `${err.name}: ${err.message}`), true);
+            return msg.edit(this.embed);
+        }
+
+    }
+
     async checkPlexAuth(msg, args) {
         try {
             this.embed.setDescription(this.languageService.get(this.lang, 'bot.configure.checkPlexAuth'));
@@ -220,9 +264,7 @@ module.exports = class configureCommand extends command {
             const token = await p.checkPin();
             if (token) {
                 const ch = { 'uuid': msg.guild.settings.plex.uuid, 'url': msg.guild.settings.plex.url, 'token': token }
-                const pl = new plexService(ch, this.client);
-                const t = await pl.getNowPlaying();
-                if (t.MediaContainer) {
+                if (this._testPlex(ch, this.client)) {
                     se.plex = ch;
                     await this.client.settingsService.set(msg.guild.id, se);
                     this.embed.addField(this.languageService.get(this.lang, 'bot.configure.plex'), this.languageService.get(this.lang, 'bot.configure.successLong', this.languageService.get(this.lang, 'bot.configure.plex')), true);
@@ -232,6 +274,17 @@ module.exports = class configureCommand extends command {
             this.embed.addField(this.languageService.get(this.lang, 'bot.configure.plex'), this.languageService.get(this.lang, 'bot.configure.failed'), true);
             return msg.edit(this.embed);
         } catch (err) { this.embed.addField(this.languageService.get(this.lang, 'bot.configure.plex'), err.message, true); return msg.edit(this.embed); }
+    }
+
+    async checkPlex(msg, args) {
+        try {
+            if (this._testPlex(args, this.client)) {
+                this.embed.addField(this.languageService.get(this.lang, 'bot.configure.plex'), this.languageService.get(this.lang, 'bot.configure.success'), true);
+                return msg.edit(this.embed);
+            }
+            this.embed.addField(this.languageService.get(this.lang, 'bot.configure.plex'), this.languageService.get(this.lang, 'bot.configure.failed'), true);
+            return msg.edit(this.embed);
+        } catch (err) { throw err; }
     }
 
     parseArgs(args) {
