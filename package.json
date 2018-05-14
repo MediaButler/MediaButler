@@ -11,6 +11,9 @@
     "type": "git",
     "url": "git+https://github.com/MediaButler/MediaButler.git"
   },
+  "engines": {
+    "node": "10.1.0"
+  },
   "keywords": [
     "discord",
     "plex",
@@ -42,5 +45,12 @@
     "better-sqlite3": "4.0.0",
     "string-format": "^1.0.0",
     "uuid-v4": "^0.1.0"
+  },
+  "devDependencies": {
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.1.0"
   }
 }
