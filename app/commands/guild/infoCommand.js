@@ -25,7 +25,7 @@ module.exports = class infoCommand extends command {
                 p = await this.bot(message);
                 break;
             case 'stream':
-                p = await this.plex(message);
+                p = await this.stream(message);
                 break;
             default:
                 p = await this.basic(message);
