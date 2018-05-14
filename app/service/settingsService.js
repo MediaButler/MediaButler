@@ -13,7 +13,7 @@ module.exports = class settingsService {
     create(key) {
         const p = {
             "prefix": "!",
-            "lang": "en"        
+            "lang": "en"
         }
         this.set(key, p);
         return this.get(key);

@@ -1,5 +1,6 @@
 const format = require('string-format');
 const fs = require('fs');
+const Enmap = require('enmap');
 const process = require('process');
 const Discord = require('discord.js');
 const logService = require('./logService');
@@ -9,7 +10,7 @@ module.exports = class languageService {
         try {
             this.logService = logService;
             if (!logService) logService = new logService();
-            this.langCore = new Discord.Collection();
+            this.langCore = new Enmap();
             fs.readdir(`${process.cwd()}/lang/`, (err, files) => {
                 if (err) return this.logService.error(err);
                 files.forEach(f => {
@@ -27,24 +28,24 @@ module.exports = class languageService {
         return t;
     }
 
-    get(lang, key, values = []) {
+    get(lang, key, values = null) {
         const lang2 = this.langCore.get(lang.toString());
         return this.format(eval(`lang2.${key}`), values);
     }
 
-    format(str, values = []) {
+    format(str, values) {
         return format(str, values);
     }
 
-    async resolve(lang, value) {
-        let g = await this.resolveGroup(lang, value);
+    resolve(lang, value) {
+        let g = this.resolveGroup(lang, value);
         g = g.toString();
-        let c = await this.resolveCommand(lang, value);
+        let c = this.resolveCommand(lang, value);
         c = c.toString();
         return `${g}.${c}`;
     }
 
-    async resolveAlias(lang, value) {
+    resolveAlias(lang, value) {
         lang = this.langCore.get(lang.toString());
         let g;
         let c;
@@ -60,7 +61,7 @@ module.exports = class languageService {
         return `${g}.${c}`;
     }
 
-    async resolveGroup(lang, value) {
+    resolveGroup(lang, value) {
         lang = this.langCore.get(lang.toString());
         let g;
         Object.keys(lang).slice(2).forEach((e) => {

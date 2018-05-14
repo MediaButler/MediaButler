@@ -1,15 +1,18 @@
 {
   "name": "mediabutler",
-  "version": "0.6.0",
+  "version": "1.0.0",
   "description": "Discord bot to interact with services",
   "main": "bot.js",
   "scripts": {
     "start": "cd app && node bot.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test to run yet\" && exit 0"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MediaButler/MediaButler.git"
+  },
+  "engines": {
+    "node": "10.1.0"
   },
   "keywords": [
     "discord",
@@ -26,6 +29,7 @@
   },
   "homepage": "https://github.com/MediaButler/MediaButler#readme",
   "dependencies": {
+    "sqlite3": "4.0.0",
     "axios": "^0.18.0",
     "bufferutil": "^3.0.4",
     "discord.js": "^11.3.2",
@@ -36,9 +40,17 @@
     "node-opus": "^0.2.7",
     "npm": "^5.8.0",
     "plex-api": "^5.2.0",
-    "plex-api-pinauth": "^0.1.0",
+    "plex-pin": "^0.0.5",
     "sonarr-api": "^0.2.0",
+    "better-sqlite3": "4.0.0",
     "string-format": "^1.0.0",
     "uuid-v4": "^0.1.0"
+  },
+  "devDependencies": {
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.1.0"
   }
 }

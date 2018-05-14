@@ -3,21 +3,21 @@ module.exports = class commandService {
         this._message = message;
         this.command = command;
         this.args = args;
-        this.client = this.message.client;
+        this._client = this.message.client;
         this.response = null;
         this.responsePositions = null;
     }
 
     async run() {
-        this.command = new this.command(this.client);
+        this.command = new this.command(this._client);
         if (this.command.info.type == 'guild' && !this.message.guild) 
-            return this.client.logService.debug(`Command ${this.command.info.name} was stopped due to running in a nonguild channel`);
+            return this._client.logService.debug(`Command ${this.command.info.name} was stopped due to running in a nonguild channel`);
 
 		if(this.command.info.nsfw && !this.message.channel.nsfw) 
-            return this.client.logService.debug(`Command ${this.command.info.name} was stopped due to running in a nsfw channel`);
+            return this._client.logService.debug(`Command ${this.command.info.name} was stopped due to running in a nsfw channel`);
         
         try {
-            this.client.logService.debug(`Attempting to run ${this.command.info.group}.${this.command.info.name}`);
+            this._client.logService.debug(`Attempting to run ${this.command.info.group}.${this.command.info.name}`);
             const promise = this.command.run(this, this.args);
             const ret = await promise;
             return ret;
@@ -28,7 +28,7 @@ module.exports = class commandService {
     }
 
     finalize(response) {
-        if(this.response) this.deleteRemainingResponses();
+        if(this.response) this.deleteResponses();
 		this.response = {};
         this.responsePositions = {};
         
@@ -40,7 +40,6 @@ module.exports = class commandService {
                     this.response[id] = [];
 					this.responsePositions[id] = -1;
                 }
-                console.log(`saving ${response.id}`);
                 this.responses[id].push(response);
             });
         } else if (response) {
@@ -50,7 +49,7 @@ module.exports = class commandService {
         }
     }
 
-    deleteRemainingResponses() {
+    deleteResponses() {
         Object.keys(this.response).forEach((res) => {
             const r = this.response[res];
             r.forEach((rr) => {
@@ -88,6 +87,18 @@ module.exports = class commandService {
 
     get message() {
         return this._message;
+    }
+
+    get client() {
+        return this._client;
+    }
+
+    get author() {
+        return this._message.author;
+    }
+
+    get guilds() {
+        this.client.guilds;
     }
 
     get guild() {
