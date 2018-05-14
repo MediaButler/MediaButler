@@ -24,18 +24,16 @@ module.exports = class tautulliService {
                 'length': limit
             };
             const r = await this._api('get_history', params);
-            return res.data.response;
+            return r.data.response;
         }
         catch (err) { throw err; }
     }
 
     async getUserStats(user) {
         try {
-            let userId;
             const r = await this._getUserId(user);
-            userId = r;
             const params = {
-                'user_id': userId
+                'user_id': r
             };
             const res = await this._api('get_user_watch_time_stats', params);
             return res.data.response;

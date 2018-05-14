@@ -12,43 +12,46 @@ module.exports = class infoCommand extends command {
         super(client, info);
         this.language = null;
         this.languageService = null;
+        this.settings = null;
     }
 
     async run(message, args) {
         this.language = message.guild.settings.lang;
         this.languageService = message.client.languageService;
+        this.settings = message.guild.settings;
         let p;
         switch (args) {
             case 'bot':
-                p = await this.botInfo(message);
-            case 'plex':
-                p = await this.plexInfo(message);
+                p = await this.bot(message);
+                break;
+            case 'stream':
+                p = await this.plex(message);
+                break;
             default:
-                p = await this.basicInfo(message);
+                p = await this.basic(message);
+                break;
         }
         return p;
     }
 
-    botInfo(message) {
-        const l = message.client.languageService;
-        const cl = message.guild.settings.lang;
-        const e = new Discord.RichEmbed()
+    bot(message) {
+        const embed = new Discord.RichEmbed()
             .setTimestamp()
             .setThumbnail(message.author.iconURL)
-            .addField(l.get(cl, 'bot.info.uptimeField'), l.get(cl, 'bot.info.uptimeResult', this._format(process.uptime())), true)
-            .addField(l.get(cl, 'bot.info.activeGuildField'), l.get(cl, 'bot.info.activeGuildResult', message.client.guilds.size), true)
-            .addField(l.get(cl, 'bot.info.languageField'), l.get(cl, 'bot.info.languageResult', l.getLanguages().length), true)
-            .addField(l.get(cl, 'bot.info.versionField'), l.get(cl, 'bot.info.versionResult', message.client.mbVersion), true)
+            .addField(this.languageService.get(this.language, 'bot.info.uptimeField'), this.languageService.get(this.language, 'bot.info.uptimeResult', this._format(process.uptime())), true)
+            .addField(this.languageService.get(this.language, 'bot.info.activeGuildField'), this.languageService.get(this.language, 'bot.info.activeGuildResult', this.client.guilds.size), true)
+            .addField(this.languageService.get(this.language, 'bot.info.languageField'), this.languageService.get(this.language, 'bot.info.languageResult', this.languageService.getLanguages().length), true)
+            .addField(this.languageService.get(this.language, 'bot.info.versionField'), this.languageService.get(this.language, 'bot.info.versionResult', this.client.mbVersion), true)
             .setColor(6583245);
-        return message.reply({ embed: e });
+        return message.reply({ embed });
     }
 
-    basicInfo(message) {
+    basic(message) {
         return;
     }
 
-    async plexInfo(message) {
-        const e = new Discord.RichEmbed()
+    async stream(message) {
+        const embed = new Discord.RichEmbed()
             .setTitle(this.languageService.get(this.language, 'bot.info.nowPlaying'))
             .setColor(8204568)
             .setTimestamp()
@@ -87,6 +90,10 @@ module.exports = class infoCommand extends command {
             e.setFooter(`Called by ${message.author.username}`, message.author.avatarURL);
             return message.reply({ embed: e });
         }
+    }
+
+    async history() {
+
     }
 
     _format(seconds) {
